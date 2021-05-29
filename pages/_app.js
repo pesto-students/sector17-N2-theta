@@ -1,5 +1,5 @@
 import App from "next/app"
-import Page from "../components/Page"
+import Root from "../shared/Root"
 
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
@@ -16,9 +16,9 @@ class MyApp extends App {
     render() {
         const { Component, pageProps } = this.props;
         return (
-            <Page>
+            <Root>
                 <Component {...pageProps} />
-            </Page>
+            </Root>
         )
     }
 }
