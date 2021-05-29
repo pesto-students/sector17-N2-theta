@@ -1,5 +1,6 @@
 import App from "next/app"
 import Page from "../components/Page"
+import '../style/globals.css';
 
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
