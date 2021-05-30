@@ -1,10 +1,12 @@
+import Link from "next/link";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
 import CategoryCard from "../CategoryCard";
+import CollectionsStyle from "./Style";
 
 const FeaturedCollections = () => {
     return (
-      <div className="top-trending-products">
+      <CollectionsStyle>
         <HeadingStyle>
           <h2 className="heading">
             Featured Collections
@@ -15,7 +17,14 @@ const FeaturedCollections = () => {
           <CategoryCard />
           <CategoryCard />
         </Grid>
-      </div>
+        <div className="view-all">
+          <Link href="/categories" as="/categories">
+            <a>
+              View All Categories
+            </a>
+          </Link>
+        </div>
+      </CollectionsStyle>
     )
 }
 
