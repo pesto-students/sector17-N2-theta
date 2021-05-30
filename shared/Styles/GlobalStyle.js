@@ -31,6 +31,16 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     color: ${props => props.theme.color.black};
+
+    &:hover {
+      color: ${props => props.theme.color.primary};
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 `
 

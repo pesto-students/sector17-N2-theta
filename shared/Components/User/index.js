@@ -1,22 +1,24 @@
-const MiniCart = (props) => {
+import SocialLogin from "../SocialLogin";
+
+const User = (props) => {
   const { dropMenu, handleDropMenu} = props;
 
   const handleClick = () => {
-    handleDropMenu(dropMenu === 'minicart' ? '' : 'minicart');
+    handleDropMenu(dropMenu === 'user' ? '' : 'user')
   }
 
-  return <div className="header__action-item mini-cart">
+  return <div className="header__action-item user">
     <div className="clickable" onClick={handleClick}>
       <span className="icon">
-        <i className="fa fa-shopping-bag"/>
-        <span className="count">10</span>
+        <i className="fa fa-user"/>
       </span>
       <span className="label">
-        Bag
+        Login
       </span>
     </div>
     {
-      dropMenu === 'minicart' &&  <div className="header__dropmenu">
+      dropMenu === 'user' &&  <div className="header__dropmenu">
+        <SocialLogin />
         <ul>
           <li>My Profile</li>
           <li>Orders</li>
@@ -28,4 +30,4 @@ const MiniCart = (props) => {
   </div>
 }
 
-export default MiniCart;
+export default User;
