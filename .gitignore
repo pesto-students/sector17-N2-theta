@@ -32,3 +32,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# setup-db
+setup-db/node_modules
+setup-db/images

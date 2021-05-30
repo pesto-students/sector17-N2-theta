@@ -1,0 +1,14 @@
+[
+  { "id": "abcat0700000", "name": "Video Games" },
+  { "id": "abcat0800000", "name": "Cell Phones" },
+  { "id": "abcat0500000", "name": "Computers & Tablets" },
+  { "id": "abcat0400000", "name": "Cameras & Camcorders" },
+  { "id": "abcat0200000", "name": "Audio" },
+  { "id": "abcat0207000", "name": "Musical Instruments" },
+  { "id": "abcat0410000", "name": "Digital Camera Accessories" },
+  { "id": "abcat0900000", "name": "Appliances" },
+  { "id": "abcat0100000", "name": "TV & Home Theater" },
+  { "id": "pcmcat252700050006", "name": "Toys, Games & Drones" },
+  { "id": "pcmcat312300050015", "name": "Connected Home & Housewares" },
+  { "id": "pcmcat332000050000", "name": "Wearable Technology" }
+]
