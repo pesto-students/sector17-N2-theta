@@ -1,36 +1,43 @@
 import Link from "next/link";
 import ProductCardStyle from "./Style";
 
-const Product = (props) => {
+const ProductCard = (props) => {
   return (
     <ProductCardStyle>
-      <div className="product_item">
-        <img src="/images/product-img.png" />
-        <div className="product_caption">
-          <span className="soldby">Sold by: Nike</span>
-          <div className="product_title"><Link href="/product"> Product 1</Link></div>
-          <div className="stars">
-            <span className="fa fa-star checked"></span>
-            <span className="fa fa-star checked"></span>
-            <span className="fa fa-star checked"></span>
-            <span className="fa fa-star checked"></span>
-            <span className="fa fa-star"></span>
-            <span className="count">149</span>
-          </div>
-          <div className="row_group">
-            <div className="product_price">
-              Rs. 100 <span>Rs. 150</span>
+      <Link href="/categories/[category-slug]/[product-slug]" as="/categories/category-1/product-1">
+        <a>
+          <div className="product_item">
+            <div className="image_wrapper">
+              <img src="/images/product-img.png" />
             </div>
-            <div className="addtocart">
-              <button>
-                <span className="text">Add to Cart</span>
-                <span className="plus">+</span>
-              </button>
+            <div className="product_caption">
+              <span className="soldby">Sold by: Nike</span>
+              <div className="product_title">Product 1</div>
+              <div className="review">
+                <i className="fa fa-star" />
+                <i className="fa fa-star" />
+                <i className="fa fa-star" />
+                <i className="fa fa-star" />
+                <i className="fa fa-star" />
+                <span className="count">149</span>
+              </div>
+              <div className="row_group">
+                <div className="price">
+                  <span className="main-price">Rs.100</span>
+                  <span className="stike-through">Rs.150</span>
+                </div>
+                <div className="add-to-cart-placeholder"></div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </a>
+      </Link>
+
+      <button className="add-to-cart">
+        <span className="text">Add to Cart</span>
+        <span className="plus">+</span>
+      </button>
     </ProductCardStyle>
   );
 };
-export default Product;
+export default ProductCard;

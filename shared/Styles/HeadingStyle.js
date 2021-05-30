@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const HeadingStyle = styled.h2`
 
-.heading-underline {
+  .heading-underline {
     display: block;
     background: red;
     height: 3px;
@@ -11,6 +11,7 @@ const HeadingStyle = styled.h2`
     box-sizing: border-box;
     margin: 15px auto;
   }
+  
   .heading-underline:after {
     content: "";
     position: absolute;
@@ -21,9 +22,10 @@ const HeadingStyle = styled.h2`
     background: red;
     transform: rotate(-45deg) translatex(-50%);
   }
+
   .heading {
     font-size: 2.875rem;
-    margin-bottom: 15px;
+    margin-bottom: 40px;
     text-align:center;
   }
 `;

@@ -1,42 +1,24 @@
-import { Fragment } from "react";
+import HomeStyle from "./Style";
 import Banner from "../../shared/Components/Banner";
 import USP from "../../shared/Components/USP";
-import ProductsGrid from "../../shared/Components/ProductsGrid";
 import CategoryGrid from "../../shared/Components/CategoryGrid";
 import HeadingStyle from "../../shared/Styles/HeadingStyle";
+import TopTrendingProducts from "../../shared/Components/TopTrendingProducts";
+import RecentlyViewed from "../../shared/Components/RecentlyViewed";
+import FeaturedCollections from "../../shared/Components/FeaturedCollections";
 
 const Home = () => {
   return (
-    <Fragment>
+    <HomeStyle>
       <Banner />
-      <USP />
-      <HeadingStyle>
-        <h2 className="heading">
-          Top Trending Products
-          <span className="heading-underline"></span>
-        </h2>
-      </HeadingStyle>
-      
-      <ProductsGrid />
-      
-      <HeadingStyle>
-        <h2 className="heading">
-          Featured Collections
-          <span className="heading-underline"></span>
-        </h2>
-      </HeadingStyle>
-      
-      <CategoryGrid />
 
-      <HeadingStyle>
-        <h2 className="heading">
-          Recently Viewed Products
-          <span className="heading-underline"></span>
-        </h2>
-      </HeadingStyle>
-      
-      <ProductsGrid />
-    </Fragment>
+      <div className="home__inner">
+        <USP />
+        <TopTrendingProducts />
+        <FeaturedCollections />
+        <RecentlyViewed />
+      </div>
+    </HomeStyle>
   );
 };
 

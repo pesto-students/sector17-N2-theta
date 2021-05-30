@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const FooterStyle = styled.footer`
   width: 100%;
   background: ${props => props.theme.color.lightGrey};
+  margin-top: 60px;
 
   .footer__inner {
     max-width: ${props => props.theme.maxWidth};
