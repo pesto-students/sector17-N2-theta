@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     color: ${props => props.theme.color.black};
+    cursor: pointer;
 
     &:hover {
       color: ${props => props.theme.color.primary};

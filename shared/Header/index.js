@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Link from 'next/link'
-
 import HeaderStyle from './Style'
 import MiniCart from '../Components/MiniCart'
 import Navigation from '../Components/Navigation'
