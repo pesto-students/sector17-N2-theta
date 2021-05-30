@@ -38,9 +38,20 @@ const ProductCardStyle = styled.div`
 
       .review {
         color: ${props => props.theme.color.yellow};
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 2px;
+        line-height: 20px;
+        margin-bottom: 10px;
+
+        .fa {
+          font-size: 1.6rem;
+        }
 
         .count {
           color: ${props => props.theme.color.darkGrey};
+          margin-left: 5px;
         }
       }
 
@@ -82,26 +93,26 @@ const ProductCardStyle = styled.div`
   }
 
   .add-to-cart {
-      width: 40px;
-      min-height: 40px;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      font-size: 1.6rem;
-      color: ${props => props.theme.color.white};
-      background: ${props => props.theme.color.primary};
+    width: 40px;
+    min-height: 40px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 1.6rem;
+    color: ${props => props.theme.color.white};
+    background: ${props => props.theme.color.primary};
+    transition: all ease-in-out 0.2s;
+    cursor: pointer;
+    border: none;
+
+    .text {
+      font-size: 0;
       transition: all ease-in-out 0.2s;
-      cursor: pointer;
-      border: none;
+    }
 
-      .text {
-        font-size: 0;
-        transition: all ease-in-out 0.2s;
-      }
-
-      .plus {
-        transition: all ease-in-out 0.2s;
-      }
+    .plus {
+      transition: all ease-in-out 0.2s;
+    }
   }
 
   &:hover {
