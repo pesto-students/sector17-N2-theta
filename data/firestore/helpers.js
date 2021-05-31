@@ -11,6 +11,7 @@ export const paginationQuery = async (
 ) => {
   const ref = db.collection(collection);
   let docsRef = "";
+
   if (offsetDoc === 0) {
     docsRef = await ref.orderBy(orderBy).limit(limit).get();
   } else {
@@ -22,7 +23,9 @@ export const paginationQuery = async (
   }
 
   const docs = {};
-  docsRef.forEach((doc) => (docs[doc.id] = doc.data()));
+  docsRef.forEach((doc) => {
+    docs[doc.id] = doc.data();
+  });
 
   return docs;
 };
