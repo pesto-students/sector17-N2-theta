@@ -1,1 +1,1 @@
-export * from "@/data/firestore";
+export * from './firestore/products';
