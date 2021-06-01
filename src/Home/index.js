@@ -7,15 +7,14 @@ import FeaturedCollections from "../../shared/Components/FeaturedCollections";
 import  useProducts  from "@/data/hooks/use-products";
 
 const Home = () => {
-  const {data} = useProducts();
-  console.log(data);
+  const {data, status, isLoading, isError} = useProducts();
   return (
     <HomeStyle>
       <Banner />
-
       <div className="home__inner">
         <USP />
-        <TopTrendingProducts />
+        {isError && <h1>{isError} </h1>}
+        {!isLoading && <TopTrendingProducts products={data} />}
         <FeaturedCollections />
         <RecentlyViewed />
       </div>
