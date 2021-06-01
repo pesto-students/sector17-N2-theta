@@ -72,7 +72,8 @@ async function read() {
       }
 
       //await addProduct(prod);
-      await updateSlug(prod);
+      //await updateSlug(prod);
+      await updateCategoriesSellers(prod, prodCat);
 
       categories[prodCat.name] = !!categories[prodCat.name]
         ? categories[prodCat.name] + 1
@@ -106,6 +107,19 @@ async function updateSlug(prod) {
 
   const doc = db.collection('products').doc(''+prod.sku);
   await doc.update({slug});
+
+  newProducts.push((await doc.get()).data());
+
+  counter++;
+  console.log(counter);
+}
+
+const sellers = ['MY6fF4dKne5Y1EYlQ5FZ', 'fazhvOTlXW8Lmh3MfvRu'];
+
+async function updateCategoriesSellers(prod, cat) {
+
+  const doc = db.collection('products').doc(''+prod.sku);
+  await doc.update( { category: cat.id, seller: sellers[ counter % 2 ] } );
 
   newProducts.push((await doc.get()).data());
 
