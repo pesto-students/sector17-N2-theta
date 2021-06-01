@@ -1,7 +1,7 @@
 import Link from "next/link";
 import CategoryCardStyle from "./Style";
 
-const CategoryCard = () => {
+const CategoryCard = (props) => {
   return (
     <CategoryCardStyle>
       <div className="category_item">

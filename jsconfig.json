@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/data": ["data"],
+      "@/data/*": ["data/*"]
+    }
+  }
+}
