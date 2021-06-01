@@ -16,7 +16,13 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient({
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+        },
+      },
+    });
     return (
       <Root>
         <QueryClientProvider client={queryClient}>
