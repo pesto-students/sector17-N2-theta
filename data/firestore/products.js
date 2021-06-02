@@ -1,4 +1,4 @@
-import { getProduct, paginationQuery, queryWhere } from "@/data/firestore/helpers";
+import { getSingleEntity, paginationQuery, queryWhere } from "@/data/firestore/helpers";
 import firebase from "@/data/firebase";
 import "firebase/firestore";
 
@@ -22,5 +22,5 @@ export const getProductsFromCategory = async (
 };
 
 export const getProductDetail = async (where = "") => {
-  return await getProduct("products", where);
+  return await getSingleEntity("products", where);
 };

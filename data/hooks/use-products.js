@@ -6,14 +6,14 @@ const useProducts = (offset = 0, limit = 10, orderBy = "sku") =>
     getProducts(offset, limit, orderBy)
   );
 
-export const useProductsWithCategory = (
-  where = "",
+export const useProductsFromCategory = (
+  category = "",
   offset = 0,
   limit = 10,
   orderBy = "sku"
 ) =>
-  useQuery(["products", { where, offset, limit, orderBy }], () =>
-    getProductsFromCategory(where, offset, limit, orderBy)
+  useQuery(["products", { category, offset, limit, orderBy }], () =>
+    getProductsFromCategory(category, offset, limit, orderBy)
   );
 
 export const useProductDetail = (where = "") =>

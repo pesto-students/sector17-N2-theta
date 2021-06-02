@@ -63,16 +63,7 @@ export const queryWhere = async (
 };
 
 // Where Condition 02/06/2021 Pardeep
-export const getProduct = async (collection, where) => {
-  const ref = db.collection("products");
-  let docsRef = "";
-
-  docsRef = await ref.where("id", "==",where).get();
-  
-  const docs = {};
-  docsRef.forEach((doc) => {
-      docs[doc.id] = doc.data();
-  });
-  return docs;
-  
+export const getSingleEntity = async (collection, id) => {
+  const docRef = await db.collection(collection).doc(id).get();
+  return docRef.data();
 };

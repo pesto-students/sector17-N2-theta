@@ -29,7 +29,7 @@ const RecentlyViewed = () => {
         {!isError && Object.keys(products).map((product, index) => (
           <ProductCard
             key={index}
-            id={products[product].id}
+            id={product}
             category={products[product].category}
             slug={products[product].slug}
             title={products[product].name}

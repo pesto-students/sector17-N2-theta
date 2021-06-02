@@ -1,4 +1,4 @@
-import { useProductsWithCategory } from "@/data/hooks/use-products";
+import { useProductsFromCategory } from "@/data/hooks/use-products";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ProductCard from "../../shared/Components/ProductCard";
@@ -10,7 +10,7 @@ const Catalog = () => {
   const [dataOffset, setDataOffset] = useState(0);
   const [dataLimit, setDataLimit] = useState(16);
   const [products, setProducts] = useState({});
-  const { data, status, isLoading, isError } = useProductsWithCategory(
+  const { data, status, isLoading, isError } = useProductsFromCategory(
     router.query["category-slug"],
     dataOffset,
     dataLimit
@@ -42,6 +42,7 @@ const Catalog = () => {
             {Object.keys(products).map((product, index) => (
               <ProductCard
                 key={index}
+                id={product}
                 category={products[product].category}
                 slug={products[product].slug}
                 title={products[product].name}
