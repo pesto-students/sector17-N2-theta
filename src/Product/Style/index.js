@@ -1,6 +1,22 @@
 import styled from "styled-components";
 
 const ProductDetailStyle = styled.div`
+  .breadcrumbs {
+    list-style: none;
+    margin: 10px 0px;
+    li {
+      display: inline;
+      &:after {
+        content: "/";
+        padding: 0 5px;
+      }
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
   .product_gallery {
     display: flex;
     img {
@@ -97,6 +113,38 @@ const ProductDetailStyle = styled.div`
       cursor: pointer;
       border: none;
       margin: 35px 0px;
+    }
+
+    .extra_option {
+      label {
+        font-weight: bold;
+        clear: both;
+        display: block;
+      }
+    }
+  }
+  .description {
+    background: ${(props) => props.theme.color.lightGrey};
+    padding: 30px;
+    text-align: center;
+    div {
+      display: flex;
+      table {
+        flex: 1;
+        margin: 15px 0px;
+        tr {
+          border-bottom: 1px solid ${(props) => props.theme.color.grey};
+          display: table;
+          width: 97%;
+        }
+        th {
+          text-align: left;
+        }
+        td {
+          text-align: right;
+          color: ${(props) => props.theme.color.darkGrey};
+        }
+      }
     }
   }
 `;

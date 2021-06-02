@@ -1,17 +1,24 @@
+import useCategories from "@/data/hooks/use-categories";
 import { useSingleProduct } from "@/data/hooks/use-products";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Grid from "shared/Styles/Grid";
+import HeadingStyle from "shared/Styles/HeadingStyle";
 import ProductDetailStyle from "./Style";
 
 const Product = () => {
   const router = useRouter();
-  const [qty,setQty] =useState(1);
+  const [qty, setQty] = useState(1);
   const {
     data: product = {},
     isLoading,
     isSuccess,
-  } = useSingleProduct( router.query["product-slug"]);
+  } = useSingleProduct(router.query["product-slug"]);
+
+  //   const {
+  //     data: categories = {},
+  //   } = useCategories(0,4,product.category);
+  // console.log(categories);
 
   const onQtyDecreaseHandler = () => {
     if (qty > 0) {
@@ -25,8 +32,13 @@ const Product = () => {
     router && (
       <div>
         <ProductDetailStyle>
-          {isSuccess &&
-          !!product && (
+          <ul className="breadcrumbs">
+            <li>Home</li>
+            <li>Products</li>
+            <li>{product.category}</li>
+            <li>{product.name}</li>
+          </ul>
+          {isSuccess && !!product && (
             <Grid count={2} gap={20}>
               <div className="product_gallery">
                 <div className="product_thumbnail">
@@ -81,8 +93,66 @@ const Product = () => {
                   <input type="text" placeholder="Enter a PIN code" />
                   <button>CHECK</button>
                 </div>
+                <span>
+                  PLease enter PIN code to check delivery time & Pay on Delivery
+                  Availability
+                </span>
               </div>
             </Grid>
+          )}
+
+          {isSuccess && !!product && (
+            <div className="">
+              <HeadingStyle>
+                <h2 className="heading">
+                  Product Description
+                  <span className="heading-underline"></span>
+                </h2>
+              </HeadingStyle>
+              <div className="description">
+                {product.description}
+                <div>
+                  <table>
+                    <tr>
+                      <th>Manufacturer</th>
+                      <td>{product.manufacturer}</td>
+                    </tr>
+                    <tr>
+                      <th>Model</th>
+                      <td>{product.model}</td>
+                    </tr>
+                  </table>
+                  <table>
+                    <tr>
+                      <th>SKU</th>
+                      <td>{product.sku}</td>
+                    </tr>
+                    <tr>
+                      <th>Type</th>
+                      <td>{product.type}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <HeadingStyle>
+                <h2 className="heading">
+                  Similar Products
+                  <span className="heading-underline"></span>
+                </h2>
+              </HeadingStyle>
+
+              <Grid className="" count={2} gap={20}>
+                {/* {Object.keys(categories).map((category) => (
+            <CategoryCard
+              key={category}
+              id={categories[category].id}
+              name={categories[category].name}
+              image={categories[category].image}
+            />
+          ))} */}
+              </Grid>
+            </div>
           )}
         </ProductDetailStyle>
       </div>
