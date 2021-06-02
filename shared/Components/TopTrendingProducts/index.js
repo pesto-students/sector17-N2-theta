@@ -5,21 +5,18 @@ import HeadingStyle from "../../Styles/HeadingStyle";
 import ProductCard from "../ProductCard";
 
 const TopTrendingProducts = (props) => {  
-  const [dataOffset, setDataOffset] = useState(0);
   const [dataLimit, setDataLimit] = useState(8);
-  const [products, setProducts] = useState(null);
-  const [dataLoading, setDataLoading] = useState(true);
+  const [products, setProducts] = useState({});
   const { data, status, isLoading, isError } = useProducts(
-    dataOffset,
+    0,
     dataLimit
   );
   
   useEffect(() => {
-    setProducts(data);
-    if (products !== null) {
-      setDataLoading(false);
+    if (status === "success") {
+      setProducts({ ...products, ...data });
     }
-  }, [data, setProducts, setDataLoading]);
+  }, [status]);
 
   return (
     <div className="top-trending-products">
@@ -30,11 +27,11 @@ const TopTrendingProducts = (props) => {
         </h2>
       </HeadingStyle>
       <Grid count={4} gap={20}>
-        {dataLoading
-          ? ""
-          : Object.keys(products).map((product, index) => (
+        {!isError && Object.keys(products).map((product, index) => (
           <ProductCard
             key={index}
+            id={products[product].id}
+            category={products[product].category}
             slug={products[product].slug}
             title={products[product].name}
             price={products[product].price}

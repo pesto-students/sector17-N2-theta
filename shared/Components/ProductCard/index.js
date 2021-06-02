@@ -4,7 +4,7 @@ import ProductCardStyle from "./Style";
 const ProductCard = (props) => {
   return (
     <ProductCardStyle>
-      <Link href="/categories/[category-slug]/" as="/categories/category-1/product-1">
+      <Link href={`/categories/${props.category}/${props.id}`} as={`/categories/${props.category}/${props.id}`}>
         <a>
           <div className="product_item">
             <div className="image_wrapper">
