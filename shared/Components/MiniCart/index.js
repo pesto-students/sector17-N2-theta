@@ -1,5 +1,9 @@
+import { useContext } from "react";
+import GlobalContext from "context/GlobalContext"
+
 const MiniCart = (props) => {
   const { dropMenu, handleDropMenu} = props;
+  const { cartItemsCount } = useContext(GlobalContext);
 
   const handleClick = () => {
     handleDropMenu(dropMenu === 'minicart' ? '' : 'minicart');
@@ -9,7 +13,7 @@ const MiniCart = (props) => {
     <div className="clickable" onClick={handleClick}>
       <span className="icon">
         <i className="fa fa-shopping-bag"/>
-        <span className="count">10</span>
+        <span className="count">{ cartItemsCount }</span>
       </span>
       <span className="label">
         Bag

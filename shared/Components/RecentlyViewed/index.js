@@ -35,11 +35,8 @@ const RecentlyViewed = () => {
           : Object.keys(products).map((product, index) => (
             <ProductCard
               key={index}
-              slug={products[product].slug}
-              title={products[product].name}
-              price={products[product].price}
-              image={products[product].image}
-            />
+              {...products[product]}
+            /> 
           ))}
         </Grid>
       </div>
