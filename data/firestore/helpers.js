@@ -19,8 +19,7 @@ export const paginationQuery = async (
       if(!Array.isArray(whereCond) || whereCond.length < 3) {
         continue;
       }
-
-      docsRef = docsRef.where(where[0], where[1], where[2]);
+      docsRef = docsRef.where(whereCond[0], whereCond[1], whereCond[2]);
     }
   }
 

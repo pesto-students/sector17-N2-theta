@@ -10,7 +10,6 @@ export const getProducts = async (
   if (!!category) {
     where.push(["category", "==", category]);
   }
-
   return await paginationQuery("products", orderBy, offset, limit, where);
 };
 

@@ -6,26 +6,20 @@ import { useEffect, useState } from "react";
 import useCategories from "@/data/hooks/use-categories";
 
 const Categories = () => {
-  const [dataOffset, setDataOffset] = useState(0);
-  const [dataLimit, setDataLimit] = useState(10);
-  const [categories, setCategories] = useState({});
-  const [dataLoading, setDataLoading] = useState(true);
-  const { data, status, isLoading, isError } = useCategories(
-    dataOffset,
-    dataLimit
-  );
-  useEffect(() => {
-    console.log("Render Category");
-    if (status === "success") {
-      setCategories({ ...categories, ...data });
-      setDataLoading(false);
-    }
-  }, [status]);
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(10);
 
-  const onLoadHandler = () => {
+  const {
+    data: categories = { ...categories },
+    isLoading,
+    isSuccess,
+  } = useCategories(offset, limit);
+
+  const loadMore = () => {
     const offset = Object.keys(categories)[Object.keys(categories).length - 1];
-    setDataOffset(categories[offset].id);
+    setOffset(categories[offset].id);
   };
+
   return (
     <CategoriesStyle>
       <div className="categories__inner">
@@ -45,9 +39,14 @@ const Categories = () => {
             />
           ))}
         </Grid>
-        {!!data && Object.keys(data).length > 0 && Object.keys(data).length === dataLimit && <button className="btn" disabled={isLoading} onClick={onLoadHandler}>
-          {isLoading ? 'Loading...' : 'Load More'}
-        </button>}
+        {isSuccess &&
+          !!categories &&
+          Object.keys(categories).length > 0 &&
+          Object.keys(categories).length === limit && (
+            <button className="btn" disabled={isLoading} onClick={loadMore}>
+              {isLoading ? "Loading..." : "Load More"}
+            </button>
+          )}
       </div>
     </CategoriesStyle>
   );

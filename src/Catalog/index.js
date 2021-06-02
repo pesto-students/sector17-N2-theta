@@ -20,7 +20,7 @@ const Catalog = () => {
     const offset = Object.keys(products)[Object.keys(products).length - 1];
     setOffset(products[offset].id);
   };
-
+  
   return (
     <CatalogStyle>
       <div className="filters">Filters</div>
