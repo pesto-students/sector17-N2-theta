@@ -1,8 +1,4 @@
 import { getSingleEntity, paginationQuery, queryWhere } from "@/data/firestore/helpers";
-import firebase from "@/data/firebase";
-import "firebase/firestore";
-
-const db = firebase.firestore();
 
 export const getProducts = async (offset = 0, limit = 10, orderBy = "sku") => {
   return await paginationQuery("products", orderBy, offset, limit);
