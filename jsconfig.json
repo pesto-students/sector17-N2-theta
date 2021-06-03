@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@/data": ["data"],
-      "@/data/*": ["data/*"]
+      "@/data/*": ["data/*"],
+      "@/auth": ["auth"],
+      "@/auth/*": ["auth/*"]
     }
   }
 }
