@@ -116,10 +116,32 @@ const ProductDetailStyle = styled.div`
     }
 
     .extra_option {
+      span{
+        font-size: 1rem;
+      }
       label {
         font-weight: bold;
         clear: both;
         display: block;
+      }
+      .pincode_input {
+        position: relative;
+        input {
+          background: ${(props) => props.theme.color.white};
+          border: 1px solid ${(props) => props.theme.color.grey};
+          border-radius: 5px;
+          padding: 0 15px;
+          min-width: 350px;
+          min-height: 40px;
+        }
+        button {
+          color:${(props) => props.theme.color.darkGrey};
+          background: none;
+          border: 0px;
+          position: relative;
+          left: -7rem;
+          cursor: pointer;
+        }
       }
     }
   }

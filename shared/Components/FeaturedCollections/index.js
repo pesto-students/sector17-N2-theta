@@ -7,17 +7,12 @@ import useCategories from "@/data/hooks/use-categories";
 import { useEffect, useState } from "react";
 
 const FeaturedCollections = () => {
-  const [dataLimit, setDataLimit] = useState(2);
-  const [categories, setCategories] = useState({});
-  const { data, status, isLoading, isError } = useCategories(
-    0,
-    dataLimit
-  );
-  useEffect(() => {
-    if (status === "success") {
-      setCategories({ ...categories, ...data });
-    }
-  }, [status]);
+  const {
+    data: categories = {},
+    isLoading,
+    isSuccess,
+  } = useCategories(0, 2);
+
 
   return (
     <CollectionsStyle>
@@ -28,14 +23,16 @@ const FeaturedCollections = () => {
         </h2>
       </HeadingStyle>
       <Grid className="" count={2} gap={20}>
-        {!isError && Object.keys(categories).map((category) => (
-              <CategoryCard
-                key={category}
-                id={categories[category].id}
-                name={categories[category].name}
-                image={categories[category].image}
-              />
-            ))}
+        {isSuccess &&
+          !!categories &&
+          Object.keys(categories).map((category) => (
+            <CategoryCard
+              key={category}
+              id={categories[category].id}
+              name={categories[category].name}
+              image={categories[category].image}
+            />
+          ))}
       </Grid>
       <div className="view-all">
         <Link href="/categories" as="/categories">

@@ -15,10 +15,8 @@ const Product = () => {
     isSuccess,
   } = useSingleProduct(router.query["product-slug"]);
 
-  //   const {
-  //     data: categories = {},
-  //   } = useCategories(0,4,product.category);
-  // console.log(categories);
+  const { data: categories = {} } = useCategories(0, 4, product.category);
+  console.log(categories);
 
   const onQtyDecreaseHandler = () => {
     if (qty > 0) {
@@ -90,13 +88,16 @@ const Product = () => {
 
                 <div className="extra_option">
                   <label>DELIVER OPTIONS</label>
-                  <input type="text" placeholder="Enter a PIN code" />
-                  <button>CHECK</button>
+                  <div className="pincode_input">
+                    <input type="text" placeholder="Enter a PIN code" />
+                    <button>CHECK</button>
+                  </div>
+
+                  <span>
+                    Please enter PIN code to check delivery time & Pay on
+                    Delivery Availability
+                  </span>
                 </div>
-                <span>
-                  PLease enter PIN code to check delivery time & Pay on Delivery
-                  Availability
-                </span>
               </div>
             </Grid>
           )}
@@ -143,14 +144,15 @@ const Product = () => {
               </HeadingStyle>
 
               <Grid className="" count={2} gap={20}>
-                {/* {Object.keys(categories).map((category) => (
-            <CategoryCard
-              key={category}
-              id={categories[category].id}
-              name={categories[category].name}
-              image={categories[category].image}
-            />
-          ))} */}
+                {!!categories &&
+                  Object.keys(categories).map((category) => (
+                    <CategoryCard
+                      key={category}
+                      id={categories[category].id}
+                      name={categories[category].name}
+                      image={categories[category].image}
+                    />
+                  ))}
               </Grid>
             </div>
           )}

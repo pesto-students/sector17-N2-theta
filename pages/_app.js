@@ -24,11 +24,11 @@ class MyApp extends App {
       },
     });
     return (
-      <Root>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <Root>
           <Component {...pageProps} />
-        </QueryClientProvider>
-      </Root>
+        </Root>
+      </QueryClientProvider>
     );
   }
 }
