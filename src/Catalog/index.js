@@ -19,6 +19,8 @@ const Catalog = () => {
   const loadMore = () => {
     const offset = Object.keys(products)[Object.keys(products).length - 1];
     setOffset(products[offset].id);
+    console.log(products[offset].id, "I am here");
+    console.log(products);
   };
   
   return (
