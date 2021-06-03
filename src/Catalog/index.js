@@ -17,15 +17,13 @@ const Catalog = () => {
     router.query["category-slug"]
   );
   useEffect(() => {
-    if(isSuccess){
-        setProducts({ ...products, ...data });
-    }
+    isSuccess && setProducts({ ...products, ...data });
   }, [data]);
-
+  
   const loadMore = () => {
-    const offset = Object.keys(products)[Object.keys(products).length - 1];
-    setOffset(offset);
-    console.log(offset);
+    const productKeys = Object.keys(data);
+    const offset = productKeys[productKeys.length - 1];
+    setOffset(parseInt(offset));
   };
 
   return (
@@ -49,8 +47,7 @@ const Catalog = () => {
 
         <div className="product_list">
           <Grid count={4} gap={12}>
-            {isSuccess &&
-              !!products &&
+            {!!products &&
               Object.keys(products).map((product, index) => (
                 <ProductCard
                   key={index}
@@ -64,10 +61,10 @@ const Catalog = () => {
               ))}
           </Grid>
 
-          {isSuccess &&
-            !!products &&
-            Object.keys(products).length > 0 &&
-            Object.keys(products).length === limit && (
+          {!!products &&
+            ((Object.keys(data).length > 0 &&
+              Object.keys(data).length === limit) ||
+              isLoading) && (
               <button className="btn" disabled={isLoading} onClick={loadMore}>
                 {isLoading ? "Loading..." : "Load More"}
               </button>
