@@ -8,12 +8,19 @@ import useCategories from "@/data/hooks/use-categories";
 const Categories = () => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(10);
+  const [categories, setCategories] = useState({});
 
   const {
-    data: categories = { ...categories },
+    data,
     isLoading,
     isSuccess,
   } = useCategories(offset, limit);
+
+  useEffect(() => {
+    if(isSuccess){
+      setCategories({ ...categories, ...data });
+    }
+  }, [data]);
 
   const loadMore = () => {
     const offset = Object.keys(categories)[Object.keys(categories).length - 1];

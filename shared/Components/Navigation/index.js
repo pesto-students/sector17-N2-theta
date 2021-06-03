@@ -12,7 +12,7 @@ const Navigation = () => {
         {isSuccess &&
           !!categories &&
           Object.keys(categories).map((category) => (
-            <li>
+            <li key={categories[category].id}>
               <Link
                 href={`/categories/${categories[category].id}`}
                 as={`/categories/${categories[category].id}`}

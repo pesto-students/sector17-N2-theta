@@ -1,7 +1,7 @@
-import useCategories from "@/data/hooks/use-categories";
-import { useSingleProduct } from "@/data/hooks/use-products";
+import useProducts, { useSingleProduct } from "@/data/hooks/use-products";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import ProductCard from "shared/Components/ProductCard";
 import Grid from "shared/Styles/Grid";
 import HeadingStyle from "shared/Styles/HeadingStyle";
 import ProductDetailStyle from "./Style";
@@ -15,8 +15,9 @@ const Product = () => {
     isSuccess,
   } = useSingleProduct(router.query["product-slug"]);
 
-  const { data: categories = {} } = useCategories(0, 4, product.category);
-  console.log(categories);
+  // Similer Products
+  const { data: products = {} } = useProducts(0, 4, "sku", product.category);
+  console.log(product.category);
 
   const onQtyDecreaseHandler = () => {
     if (qty > 0) {
@@ -143,14 +144,17 @@ const Product = () => {
                 </h2>
               </HeadingStyle>
 
-              <Grid className="" count={2} gap={20}>
-                {!!categories &&
-                  Object.keys(categories).map((category) => (
-                    <CategoryCard
-                      key={category}
-                      id={categories[category].id}
-                      name={categories[category].name}
-                      image={categories[category].image}
+              <Grid className="" count={4} gap={20}>
+                {!!products &&
+                  Object.keys(products).map((product, index) => (
+                    <ProductCard
+                      key={index}
+                      id={product}
+                      category={products[product].category}
+                      slug={products[product].slug}
+                      title={products[product].name}
+                      price={products[product].price}
+                      image={products[product].image}
                     />
                   ))}
               </Grid>
