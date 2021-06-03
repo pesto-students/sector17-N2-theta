@@ -10,17 +10,29 @@ export const paginationQuery = async (
   limit = 10
 ) => {
   const ref = db.collection(collection);
-  let docsRef = "";
+  let docsRef = ref;
 
-  if (offsetDoc === 0) {
-    docsRef = await ref.orderBy(orderBy).limit(limit).get();
-  } else {
-    docsRef = await ref
-      .orderBy(orderBy)
-      .startAfter(offsetDoc)
-      .limit(limit)
-      .get();
+  /** Add Where conditions (eg.: Categories, Filters etc. ) */
+  if (Array.isArray(where) && where.length > 0) {
+    for (const whereCond of where) {
+      if (!Array.isArray(whereCond) || whereCond.length < 3) {
+        continue;
+      }
+      docsRef = docsRef.where(whereCond[0], whereCond[1], whereCond[2]);
+      docsRef.orderBy(whereCond[0]);
+    }
   }
+
+  docsRef = docsRef.orderBy(orderBy);
+
+  /** Add offset (eg: Last document of current set to get next set ) */
+  if (offset !== 0) {
+    docsRef = docsRef.startAfter(offset);
+  }
+
+  docsRef = docsRef.limit(limit);
+
+  docsRef = await docsRef.get();
 
   const docs = {};
   docsRef.forEach((doc) => {
