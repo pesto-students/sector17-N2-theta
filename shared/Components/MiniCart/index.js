@@ -1,13 +1,27 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import GlobalContext from "context/GlobalContext"
 
 const MiniCart = (props) => {
   const { dropMenu, handleDropMenu} = props;
-  const { cartItemsCount } = useContext(GlobalContext);
+  const { cartItemsCount, setCartItemsCount } = useContext(GlobalContext);
 
   const handleClick = () => {
     handleDropMenu(dropMenu === 'minicart' ? '' : 'minicart');
   }
+
+  const getCartItemsCount = () => {
+    let ItemsInCart = localStorage.getItem('cartItem');
+    return ItemsInCart 
+      ? Object.keys(
+          JSON.parse(ItemsInCart)
+        ).length
+      : 0;
+  }
+
+  useEffect(() => {
+    const itemsCount = getCartItemsCount();
+    setCartItemsCount(itemsCount);
+  }, []);
 
   return <div className="header__action-item mini-cart">
     <div className="clickable" onClick={handleClick}>

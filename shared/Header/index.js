@@ -1,10 +1,15 @@
 import { useState } from 'react'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+
 import HeaderStyle from './Style'
-import MiniCart from '../Components/MiniCart'
 import Navigation from '../Components/Navigation'
 import User from '../Components/User'
 import Search from '../Components/Search'
+
+const MiniCart = dynamic(() => import('../Components/MiniCart'), {
+  ssr: false
+});
 
 const Header = () => {
   const [dropMenu, setDropMenu] = useState('');

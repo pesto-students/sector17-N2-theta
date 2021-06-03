@@ -16,6 +16,11 @@ const AddToCart = (props) => {
   }
 
   const handleClick = async () => {
+    if(!productSku){
+      alert('Product SKU is not available.');
+      return false;
+    }
+
     setLoading(true);
 
     const cartItems = await getCartItems();
