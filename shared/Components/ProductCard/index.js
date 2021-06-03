@@ -3,11 +3,11 @@ import AddToCart from "shared/Utils/AddToCart";
 import ProductCardStyle from "./Style";
 
 const ProductCard = (props) => {
-  const { image, title, price, sku } = props;
+  const { image, title, price, sku, slug } = props;
 
   return (
     <ProductCardStyle>
-      <Link href="/categories/[category-slug]/" as="/categories/category-1/product-1">
+      <Link href="/categories/[category-slug]/[product-slug]" as={`/categories/category-1/${slug}`}>
         <a>
           <div className="product_item">
             <div className="image_wrapper">
@@ -36,7 +36,7 @@ const ProductCard = (props) => {
         </a>
       </Link>
 
-      <AddToCart productId={ sku } quantity={1}>
+      <AddToCart productSku={ sku } quantity={1}>
         <span className="text">Add to Cart</span>
         <span className="plus">+</span>
       </AddToCart>

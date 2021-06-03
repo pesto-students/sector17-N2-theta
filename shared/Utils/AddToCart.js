@@ -2,7 +2,7 @@ import GlobalContext from "context/GlobalContext";
 import { useContext, useEffect, useState } from "react";
 
 const AddToCart = (props) => {
-  const { children, productId, quantity } = props;
+  const { children, productSku, quantity } = props;
   const { setCartItemsCount } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   
@@ -21,7 +21,7 @@ const AddToCart = (props) => {
     const cartItems = await getCartItems();
     const updatedCartItems = {
       ...cartItems,
-      [productId] : { qty : quantity }
+      [productSku] : { qty : quantity }
     }
     
     setCartItems(JSON.stringify(updatedCartItems));
