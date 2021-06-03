@@ -1,6 +1,6 @@
 import { useProducts } from "@/data";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "../../shared/Components/ProductCard";
 import Grid from "../../shared/Styles/Grid";
 import CatalogStyle from "./Style";
@@ -8,21 +8,26 @@ import CatalogStyle from "./Style";
 const Catalog = () => {
   const router = useRouter();
   const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(16);
+  const limit = 16;
+
+  const [products, setProducts] = useState({});
 
   const {
-    data: products = {},
+    data = {},
     isLoading,
     isSuccess,
   } = useProducts(offset, limit, "sku", router.query["category-slug"]);
 
+  useEffect(() => {
+    isSuccess && setProducts({ ...products, ...data });
+  }, [data]);
+
   const loadMore = () => {
-    const offset = Object.keys(products)[Object.keys(products).length - 1];
-    setOffset(products[offset].id);
-    console.log(products[offset].id, "I am here");
-    console.log(products);
+    const productKeys = Object.keys(data);
+    const offset = productKeys[productKeys.length - 1];
+    setOffset(parseInt(offset));
   };
-  
+
   return (
     <CatalogStyle>
       <div className="filters">Filters</div>
@@ -38,8 +43,7 @@ const Catalog = () => {
 
         <div className="product_list">
           <Grid count={4} gap={12}>
-            {isSuccess &&
-              !!products &&
+            {!!products &&
               Object.keys(products).map((product, index) => (
                 <ProductCard
                   key={index}
@@ -53,10 +57,10 @@ const Catalog = () => {
               ))}
           </Grid>
 
-          {isSuccess &&
-            !!products &&
-            Object.keys(products).length > 0 &&
-            Object.keys(products).length === limit && (
+          {!!products &&
+            ((Object.keys(data).length > 0 &&
+              Object.keys(data).length === limit) ||
+              isLoading) && (
               <button className="btn" disabled={isLoading} onClick={loadMore}>
                 {isLoading ? "Loading..." : "Load More"}
               </button>
