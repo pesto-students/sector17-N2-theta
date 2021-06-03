@@ -9,6 +9,10 @@ const CatalogStyle = styled.div`
   .filters {
     min-width: 300px;
   }
+
+  .products {
+    width: 100%;
+  }
 `;
 
 export default CatalogStyle;
