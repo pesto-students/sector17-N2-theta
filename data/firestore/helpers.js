@@ -20,7 +20,6 @@ export const paginationQuery = async (
         continue;
       }
       docsRef = docsRef.where(whereCond[0], whereCond[1], whereCond[2]);
-      docsRef.orderBy(whereCond[0]);
     }
   }
 
