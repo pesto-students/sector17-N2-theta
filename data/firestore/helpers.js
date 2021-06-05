@@ -30,7 +30,6 @@ export const paginationQuery = async (
   if (offset !== 0) {
     docsRef = docsRef.startAfter(offset);
   }
-
   docsRef = docsRef.limit(limit);
 
   docsRef = await docsRef.get();

@@ -1,3 +1,4 @@
+import React, {Suspense ,lazy} from 'react';
 import HomeStyle from "./Style";
 import Banner from "../../shared/Components/Banner";
 import USP from "../../shared/Components/USP";
@@ -10,7 +11,9 @@ const Home = () => {
   const {data, status, isLoading, isError} = useProducts();
   return (
     <HomeStyle>
+      
       <Banner />
+      
       <div className="home__inner">
         <USP />
         {isError && <h1>{isError} </h1>}
