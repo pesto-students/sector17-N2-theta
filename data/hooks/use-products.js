@@ -6,4 +6,6 @@ const useProducts = (offset = 0, limit = 10, orderBy = "sku", category = "") =>
     getProducts({ offset, limit, orderBy, category })
   );
 
+  export const useSingleProduct = (id) =>
+  useQuery(["product", { id }], () => getSingleProduct(id));
 export default useProducts;
