@@ -13,10 +13,11 @@ const ProductCardStyle = styled.div`
   .product_item {
     .image_wrapper {
       max-height: 250px;
+      padding: 10px;
 
       img {
         width: 100%;
-        height: 250px;
+        height: 230px;
         object-fit: contain;
       }
     }
@@ -30,14 +31,12 @@ const ProductCardStyle = styled.div`
       }
 
       .product_title {
-        color: ${(props) => props.theme.color.black};
-        font-size: 1.6rem;
+        color: ${props => props.theme.color.black};
+        font-size: 1.4rem;
         margin-top: -5px;
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 1; 
-        -webkit-box-orient: vertical;
       }
 
       .review {

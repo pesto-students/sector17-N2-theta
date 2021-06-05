@@ -29,11 +29,7 @@ const TopTrendingProducts = (props) => {
             <ProductCard
               key={index}
               id={product}
-              category={products[product].category}
-              slug={products[product].slug}
-              title={products[product].name}
-              price={products[product].price}
-              image={products[product].image}
+              {...products[product]}
             />
           ))}
       </Grid>

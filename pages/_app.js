@@ -1,36 +1,33 @@
-import App from "next/app";
 import Root from "../shared/Root";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { GlobalContextProvider } from "context/GlobalContext";
+import { useState } from "react";
 
-class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
+const MyApp = ({ Component, pageProps }) => {
+  const [cartItemsCount, setCartItemsCount] = useState(0);
 
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-      pageProps.query = ctx.query;
-    }
-
-    return { pageProps };
-  }
-
-  render() {
-    const { Component, pageProps } = this.props;
-    const queryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
-        },
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
       },
-    });
-    return (
-      <QueryClientProvider client={queryClient}>
-        <Root>
-          <Component {...pageProps} />
-        </Root>
-      </QueryClientProvider>
-    );
+    },
+  });
+
+  const contextData = {
+    cartItemsCount,
+    setCartItemsCount
   }
+
+  return (
+    <GlobalContextProvider value={contextData}>
+          <QueryClientProvider client={queryClient}>
+            <Root>
+              <Component {...pageProps} />
+            </Root>
+          </QueryClientProvider>
+    </GlobalContextProvider>
+  )
 }
 
 export default MyApp;

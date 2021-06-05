@@ -41,6 +41,10 @@ const CatalogStyle = styled.div`
       }
     }
   }
+
+  .products {
+    width: 100%;
+  }
 `;
 
 export default CatalogStyle;
