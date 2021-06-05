@@ -1,18 +1,23 @@
 import useProducts, { useSingleProduct } from "@/data/hooks/use-products";
 import { useRouter } from "next/router";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 
-const AddToRecentlyViewed = dynamic(() => import('../../shared/Utils/AddToRecentlyViewed'), {
-  ssr: false
-});
+const AddToRecentlyViewed = dynamic(
+  () => import("../../shared/Utils/AddToRecentlyViewed"),
+  {
+    ssr: false,
+  }
+);
 
 import { useEffect, useState } from "react";
 import ProductCard from "shared/Components/ProductCard";
 import Grid from "shared/Styles/Grid";
 import HeadingStyle from "shared/Styles/HeadingStyle";
 import ProductDetailStyle from "./Style";
+import AddToCart from "shared/Utils/AddToCart";
 
 const Product = () => {
+
   const router = useRouter();
   const [qty, setQty] = useState(1);
   const {
@@ -25,6 +30,7 @@ const Product = () => {
   const { data: products = {} } = useProducts(0, 4, "sku", product.category);
   console.log(product.category);
 
+
   const onQtyDecreaseHandler = () => {
     if (qty > 0) {
       setQty(qty - 1);
@@ -33,12 +39,13 @@ const Product = () => {
   const onQtyIncreaseHandler = () => {
     setQty(qty + 1);
   };
+
   return (
     router && (
       <div>
         <ProductDetailStyle>
           <ul className="breadcrumbs">
-            <li>Home</li>
+            <li>Home </li>
             <li>Products</li>
             <li>{product.category}</li>
             <li>{product.name}</li>
@@ -90,9 +97,9 @@ const Product = () => {
                     </ul>
                   </div>
 
-                  <button className="add-to-cart">
-                    <span className="text">Add to Cart</span>
-                  </button>
+                  <AddToCart productSku={product.sku} quantity={qty}>
+                    Add to Cart
+                  </AddToCart>
 
                   <div className="extra_option">
                     <label>DELIVER OPTIONS</label>
@@ -108,7 +115,7 @@ const Product = () => {
                   </div>
                 </div>
               </Grid>
-            
+
               <div className="">
                 <HeadingStyle>
                   <h2 className="heading">
@@ -169,7 +176,6 @@ const Product = () => {
             </>
           )}
         </ProductDetailStyle>
-        
       </div>
     )
   );
