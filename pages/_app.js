@@ -21,11 +21,11 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <GlobalContextProvider value={contextData}>
-        <Root>
           <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
+            <Root>
+              <Component {...pageProps} />
+            </Root>
           </QueryClientProvider>
-        </Root>
     </GlobalContextProvider>
   )
 }
