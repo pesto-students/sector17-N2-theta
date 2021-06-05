@@ -2,16 +2,15 @@ import styled from "styled-components";
 
 const ProductCardStyle = styled.div`
   position: relative;
-  border: 1px solid ${props => props.theme.color.lightGrey};
+  border: 1px solid ${(props) => props.theme.color.lightGrey};
   transition: all ease-in-out 0.2s;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 0 5px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
   }
 
   .product_item {
-    
     .image_wrapper {
       max-height: 250px;
       padding: 10px;
@@ -28,7 +27,7 @@ const ProductCardStyle = styled.div`
 
       .soldby {
         font-size: 1.2rem;
-        color: ${props => props.theme.color.darkGrey};
+        color: ${(props) => props.theme.color.darkGrey};
       }
 
       .product_title {
@@ -41,7 +40,7 @@ const ProductCardStyle = styled.div`
       }
 
       .review {
-        color: ${props => props.theme.color.yellow};
+        color: ${(props) => props.theme.color.yellow};
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -54,7 +53,7 @@ const ProductCardStyle = styled.div`
         }
 
         .count {
-          color: ${props => props.theme.color.darkGrey};
+          color: ${(props) => props.theme.color.darkGrey};
           margin-left: 5px;
         }
       }
@@ -66,7 +65,7 @@ const ProductCardStyle = styled.div`
         min-height: 40px;
         margin: 0 -10px;
         padding-left: 10px;
-        border-top: 1px solid ${props => props.theme.color.lightGrey};
+        border-top: 1px solid ${(props) => props.theme.color.lightGrey};
 
         .price {
           display: flex;
@@ -75,15 +74,15 @@ const ProductCardStyle = styled.div`
           gap: 10px;
           min-width: 50%;
 
-          .main-price{
+          .main-price {
             font-size: 1.6rem;
             font-weight: 600;
-            color: ${props => props.theme.color.black};
+            color: ${(props) => props.theme.color.black};
           }
 
           .stike-through {
             font-size: 1.2rem;
-            color: ${props => props.theme.color.darkGrey};
+            color: ${(props) => props.theme.color.darkGrey};
             text-decoration: line-through;
           }
         }
@@ -103,8 +102,8 @@ const ProductCardStyle = styled.div`
     bottom: 0;
     right: 0;
     font-size: 1.6rem;
-    color: ${props => props.theme.color.white};
-    background: ${props => props.theme.color.primary};
+    color: ${(props) => props.theme.color.white};
+    background: ${(props) => props.theme.color.primary};
     transition: all ease-in-out 0.2s;
     cursor: pointer;
     border: none;
@@ -122,7 +121,7 @@ const ProductCardStyle = styled.div`
   &:hover {
     .add-to-cart {
       width: 50%;
-      
+
       .text {
         font-size: 1.6rem;
       }

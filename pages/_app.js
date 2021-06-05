@@ -20,14 +20,14 @@ const MyApp = ({ Component, pageProps }) => {
   }
 
   return (
-      <GlobalContextProvider value={contextData}>
-          <Root>
-            <QueryClientProvider client={queryClient}>
-              <Component {...pageProps} />
-            </QueryClientProvider>
-          </Root>
-      </GlobalContextProvider>
-  );
+    <GlobalContextProvider value={contextData}>
+        <Root>
+          <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+          </QueryClientProvider>
+        </Root>
+    </GlobalContextProvider>
+  )
 }
 
 export default MyApp;
