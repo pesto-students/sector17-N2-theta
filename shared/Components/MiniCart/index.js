@@ -1,12 +1,6 @@
-import dynamic from 'next/dynamic'
-
-const CartItemsCount = dynamic(() => import('../../Utils/CartItemsCount'), {
-  ssr: false
-});
-
 const MiniCart = (props) => {
   const { dropMenu, handleDropMenu} = props;
-  
+
   const handleClick = () => {
     handleDropMenu(dropMenu === 'minicart' ? '' : 'minicart');
   }
@@ -15,7 +9,7 @@ const MiniCart = (props) => {
     <div className="clickable" onClick={handleClick}>
       <span className="icon">
         <i className="fa fa-shopping-bag"/>
-        <CartItemsCount />
+        <span className="count">10</span>
       </span>
       <span className="label">
         Bag

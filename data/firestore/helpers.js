@@ -1,4 +1,4 @@
-import firebase from "../firebase";
+import firebase from "@/data/firebase";
 import "firebase/firestore";
 
 const db = firebase.firestore();
@@ -6,9 +6,8 @@ const db = firebase.firestore();
 export const paginationQuery = async (
   collection,
   orderBy,
-  offset = 0,
-  limit = 10,
-  where = []
+  offsetDoc = 0,
+  limit = 10
 ) => {
   const ref = db.collection(collection);
   let docsRef = ref;
@@ -39,11 +38,6 @@ export const paginationQuery = async (
   docsRef.forEach((doc) => {
     docs[doc.id] = doc.data();
   });
-  return docs;
-};
 
-// Where Condition 02/06/2021 Pardeep
-export const getSingleEntity = async (collection, id) => {
-  const docRef = await db.collection(collection).doc(id).get();
-  return docRef.data();
+  return docs;
 };

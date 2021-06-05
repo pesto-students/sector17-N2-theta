@@ -1,18 +1,25 @@
 import { useProducts } from "@/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
 import ProductCard from "../ProductCard";
 
-const TopTrendingProducts = (props) => {
-  const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(8);
-
-  const {
-    data: products = {},
-    isLoading,
-    isSuccess,
-  } = useProducts(offset, limit, "sku");
+const TopTrendingProducts = (props) => {  
+  const [dataOffset, setDataOffset] = useState(0);
+  const [dataLimit, setDataLimit] = useState(8);
+  const [products, setProducts] = useState(null);
+  const [dataLoading, setDataLoading] = useState(true);
+  const { data, status, isLoading, isError } = useProducts(
+    dataOffset,
+    dataLimit
+  );
+  
+  useEffect(() => {
+    setProducts(data);
+    if (products !== null) {
+      setDataLoading(false);
+    }
+  }, [data, setProducts, setDataLoading]);
 
   return (
     <div className="top-trending-products">
@@ -23,15 +30,17 @@ const TopTrendingProducts = (props) => {
         </h2>
       </HeadingStyle>
       <Grid count={4} gap={20}>
-        {isSuccess &&
-          !!products &&
-          Object.keys(products).map((product, index) => (
-            <ProductCard
-              key={index}
-              id={product}
-              {...products[product]}
-            />
-          ))}
+        {dataLoading
+          ? ""
+          : Object.keys(products).map((product, index) => (
+          <ProductCard
+            key={index}
+            slug={products[product].slug}
+            title={products[product].name}
+            price={products[product].price}
+            image={products[product].image}
+          />
+        ))}
       </Grid>
     </div>
   );

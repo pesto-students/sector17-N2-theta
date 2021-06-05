@@ -43,16 +43,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
   }
-  .btn{
-    background: ${props=> props.theme.color.black};
-    color: ${props=> props.theme.color.white};
-    border: 0;
-    padding: 10px 20px;
-    display: block;
-    margin: 15px auto;
-    font-size: 1.4rem;
-    cursor: pointer;
-  }
 `
 
 export default GlobalStyle;
