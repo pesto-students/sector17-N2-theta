@@ -6,4 +6,6 @@ const useProducts = (offset = 0, limit = 10, orderBy = "sku", category = "") =>
     getProducts({ offset, limit, orderBy, category })
   );
 
+/** TODO: Add use Single Products method here */
+
 export default useProducts;
