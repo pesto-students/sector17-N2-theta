@@ -1,4 +1,4 @@
-import { paginationQuery } from "@/data/firestore/helpers";
+import { getSingleEntity, paginationQuery } from "./helpers";
 
 export const getProducts = async ({
   offset = 0,
@@ -35,4 +35,8 @@ export const getProducts = async ({
 
 export const getCategories = async (offset = 0, limit = 10, orderBy = "id") => {
   return await paginationQuery("categories", orderBy, offset, limit);
+};
+
+export const getSingleProduct = async (id) => {
+  return await getSingleEntity("products", id);
 };

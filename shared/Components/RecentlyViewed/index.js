@@ -1,26 +1,24 @@
-import { useProducts } from "@/data";
+import { useProductsBySKU } from "@/data";
 import { useEffect, useState } from "react";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
 import ProductCard from "../ProductCard";
 
 const RecentlyViewed = () => {  
-  const [dataOffset, setDataOffset] = useState(0);
   const [dataLimit, setDataLimit] = useState(4);
-  const [products, setProducts] = useState(null);
-  const [dataLoading, setDataLoading] = useState(true);
-  const { data, status, isLoading, isError } = useProducts(
-    dataOffset,
-    dataLimit
+  const [products, setProducts] = useState({});
+  //const [viewedProducts, setViewedProducts] = useState([]);
+  const { data, status, isLoading, isError } = useProductsBySKU(
+    0,
+    dataLimit,
+    ["43900", "48530", "127687", "150115"]
   );
   
   useEffect(() => {
-    setProducts(data);
-    if (products !== null) {
-      setDataLoading(false);
+    if (status === "success") {
+      setProducts({ ...products, ...data });
     }
-  }, [data, setProducts, setDataLoading]);
-
+  }, [status]);
     return (
       <div className="top-trending-products">
         <HeadingStyle>
@@ -30,17 +28,13 @@ const RecentlyViewed = () => {
           </h2>
         </HeadingStyle>
         <Grid className="" count={4} gap={20}>
-        {dataLoading
-          ? ""
-          : Object.keys(products).map((product, index) => (
-            <ProductCard
-              key={index}
-              slug={products[product].slug}
-              title={products[product].name}
-              price={products[product].price}
-              image={products[product].image}
-            />
-          ))}
+        {!isError && Object.keys(products).map((product, index) => (
+          <ProductCard
+            key={index}
+            id={product}
+            {...products[product]}
+          />
+        ))}
         </Grid>
       </div>
     )
