@@ -1,4 +1,4 @@
-import { useProducts } from "@/data";
+import { useProductsBySKU } from "@/data";
 import { useEffect, useState } from "react";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
@@ -7,9 +7,11 @@ import ProductCard from "../ProductCard";
 const RecentlyViewed = () => {  
   const [dataLimit, setDataLimit] = useState(4);
   const [products, setProducts] = useState({});
-  const { data, status, isLoading, isError } = useProducts(
+  //const [viewedProducts, setViewedProducts] = useState([]);
+  const { data, status, isLoading, isError } = useProductsBySKU(
     0,
-    dataLimit
+    dataLimit,
+    ["43900", "48530", "127687", "150115"]
   );
   
   useEffect(() => {
