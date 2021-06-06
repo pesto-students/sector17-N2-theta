@@ -1,42 +1,77 @@
 import GlobalContext from "context/GlobalContext";
-import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useContext } from "react";
 
 const AddToCart = (props) => {
   const { children, productSku, quantity } = props;
-  const { setCartItemsCount } = useContext(GlobalContext);
-  const [loading, setLoading] = useState(false);
-  
-  const getCartItems = () => {
-    let ItemsInCart = localStorage.getItem('cartItem');
-    return ItemsInCart ? JSON.parse(ItemsInCart) : {};
-  }
+  const router = useRouter();
+  const {
+    cartItems,
+    setCartItems,
+    setNotificationMessage,
+    setNotificationVisibility,
+  } = useContext(GlobalContext);
 
-  const setCartItems = (cartItems) => {
-    localStorage.setItem('cartItem', cartItems);
-  }
+  const handleClick = () => {
+    let message = "Successfully Added to Cart";
 
-  const handleClick = async () => {
-    if(!productSku){
-      alert('Product SKU is not available.');
+    if (cartItems && cartItems[productSku]) {
+      if(cartItems[productSku].qty == quantity){
+        router.push("/cart");
+        return false;
+      }else{
+        message = "Cart Updated Successfully";
+      }
+    }
+
+    if (!productSku) {
+      console.error("Product SKU is not available.");
       return false;
     }
 
-    setLoading(true);
-
-    const cartItems = await getCartItems();
     const updatedCartItems = {
       ...cartItems,
-      [productSku] : { qty : quantity }
-    }
-    
-    setCartItems(JSON.stringify(updatedCartItems));
-    setCartItemsCount(Object.keys(updatedCartItems).length);
-    setLoading(false);
-  }
+      [productSku]: { qty: quantity },
+    };
 
-  return <button className="add-to-cart" onClick={handleClick}>
-    { loading ? 'Adding...' :children }
-  </button>
-}
+    setCartItems(updatedCartItems);
+    setNotificationVisibility(true);
+
+    
+    if(cartItems && cartItems[productSku]){
+      
+    }
+    setNotificationMessage(message);
+  };
+
+  return (
+    <button className='add-to-cart' onClick={handleClick}>
+      {cartItems && cartItems[productSku] ? (
+        cartItems[productSku].qty == quantity ? (
+          <>
+            <span className='text'>Go To Cart</span>
+            <span className='plus'>
+              <i class='fa fa-external-link' aria-hidden='true'></i>
+            </span>
+          </>
+        ) : (
+          <>
+            <span className='text'>Update Cart</span>
+            <span className='plus'>
+              <i class='fa fa-plus' aria-hidden='true'></i>
+            </span>
+          </>
+        )
+      ) : (
+        <>
+          <span className='text'>Add to Cart</span>
+          <span className='plus'>
+            <i class='fa fa-plus' aria-hidden='true'></i>
+          </span>
+        </>
+      )}
+    </button>
+  );
+};
 
 export default AddToCart;
