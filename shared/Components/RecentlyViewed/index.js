@@ -7,11 +7,13 @@ import ProductCard from "../ProductCard";
 const RecentlyViewed = () => {  
   const [dataLimit, setDataLimit] = useState(4);
   const [products, setProducts] = useState({});
-  //const [viewedProducts, setViewedProducts] = useState([]);
+  let recentlyViewed = localStorage.getItem('recentViewed');
+      recentlyViewed = JSON.parse(recentlyViewed);
+
   const { data, status, isLoading, isError } = useProductsBySKU(
     0,
     dataLimit,
-    [43900, 48530, 127687, 150115]
+    [...recentlyViewed.reverse()]
   );
   
   useEffect(() => {
@@ -20,7 +22,7 @@ const RecentlyViewed = () => {
     }
   }, [status]);
     return (
-      <div className="top-trending-products">
+      data && <div className="top-trending-products">
         <HeadingStyle>
           <h2 className="heading">
             Recently Viewed Products
