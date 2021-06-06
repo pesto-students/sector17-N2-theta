@@ -29,7 +29,9 @@ const Navigation = () => {
         <li>
           <Link href="/categories" as="/categories">
             <a>
-              <span className="icon"></span>
+              <span className="icon">
+                <img src="https://storage.googleapis.com/sector17-chandigarh.appspot.com/categories/allcat.png" />
+              </span>
               <span className="label">View All Categories</span>
             </a>
           </Link>
