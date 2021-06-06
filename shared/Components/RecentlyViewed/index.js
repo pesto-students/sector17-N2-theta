@@ -11,7 +11,7 @@ const RecentlyViewed = () => {
   const { data, status, isLoading, isError } = useProductsBySKU(
     0,
     dataLimit,
-    ["43900", "48530", "127687", "150115"]
+    [43900, 48530, 127687, 150115]
   );
   
   useEffect(() => {
