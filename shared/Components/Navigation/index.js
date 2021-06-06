@@ -18,7 +18,9 @@ const Navigation = () => {
                 as={`/categories/${categories[category].id}`}
               >
                 <a>
-                  <span className="icon"></span>
+                  <span className="icon">
+                    <img src={categories[category].image} />
+                  </span>
                   <span className="label">{categories[category].name}</span>
                 </a>
               </Link>

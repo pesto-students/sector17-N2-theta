@@ -34,6 +34,10 @@ const NavigationStyle = styled.nav`
           height: 35px;
           border-radius: 50%;
           background: ${props => props.theme.color.lightGrey};
+          overflow:hidden;
+          img{
+            width:200%;
+          }
         }
 
         .label {
