@@ -13,8 +13,6 @@ const Filter = (props) => {
   const { data: categories = {}, isLoading, isSuccess } = useCategories(0, 20);
   const {
     data: products = {},
-    isLoading: isLo,
-    isSuccess: isSuc,
   } = useProducts(0, 16, "sku", router.query["category-slug"]);
 
   useEffect(() => {
@@ -23,15 +21,12 @@ const Filter = (props) => {
     }, 1000);
   }, [priceMinRange, priceMaxRange]);
 
-  const rangeSelector = (event, newValue) => {
-    console.log(newValue);
-  };
   const getManufactured = () => {
     if (!!products) {
       let grabAllManufacturer = Object.keys(products).map(
         (product, index) => products[product].manufacturer
       );
-      setFilteredManufacturer([...new Set(grabAllManufacturer)]);      
+      setFilteredManufacturer([...new Set(grabAllManufacturer)]);
     }
   };
   return (
@@ -48,7 +43,13 @@ const Filter = (props) => {
             Object.keys(categories).map((category) => (
               <li key={categories[category].id}>
                 <Link href={`/categories/${categories[category].id}`}>
-                  <a>
+                  <a
+                    className={
+                      categories[category].id == router.query["category-slug"]
+                        ? "filter_active"
+                        : ""
+                    }
+                  >
                     <span className="label">{categories[category].name}</span>
                   </a>
                 </Link>

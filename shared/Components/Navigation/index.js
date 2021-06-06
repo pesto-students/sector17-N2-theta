@@ -1,9 +1,10 @@
 import useCategories from "@/data/hooks/use-categories";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import NavigationStyle from "./Style";
 
 const Navigation = () => {
+  const router = useRouter();
   const { data: categories = {}, isLoading, isSuccess } = useCategories(0, 5);
 
   return (
@@ -17,7 +18,13 @@ const Navigation = () => {
                 href={`/categories/${categories[category].id}`}
                 as={`/categories/${categories[category].id}`}
               >
-                <a>
+                <a
+                  class={
+                    categories[category].id == router.query["category-slug"]
+                      ? "nav_active"
+                      : ""
+                  }
+                >
                   <span className="icon">
                     <img src={categories[category].image} />
                   </span>

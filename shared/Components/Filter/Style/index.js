@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 const FilterStyle = styled.div`
+.filter_active{
+  color: ${(props) => props.theme.color.primary};
+}
   .filter_action {
     border-bottom: 1px solid ${(props) => props.theme.color.grey};
     padding: 10px;

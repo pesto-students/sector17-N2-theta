@@ -12,6 +12,9 @@ const NavigationStyle = styled.nav`
   margin: 0 auto;
   padding: 0 30px;
 
+  .nav_active{
+    color: ${(props) => props.theme.color.primary};
+  }
   ul {
     list-style: none;
     padding: 0;
