@@ -41,8 +41,20 @@ export const paginationQuery = async (
   return docs;
 };
 
-// Where Condition 02/06/2021 Pardeep
 export const getSingleEntity = async (collection, id) => {
   const docRef = await db.collection(collection).doc(id).get();
   return docRef.data();
 };
+
+export const getSlidersEntity = async () => {
+  const ref = db.collection('slider');
+  let docsRef = ref;
+
+  docsRef = await docsRef.get();
+  const docs = {};
+  docsRef.forEach((doc) => {
+    docs[doc.id] = doc.data();
+  });
+  return docs;
+};
+

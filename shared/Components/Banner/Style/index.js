@@ -16,6 +16,9 @@ const BannerStyle = styled.div`
         opacity: .75;
         color: ${props => props.theme.color.primary}
     }
+    .slick-prev:before, .slick-next:before{
+        color: ${props => props.theme.color.black}!important;
+    }
 `;
 
 export default BannerStyle;

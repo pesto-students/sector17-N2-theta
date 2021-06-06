@@ -10,6 +10,10 @@ const Catalog = () => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(16);
   const [products, setProducts] = useState({});
+  // Filter Pramas
+
+  const [manufacturer, setManufacturer] = useState([]);
+  const [price, setPrice] = useState([]);
 
   const {
     data = {},
@@ -31,11 +35,21 @@ const Catalog = () => {
   const onFilter = (filter) => {
     filterWhere.push(filter);
     console.log(filterWhere);
+    setManufacturer(filterWhere);
   };
+
+  const onPriceChange = (min,max) => {
+    setPrice([min, max]);
+  };
+
   return (
     <CatalogStyle>
       <div className="filters">
-        <Filter products={products} onFilter={onFilter} />
+        <Filter
+          products={products}
+          onFilter={onFilter}
+          onPriceChange={onPriceChange}
+        />
       </div>
       <div className="products">
         <div className="heading">
