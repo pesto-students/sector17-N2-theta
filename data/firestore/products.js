@@ -15,19 +15,8 @@ export const getProducts = async ({
   }
 
   /** SKUs */
-  let skuArray = sku;
-  if (!!sku) {
-    if (!Array.isArray(sku)) {
-      skuArray = [sku];
-    }
-
-    for (const singleSKU of skuArray) {
-      if (!singleSKU) {
-        continue;
-      }
-
-      where.push(["sku", "==", singleSKU]);
-    }
+  if (Array.isArray(sku) && sku.length > 0) {
+    where.push(["sku", "in", sku]);
   }
 
   return await paginationQuery("products", orderBy, offset, limit, where);
