@@ -1,18 +1,21 @@
 import Link from "next/link";
+import AddToCart from "shared/Utils/AddToCart";
 import ProductCardStyle from "./Style";
 
 const ProductCard = (props) => {
+  const { image, title, price, sku, slug } = props;
+
   return (
     <ProductCardStyle>
-      <Link href="/categories/[category-slug]/[product-slug]" as="/categories/category-1/product-1">
+      <Link href="/categories/[category-slug]/[product-slug]" as={`/categories/${props.category}/${props.id}`}>
         <a>
           <div className="product_item">
             <div className="image_wrapper">
-              <img src="/images/product-img.png" />
+              <img src={ image } />
             </div>
             <div className="product_caption">
               <span className="soldby">Sold by: Nike</span>
-              <div className="product_title">Product 1</div>
+              <div className="product_title">{ title }</div>
               <div className="review">
                 <i className="fa fa-star" />
                 <i className="fa fa-star" />
@@ -23,7 +26,7 @@ const ProductCard = (props) => {
               </div>
               <div className="row_group">
                 <div className="price">
-                  <span className="main-price">Rs.100</span>
+                  <span className="main-price">Rs.{ price }</span>
                   <span className="stike-through">Rs.150</span>
                 </div>
                 <div className="add-to-cart-placeholder"></div>
@@ -33,10 +36,10 @@ const ProductCard = (props) => {
         </a>
       </Link>
 
-      <button className="add-to-cart">
+      <AddToCart productSku={ sku } quantity={1}>
         <span className="text">Add to Cart</span>
         <span className="plus">+</span>
-      </button>
+      </AddToCart>
     </ProductCardStyle>
   );
 };

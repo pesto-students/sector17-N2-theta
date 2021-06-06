@@ -1,8 +1,24 @@
+import { useProductsBySKU } from "@/data";
+import { useEffect, useState } from "react";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
 import ProductCard from "../ProductCard";
 
-const RecentlyViewed = () => {
+const RecentlyViewed = () => {  
+  const [dataLimit, setDataLimit] = useState(4);
+  const [products, setProducts] = useState({});
+  //const [viewedProducts, setViewedProducts] = useState([]);
+  const { data, status, isLoading, isError } = useProductsBySKU(
+    0,
+    dataLimit,
+    ["43900", "48530", "127687", "150115"]
+  );
+  
+  useEffect(() => {
+    if (status === "success") {
+      setProducts({ ...products, ...data });
+    }
+  }, [status]);
     return (
       <div className="top-trending-products">
         <HeadingStyle>
@@ -12,10 +28,13 @@ const RecentlyViewed = () => {
           </h2>
         </HeadingStyle>
         <Grid className="" count={4} gap={20}>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+        {!isError && Object.keys(products).map((product, index) => (
+          <ProductCard
+            key={index}
+            id={product}
+            {...products[product]}
+          />
+        ))}
         </Grid>
       </div>
     )
