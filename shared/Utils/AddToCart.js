@@ -1,6 +1,7 @@
 import GlobalContext from "context/GlobalContext";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import saveCartItems from "./saveCartItems";
 
 const AddToCart = (props) => {
   const { children, productSku, quantity } = props;
@@ -35,12 +36,8 @@ const AddToCart = (props) => {
     };
 
     setCartItems(updatedCartItems);
+    saveCartItems(updatedCartItems);
     setNotificationVisibility(true);
-
-    
-    if(cartItems && cartItems[productSku]){
-      
-    }
     setNotificationMessage(message);
   };
 

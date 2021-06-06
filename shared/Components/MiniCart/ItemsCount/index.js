@@ -9,7 +9,6 @@ const ItemsCount = () => {
 
   useEffect(() => {
     if(cartItems){
-      saveCartItems(cartItems);
       setCount(Object.keys(cartItems).length)
     }
   }, [cartItems])

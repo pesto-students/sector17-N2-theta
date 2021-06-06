@@ -1,11 +1,20 @@
+import GlobalContext from "context/GlobalContext";
+import { useContext, useEffect } from "react";
+import getWishlistItems from "shared/Utils/getWishlistItems";
 import SocialLogin from "../SocialLogin";
 
 const User = (props) => {
   const { dropMenu, handleDropMenu} = props;
+  const { setWishlistItems } = useContext(GlobalContext);
 
   const handleClick = () => {
     handleDropMenu(dropMenu === 'user' ? '' : 'user')
   }
+
+  useEffect(() => {
+    const currentWishlist = getWishlistItems();
+    setWishlistItems(currentWishlist);
+  }, [])
 
   return <div className="header__action-item user">
     <div className="clickable" onClick={handleClick}>
