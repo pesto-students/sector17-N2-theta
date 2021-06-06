@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
-const SpinnerStyle = styled.div`
+export const Spinner = styled.div.attrs(({ withText = false }) => ({
+  fontSize: withText ? "10px" : "30px",
+  margin: withText ? "20px" : "100px",
+}))`
   color: #000000;
-  font-size: 20px;
-  margin: 100px auto;
+  font-size: ${(props) => props.fontSize};
+  margin: ${(props) => props.margin};
   width: 1em;
   height: 1em;
   border-radius: 50%;
@@ -89,4 +92,12 @@ const SpinnerStyle = styled.div`
   }
 `;
 
-export default SpinnerStyle;
+export const SpinnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SpinnerText = styled.p`
+  margin: 0 0 0 10px;
+`;
