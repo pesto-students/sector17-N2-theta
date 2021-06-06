@@ -1,14 +1,19 @@
 import GlobalContext from "context/GlobalContext";
 import { useContext } from "react";
-import getCartItems  from "./getCartItems";
+import getCartItems  from "../getCartItems";
 
-const RemoveFromCart = (props) => {
+const removeCartItem = async (productSku) => {
+  const cartItems = getCartItems();
+  delete cartItems[productSku];
+  return cartItems;
+}
+
+const RemoveCartItemButton = (props) => {
   const { productSku } = props;
   const { setCartItems, setNotificationMessage, setNotificationVisibility } = useContext(GlobalContext);
 
-  const handleClick = () => {
-    const cartItems = getCartItems();
-    delete cartItems[productSku];
+  const handleClick = async () => {
+    const cartItems = await removeCartItem(productSku)
 
     setCartItems(cartItems);
     setNotificationVisibility(true);
@@ -20,4 +25,5 @@ const RemoveFromCart = (props) => {
   </button>
 }
 
-export default RemoveFromCart;
+export default removeCartItem;
+export { RemoveCartItemButton };

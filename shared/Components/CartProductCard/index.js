@@ -1,5 +1,6 @@
 import CartProductCardStyle from "./Style";
-import RemoveFromCart from "../../Utils/RemoveFromCart";
+import { RemoveCartItemButton } from "../../Utils/RemoveCartItem";
+import { MoveToWishlistButton } from "shared/Utils/MoveToWishlist";
 
 const CartProductCard = (props) => {
   const { sku } = props;
@@ -20,7 +21,8 @@ const CartProductCard = (props) => {
         <span className="discount">(62% OFF)</span>
       </div>
       <div className="actions">
-        <RemoveFromCart productSku={sku} />
+        <MoveToWishlistButton productSku={sku} />
+        <RemoveCartItemButton productSku={sku} />
       </div>
     </div>
       

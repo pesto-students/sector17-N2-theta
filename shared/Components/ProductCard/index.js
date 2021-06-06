@@ -1,6 +1,7 @@
 import Link from "next/link";
 import dynamic from 'next/dynamic'
 import ProductCardStyle from "./Style";
+import { AddToWishlistButton } from "shared/Utils/AddToWishlist";
 
 const AddToCart = dynamic(() => import("shared/Utils/AddToCart"), {
   ssr: false
@@ -41,6 +42,7 @@ const ProductCard = (props) => {
       </Link>
 
       <AddToCart productSku={ sku } quantity={1} />
+      <AddToWishlistButton productSku={ sku } />
     </ProductCardStyle>
   );
 };

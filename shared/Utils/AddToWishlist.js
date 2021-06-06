@@ -1,7 +1,29 @@
 import GlobalContext from "context/GlobalContext";
 import { useContext } from "react";
+import getWishlistItems from "./getWishlistItems";
+import saveWishlistItems from "./saveWishlistItems";
 
-const AddToWishlist = (props) => {
+const handleWishlistItems = (productSku) => {
+  let action = '';
+  let currentWishlistItems = getWishlistItems();
+  const itemIndex = currentWishlistItems.indexOf(productSku);
+  if(itemIndex < 0){
+    currentWishlistItems.push(productSku);
+    action = 'add';
+  }else{
+    currentWishlistItems = currentWishlistItems.filter((item) => item !== productSku);
+    action = 'remove';
+  }
+
+  saveWishlistItems(currentWishlistItems);
+
+  return {
+    items : currentWishlistItems,
+    action
+  }
+};
+
+const AddToWishlistButton = (props) => {
   const { productSku } = props;
 
   const {
@@ -11,32 +33,31 @@ const AddToWishlist = (props) => {
     setNotificationVisibility,
   } = useContext(GlobalContext);
 
-  const handleClick = () => {
-    let message = "Successfully Added to Wishlist";
+  const handleClick = async () => {
+    let message = "";
 
-    const currentWishlistItems = [...wishlistItems];
-    const itemIndex = currentWishlistItems.indexOf(productSku);
-    if(itemIndex < 0){
-      currentWishlistItems.push(productSku);
+    const wishlist = await handleWishlistItems(productSku);
+    if(wishlist.action == 'add'){
+      message = "Successfully Added to Wishlist";
     }else{
-      currentWishlistItems = currentWishlistItems.splice(itemIndex, 0);
       message = "Successfully Removed to Wishlist";
     }
 
-    setWishlistItems(currentWishlistItems);
+    setWishlistItems(wishlist.items);
     setNotificationVisibility(true);
     setNotificationMessage(message);
   };
 
   return (
-    <button className='add-to-Wishlist' onClick={handleClick}>
+    <button className='add-to-wishlist' onClick={handleClick}>
       {!wishlistItems || wishlistItems.indexOf(productSku) < 0 ? (
-        <i class='fa fa-plus-o' aria-hidden='true'></i>
+        <i class='fa fa-heart-o' aria-hidden='true'></i>
       ) : (
-        <i class='fa fa-plus' aria-hidden='true'></i>
+        <i class='fa fa-heart' aria-hidden='true'></i>
       )}
     </button>
   );
-};
+}
 
-export default AddToWishlist;
+export default handleWishlistItems;
+export { AddToWishlistButton };
