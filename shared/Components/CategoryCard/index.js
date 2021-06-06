@@ -5,8 +5,8 @@ const CategoryCard = (props) => {
   return (
     <CategoryCardStyle>
       <div className="category_item">
-        <Link href="/category">
-          <img src="./images/category.jpg" />
+        <Link href={`/categories/${props.id}`}>
+          <img src={props.image ? props.image : "./images/category.jpg"} />
         </Link>
       </div>
     </CategoryCardStyle>

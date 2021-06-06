@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getProducts } from "../firestore/products";
+import { getProducts, getSingleProduct } from "../firestore/products";
 
 const useProducts = (offset = 0, limit = 10, orderBy = "sku", category = "") =>
   useQuery(
