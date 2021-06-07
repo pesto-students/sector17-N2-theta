@@ -14,17 +14,27 @@ export const paginationQuery = async (
   let docsRef = ref;
 
   /** Add Where conditions (eg.: Categories, Filters etc. ) */
+  let isOrderByEqualityCondition = false;
   if (Array.isArray(where) && where.length > 0) {
     for (const whereCond of where) {
       if (!Array.isArray(whereCond) || whereCond.length < 3) {
         continue;
       }
+
+      if (whereCond[0] === orderBy && whereCond[1] === "==") {
+        isOrderByEqualityCondition = true;
+      }
+
       docsRef = docsRef.where(whereCond[0], whereCond[1], whereCond[2]);
-      docsRef.orderBy(whereCond[0]);
     }
   }
 
-  docsRef = docsRef.orderBy(orderBy);
+  /** If there is orderby quality where condition, then don't add orderby.
+   * For Example, if there is SKU === 111002, then don't add SKU into orderBy
+   */
+  if (!isOrderByEqualityCondition) {
+    docsRef = docsRef.orderBy(orderBy);
+  }
 
   /** Add offset (eg: Last document of current set to get next set ) */
   if (offset !== 0) {

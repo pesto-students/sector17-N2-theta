@@ -80,6 +80,12 @@ const HeaderStyle = styled.header`
           border: 1px solid ${(props) => props.theme.color.lightGrey};
           box-shadow: 0 0 5px 0 rgb(0 0 0 / 10%);
 
+          #firebaseui_container {
+            white-space: normal;
+            overflow: hidden;
+            width: 255px;
+          }
+
           &:before, &:after {
             content: "";
             border: 7px solid transparent;
