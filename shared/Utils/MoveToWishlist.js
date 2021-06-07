@@ -1,6 +1,6 @@
 import GlobalContext from "context/GlobalContext";
 import { useContext } from "react";
-import { handleWishlistItems } from "./AddToWishlist";
+import handleWishlistItems from "./AddToWishlist";
 import RemoveCartItem from "./RemoveCartItem";
 
 const moveToWishlist = (productSku) => {
