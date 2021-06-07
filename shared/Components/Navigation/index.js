@@ -5,7 +5,7 @@ import NavigationStyle from "./Style";
 
 const Navigation = () => {
   const router = useRouter();
-  const { data: categories = {}, isLoading, isSuccess } = useCategories(0, 6);
+  const { data: categories = {}, isLoading, isSuccess } = useCategories(0, 5);
 
   return (
     <NavigationStyle>
