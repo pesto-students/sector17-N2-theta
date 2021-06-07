@@ -42,9 +42,11 @@ const FilterStyle = styled.div`
         display: flex;
         label{
             margin-right:10px;
+            flex:1;
         }
         label:last-child{
             margin-left:10px;
+            text-align:right;
         }
       }
       input{

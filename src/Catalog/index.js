@@ -22,6 +22,10 @@ const Catalog = () => {
   } = useProducts(offset, limit, "sku", router.query["category-slug"]);
 
   useEffect(() => {
+    setProducts({});
+  }, [router.query["category-slug"]]);
+
+  useEffect(() => {
     isSuccess && setProducts({ ...products, ...data });
   }, [data]);
 

@@ -15,9 +15,9 @@ import Grid from "shared/Styles/Grid";
 import HeadingStyle from "shared/Styles/HeadingStyle";
 import ProductDetailStyle from "./Style";
 import AddToCart from "shared/Utils/AddToCart";
+import Breadcrumbs from "shared/Components/Breadcrumbs";
 
 const Product = () => {
-
   const router = useRouter();
   const [qty, setQty] = useState(1);
   const {
@@ -30,7 +30,6 @@ const Product = () => {
   const { data: products = {} } = useProducts(0, 4, "sku", product.category);
   console.log(product.category);
 
-
   const onQtyDecreaseHandler = () => {
     if (qty > 0) {
       setQty(qty - 1);
@@ -40,16 +39,22 @@ const Product = () => {
     setQty(qty + 1);
   };
 
+  const onPincodeHandler = async () => {
+    const getDistance = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=143001&destinations=110059&key=AIzaSyBLuKZYUJThQeaN2OuyQFXHangMdmwyjuo`);
+    const responce = await getDistance.json();
+    console.log(getDistance);
+  }
   return (
     router && (
       <div>
         <ProductDetailStyle>
-          <ul className="breadcrumbs">
-            <li>Home </li>
-            <li>Products</li>
-            <li>{product.category}</li>
-            <li>{product.name}</li>
-          </ul>
+          <Breadcrumbs
+            parent="Products"
+            parentLink={`/categories/${product.category}`}
+            subparent={product.category}
+            subparentLink={`/categories/${product.category}`}
+            current={product.name}
+          />
           {isSuccess && !!product && (
             <>
               <Grid count={2} gap={20}>
@@ -105,7 +110,7 @@ const Product = () => {
                     <label>DELIVER OPTIONS</label>
                     <div className="pincode_input">
                       <input type="text" placeholder="Enter a PIN code" />
-                      <button>CHECK</button>
+                      <button onClick={onPincodeHandler}>CHECK</button>
                     </div>
 
                     <span>
