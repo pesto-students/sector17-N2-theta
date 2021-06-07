@@ -9,8 +9,12 @@ const Banner = () => {
   const { data, isError, isLoading, isSuccess } = useSlider();
   var settings = {
     dots: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
     infinite: true,
     speed: 500,
+    fade: true,
+    cssEase: 'linear',
     slidesToShow: 1,
     slidesToScroll: 1,
   };

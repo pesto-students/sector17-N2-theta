@@ -6,7 +6,9 @@ const BannerStyle = styled.div`
             width: 100%;
         }
     }
-
+    button.slick-arrow {
+        display: none!important;
+    }
     .slick-dots{
         position: relative;
         bottom: 0;
