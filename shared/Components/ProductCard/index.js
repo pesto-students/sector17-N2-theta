@@ -1,6 +1,11 @@
 import Link from "next/link";
-import AddToCart from "shared/Utils/AddToCart";
+import dynamic from 'next/dynamic'
 import ProductCardStyle from "./Style";
+import { AddToWishlistButton } from "shared/Utils/AddToWishlist";
+
+const AddToCart = dynamic(() => import("shared/Utils/AddToCart"), {
+  ssr: false
+});
 
 const ProductCard = (props) => {
   const { image, title, price, sku, slug } = props;
@@ -36,10 +41,8 @@ const ProductCard = (props) => {
         </a>
       </Link>
 
-      <AddToCart productSku={ sku } quantity={1}>
-        <span className="text">Add to Cart</span>
-        <span className="plus">+</span>
-      </AddToCart>
+      <AddToCart productSku={ sku } quantity={1} />
+      <AddToWishlistButton productSku={ sku } />
     </ProductCardStyle>
   );
 };

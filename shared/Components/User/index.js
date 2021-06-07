@@ -1,17 +1,25 @@
+import GlobalContext from "context/GlobalContext";
+import { useContext, useEffect, useState } from "react";
+import getWishlistItems from "shared/Utils/getWishlistItems";
 import SocialLogin from "../SocialLogin";
 import { fbAuth } from "@/auth";
-import { useContext, useState } from "react";
-import GlobalContext from "@/appContext";
 import UserStyle from "./Style";
 
 const User = (props) => {
   const { dropMenu, handleDropMenu } = props;
-  const { isLogin, currentUser: user } = useContext(GlobalContext);
+  const {
+    isLogin,
+    currentUser: user,
+    setWishlistItems,
+  } = useContext(GlobalContext);
 
   const handleClick = () => {
     handleDropMenu(dropMenu === "user" ? "" : "user");
   };
-
+  useEffect(() => {
+    const currentWishlist = getWishlistItems();
+    setWishlistItems(currentWishlist);
+  }, []);
   return (
     <UserStyle>
       <div className="header__action-item user">
