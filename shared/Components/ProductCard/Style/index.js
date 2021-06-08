@@ -118,6 +118,32 @@ const ProductCardStyle = styled.div`
     }
   }
 
+  .add-to-wishlist {
+    width: 40px;
+    min-height: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    cursor: pointer;
+    border: none;
+
+    .fa {
+      font-size: 2rem;
+      transition: all ease-in-out 0.2s;
+    }
+
+    .fa-heart {
+      color: ${props => props.theme.color.primary};
+    }
+
+    &:hover {
+      .fa {
+        font-size: 2.2rem;
+      }
+    }
+  }
+
   &:hover {
     .add-to-cart {
       width: 50%;

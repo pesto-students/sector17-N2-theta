@@ -6,7 +6,9 @@ const BannerStyle = styled.div`
             width: 100%;
         }
     }
-
+    button.slick-arrow {
+        display: none!important;
+    }
     .slick-dots{
         position: relative;
         bottom: 0;
@@ -15,6 +17,9 @@ const BannerStyle = styled.div`
     .slick-dots li.slick-active button:before {
         opacity: .75;
         color: ${props => props.theme.color.primary}
+    }
+    .slick-prev:before, .slick-next:before{
+        color: ${props => props.theme.color.black}!important;
     }
 `;
 

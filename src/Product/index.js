@@ -1,16 +1,21 @@
 import useProducts, { useSingleProduct } from "@/data/hooks/use-products";
 import { useRouter } from "next/router";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 
-const AddToRecentlyViewed = dynamic(() => import('../../shared/Utils/AddToRecentlyViewed'), {
-  ssr: false
-});
+const AddToRecentlyViewed = dynamic(
+  () => import("../../shared/Utils/AddToRecentlyViewed"),
+  {
+    ssr: false,
+  }
+);
 
 import { useEffect, useState } from "react";
 import ProductCard from "shared/Components/ProductCard";
 import Grid from "shared/Styles/Grid";
 import HeadingStyle from "shared/Styles/HeadingStyle";
 import ProductDetailStyle from "./Style";
+import AddToCart from "shared/Utils/AddToCart";
+import Breadcrumbs from "shared/Components/Breadcrumbs";
 
 const Product = () => {
   const router = useRouter();
@@ -33,16 +38,23 @@ const Product = () => {
   const onQtyIncreaseHandler = () => {
     setQty(qty + 1);
   };
+
+  const onPincodeHandler = async () => {
+    const getDistance = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=143001&destinations=110059&key=AIzaSyBLuKZYUJThQeaN2OuyQFXHangMdmwyjuo`);
+    const responce = await getDistance.json();
+    console.log(getDistance);
+  }
   return (
     router && (
       <div>
         <ProductDetailStyle>
-          <ul className="breadcrumbs">
-            <li>Home</li>
-            <li>Products</li>
-            <li>{product.category}</li>
-            <li>{product.name}</li>
-          </ul>
+          <Breadcrumbs
+            parent="Products"
+            parentLink={`/categories/${product.category}`}
+            subparent={product.category}
+            subparentLink={`/categories/${product.category}`}
+            current={product.name}
+          />
           {isSuccess && !!product && (
             <>
               <Grid count={2} gap={20}>
@@ -90,15 +102,15 @@ const Product = () => {
                     </ul>
                   </div>
 
-                  <button className="add-to-cart">
-                    <span className="text">Add to Cart</span>
-                  </button>
+                  <AddToCart productSku={product.sku} quantity={qty}>
+                    Add to Cart
+                  </AddToCart>
 
                   <div className="extra_option">
                     <label>DELIVER OPTIONS</label>
                     <div className="pincode_input">
                       <input type="text" placeholder="Enter a PIN code" />
-                      <button>CHECK</button>
+                      <button onClick={onPincodeHandler}>CHECK</button>
                     </div>
 
                     <span>
@@ -108,7 +120,7 @@ const Product = () => {
                   </div>
                 </div>
               </Grid>
-            
+
               <div className="">
                 <HeadingStyle>
                   <h2 className="heading">
@@ -155,11 +167,7 @@ const Product = () => {
                       <ProductCard
                         key={index}
                         id={product}
-                        category={products[product].category}
-                        slug={products[product].slug}
-                        title={products[product].name}
-                        price={products[product].price}
-                        image={products[product].image}
+                        {...products[product]}
                       />
                     ))}
                 </Grid>
@@ -169,7 +177,6 @@ const Product = () => {
             </>
           )}
         </ProductDetailStyle>
-        
       </div>
     )
   );

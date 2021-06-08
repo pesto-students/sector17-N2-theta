@@ -29,9 +29,9 @@ const SocialLogin = () => {
   }
 
   return (
-    <li>
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={fbAuthObj} />
-    </li>
+      <li>
+        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={fbAuthObj} />
+      </li>
   );
 };
 

@@ -12,6 +12,9 @@ const NavigationStyle = styled.nav`
   margin: 0 auto;
   padding: 0 30px;
 
+  .nav_active{
+    color: ${(props) => props.theme.color.primary};
+  }
   ul {
     list-style: none;
     padding: 0;
@@ -34,6 +37,10 @@ const NavigationStyle = styled.nav`
           height: 35px;
           border-radius: 50%;
           background: ${props => props.theme.color.lightGrey};
+          overflow:hidden;
+          img{
+            width:200%;
+          }
         }
 
         .label {
