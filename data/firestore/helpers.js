@@ -13,6 +13,7 @@ export const paginationQuery = async (
   const ref = db.collection(collection);
   let docsRef = ref;
 
+  console.log(where);
   /** Add Where conditions (eg.: Categories, Filters etc. ) */
   let isOrderByEqualityCondition = false;
   if (Array.isArray(where) && where.length > 0) {

@@ -13,7 +13,7 @@ const HeaderStyle = styled.header`
   background: ${(props) => props.theme.color.white};
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
 
   .header__wrapper {
     ${flex};

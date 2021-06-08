@@ -37,6 +37,7 @@ const FilterStyle = styled.div`
     .filter_price {
         margin: 15px 0px;
         padding-bottom: 15px;
+        padding: 0 10px;
         border-bottom: 1px solid ${(props) => props.theme.color.grey};
       .form-group {
         display: flex;

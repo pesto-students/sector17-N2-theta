@@ -6,9 +6,11 @@ export const getProducts = async ({
   orderBy = "sku",
   category = "",
   sku = [],
+  filter = [],
+  price = [],
 }) => {
   const where = [];
-
+  console.log(filter);
   /** Categories */
   if (!!category) {
     where.push(["category", "==", category]);
@@ -18,7 +20,16 @@ export const getProducts = async ({
   if (Array.isArray(sku) && sku.length > 0) {
     where.push(["sku", "in", sku]);
   }
-
+  /** Filter With Manufacturer */
+  if (Array.isArray(filter) && filter.length > 0) {
+    where.push(["manufacturer", "in", filter]);
+  }
+  /** Filter With Price */
+  if (Array.isArray(price) && price.length > 0) {
+    where.push(["price", ">=", price[0]]);
+    where.push(["price", "<=", price[1]]);
+    orderBy = "price";
+  }
   return await paginationQuery("products", orderBy, offset, limit, where);
 };
 

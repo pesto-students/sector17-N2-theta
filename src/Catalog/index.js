@@ -19,11 +19,18 @@ const Catalog = () => {
     data = {},
     isLoading,
     isSuccess,
-  } = useProducts(offset, limit, "sku", router.query["category-slug"]);
+  } = useProducts(
+    offset,
+    limit,
+    "sku",
+    router.query["category-slug"],
+    manufacturer,
+    price
+  );
 
   useEffect(() => {
     setProducts({});
-  }, [router.query["category-slug"]]);
+  }, [router.query["category-slug"], manufacturer, price]);
 
   useEffect(() => {
     isSuccess && setProducts({ ...products, ...data });
@@ -35,17 +42,27 @@ const Catalog = () => {
     setOffset(parseInt(offset));
   };
 
-  const filterWhere = [];
+  const manufacturerArray = [];
   const onFilter = (filter) => {
-    filterWhere.push(filter);
-    console.log(filterWhere);
-    setManufacturer(filterWhere);
+    const value = manufacturerArray.find(elem => elem === filter);
+    if(value){
+      console.log("here");
+      manufacturerArray = manufacturerArray.filter(e => e !== filter);
+    } else{
+      manufacturerArray.push(filter);
+    }
+    // console.log(manufacturerArray);
+    setManufacturer([...manufacturer,...manufacturerArray]);
   };
 
-  const onPriceChange = (min,max) => {
+  const onPriceChange = (min, max) => {
     setPrice([min, max]);
   };
 
+  const onClearHandeler = () => {
+    setPrice([]);
+    setManufacturer([]);
+  }
   return (
     <CatalogStyle>
       <div className="filters">
@@ -53,6 +70,7 @@ const Catalog = () => {
           products={products}
           onFilter={onFilter}
           onPriceChange={onPriceChange}
+          onClearHandeler={onClearHandeler}
         />
       </div>
       <div className="products">
@@ -69,11 +87,7 @@ const Catalog = () => {
           <Grid count={4} gap={12}>
             {!!products &&
               Object.keys(products).map((product, index) => (
-                <ProductCard
-                  key={index}
-                  id={product}
-                  {...products[product]}
-                />
+                <ProductCard key={index} id={product} {...products[product]} />
               ))}
           </Grid>
 
