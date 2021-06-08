@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "firebase": "^8.6.2",
     "next": "10.2.3",
     "nouislider-react": "^3.4.0",

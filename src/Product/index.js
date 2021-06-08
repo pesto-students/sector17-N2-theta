@@ -16,6 +16,7 @@ import HeadingStyle from "shared/Styles/HeadingStyle";
 import ProductDetailStyle from "./Style";
 import AddToCart from "shared/Utils/AddToCart";
 import Breadcrumbs from "shared/Components/Breadcrumbs";
+import axios from "axios";
 
 const Product = () => {
   const router = useRouter();
@@ -40,10 +41,17 @@ const Product = () => {
   };
 
   const onPincodeHandler = async () => {
-    const getDistance = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=143001&destinations=110059&key=AIzaSyBLuKZYUJThQeaN2OuyQFXHangMdmwyjuo`);
-    const responce = await getDistance.json();
-    console.log(getDistance);
-  }
+    const response = await axios.get(
+      `https://maps.googleapis.com/maps/api/distancematrix/json?origins=143001&destinations=110059&key=AIzaSyBLuKZYUJThQeaN2OuyQFXHangMdmwyjuo`,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        },
+      }
+    );
+    console.log(response);
+  };
   return (
     router && (
       <div>
