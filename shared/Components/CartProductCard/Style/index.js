@@ -8,7 +8,11 @@ const CartProductCardStyle = styled.div`
 
   .image-wrapper{
     width: 150px;
-    background: ${props => props.theme.color.lightGrey};
+
+    img {
+      width: 100%;
+      display: block;
+    }
   }
 
   .details-wrapper{
@@ -49,6 +53,25 @@ const CartProductCardStyle = styled.div`
       .discount {
         font-size: 2rem;
         color: ${props => props.theme.color.green};
+      }
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-start;
+      gap: 20px;
+      font-size: 1.6rem;
+
+      button {
+        border: none;
+        background: none;
+        font-size: inherit;
+        cursor: pointer;
+        padding: 0;
+
+        &:hover{
+          color: ${props => props.theme.color.primary}
+        }
       }
     }
   }
