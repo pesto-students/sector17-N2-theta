@@ -49,6 +49,8 @@ async function saveAndUpload(url) {
 const categories = {};
 const newProducts = [];
 
+const manufacturers = {};
+
 async function read() {
   const prods = JSON.parse(fs.readFileSync("./products.json"));
   const cats = JSON.parse(fs.readFileSync("./categories.json"));
@@ -73,7 +75,8 @@ async function read() {
 
       //await addProduct(prod);
       //await updateSlug(prod);
-      await updateCategoriesSellers(prod, prodCat);
+      //await updateCategoriesSellers(prod, prodCat);
+      manufacturersFunc(prod, prodCat);
 
       categories[prodCat.name] = !!categories[prodCat.name]
         ? categories[prodCat.name] + 1
@@ -83,7 +86,9 @@ async function read() {
     }
   }
 
-  write(newProducts);
+  await updateManufacturers();
+  
+  //write(newProducts);
 }
 
 function write(data) {
@@ -125,6 +130,29 @@ async function updateCategoriesSellers(prod, cat) {
 
   counter++;
   console.log(counter);
+}
+
+async function manufacturersFunc(prod, cat) {
+  if(!prod.manufacturer) {
+    return;
+  }
+
+  if(!manufacturers[cat.id]) {
+    manufacturers[cat.id] = [];
+  }
+
+  if(!manufacturers[cat.id].includes(prod.manufacturer)) {
+    manufacturers[cat.id].push(prod.manufacturer);
+  }
+}
+
+async function updateManufacturers() {
+  for(const mKey in manufacturers) {
+    const manufacturer = manufacturers[mKey];
+    console.log(manufacturer);
+
+    await db.collection('categories').doc(''+mKey).update({manufacturers: manufacturer});
+  }
 }
 
 // read();
