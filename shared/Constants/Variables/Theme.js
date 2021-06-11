@@ -10,7 +10,8 @@ const ThemeVariables = {
     yellow: "#F4DE15",
     green: "#128F2E",
   },
-  maxWidth: "1440px",
+  // maxWidth: "1440px",
+  maxWidth: "1350px",
   fonts: {
     lato: "'Lato', sans-serif",
     playfair: "'Playfair Display', serif",

@@ -48,14 +48,14 @@ const AddToCart = (props) => {
           <>
             <span className='text'>Go To Cart</span>
             <span className='plus'>
-              <i class='fa fa-external-link' aria-hidden='true'></i>
+              <i className='fa fa-external-link' aria-hidden='true'></i>
             </span>
           </>
         ) : (
           <>
             <span className='text'>Update Cart</span>
             <span className='plus'>
-              <i class='fa fa-plus' aria-hidden='true'></i>
+              <i className='fa fa-plus' aria-hidden='true'></i>
             </span>
           </>
         )
@@ -63,7 +63,7 @@ const AddToCart = (props) => {
         <>
           <span className='text'>Add to Cart</span>
           <span className='plus'>
-            <i class='fa fa-plus' aria-hidden='true'></i>
+            <i className='fa fa-plus' aria-hidden='true'></i>
           </span>
         </>
       )}

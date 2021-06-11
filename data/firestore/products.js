@@ -10,7 +10,6 @@ export const getProducts = async ({
   price = [],
 }) => {
   const where = [];
-  console.log(filter);
   /** Categories */
   if (!!category) {
     where.push(["category", "==", category]);
@@ -26,8 +25,8 @@ export const getProducts = async ({
   }
   /** Filter With Price */
   if (Array.isArray(price) && price.length > 0) {
-    where.push(["price", ">=", price[0]]);
-    where.push(["price", "<=", price[1]]);
+    where.push(["price", ">=", parseInt(price[0])]);
+    where.push(["price", "<=",parseInt(price[1])]);
     orderBy = "price";
   }
   return await paginationQuery("products", orderBy, offset, limit, where);
@@ -35,6 +34,10 @@ export const getProducts = async ({
 
 export const getCategories = async (offset = 0, limit = 10, orderBy = "id") => {
   return await paginationQuery("categories", orderBy, offset, limit);
+};
+
+export const getSingleCategory = async (id) => {
+  return await getSingleEntity("categories", id);
 };
 
 export const getSingleProduct = async (id) => {

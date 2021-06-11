@@ -7,7 +7,11 @@ const CartProductCardStyle = styled.div`
   border-bottom: 1px solid ${props => props.theme.color.lightGrey};
 
   .image-wrapper{
-    width: 150px;
+    width: 100px;
+
+    @media screen and (min-width: 768px) {
+      width: 150px;
+    }
 
     img {
       width: 100%;
@@ -16,7 +20,11 @@ const CartProductCardStyle = styled.div`
   }
 
   .details-wrapper{
-    width: calc(100% - 170px);
+    width: calc(100% - 100px);
+    padding-left: 15px;
+    @media screen and (min-width: 768px) {
+      width: calc(100% - 150px);
+    }
 
     .name {
       white-space: nowrap;
