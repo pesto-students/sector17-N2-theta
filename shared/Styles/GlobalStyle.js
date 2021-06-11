@@ -57,6 +57,10 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  .row_group{
+    display:flex;
+    div{flex:1}
+  }
   .app-container,
   .app-container-fluid {
     padding-left: 15px;

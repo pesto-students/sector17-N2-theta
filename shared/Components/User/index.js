@@ -1,4 +1,5 @@
 import GlobalContext from "context/GlobalContext";
+import Link from 'next/link';
 import { useContext, useEffect, useState } from "react";
 import getWishlistItems from "shared/Utils/getWishlistItems";
 import SocialLogin from "../SocialLogin";
@@ -37,7 +38,7 @@ const User = (props) => {
               <SocialLogin />
               {isLogin && (
                 <>
-                  <li>My Profile</li>
+                  <li><Link href="/profile"> My Profile</Link></li>
                   <li>Orders</li>
                   <li>Wishlist</li>
                   <li>

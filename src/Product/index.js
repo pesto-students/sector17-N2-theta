@@ -17,6 +17,7 @@ import ProductDetailStyle from "./Style";
 import AddToCart from "shared/Utils/AddToCart";
 import Breadcrumbs from "shared/Components/Breadcrumbs";
 import axios from "axios";
+import { useSingleCategory } from "@/data/hooks/use-categories";
 
 const Product = () => {
     const router = useRouter();
@@ -27,6 +28,8 @@ const Product = () => {
         isSuccess,
     } = useSingleProduct(router.query["product-slug"]);
 
+	const { data: category = {}, isLoading: categoryLoading } =
+    useSingleCategory(product.category);
     // Similer Products
     const { data: products = {} } = useProducts(0, 4, "sku", product.category);
     console.log(product.category);
@@ -59,13 +62,13 @@ const Product = () => {
         router && (
             <div>
                 <ProductDetailStyle>
-                    <Breadcrumbs
+                    {!categoryLoading && <Breadcrumbs
                         parent="Products"
                         parentLink={`/categories/${product.category}`}
-                        subparent={product.category}
+                        subparent={category.name}
                         subparentLink={`/categories/${product.category}`}
                         current={product.name}
-                    />
+                    />}
                     {isSuccess && !!product && (
                         <>
                             <div className="product_view_container">
