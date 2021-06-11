@@ -1,6 +1,26 @@
+import addAddressCollection from "@/data/firestore/address";
 import Input from "../Input";
 import AddressStyle from "./Style";
 const Address = (props) => {
+  const onClickSaveHandelr = () => {
+    addAddressCollection({
+      collection: "address",
+      userId: props.user.uid,
+      address: {
+        email: props.user.email,
+        firstName: "firstName",
+        lastName: "lastName",
+        address: "address",
+        appartment: "appartment",
+        city: "city",
+        state: "state",
+        country: "country",
+        pincode: "pincode",
+        email: "email",
+        phone: "phone",
+      },
+    });
+  };
   return (
     <AddressStyle>
       <div>
@@ -118,7 +138,9 @@ const Address = (props) => {
                 <span>Required for sending the order confirmation.</span>
                 <span>Required to contact you about this order.</span>
               </div>
-              <button className="btn push-right">Save</button>
+              <button className="btn push-right" onClick={onClickSaveHandelr}>
+                Save
+              </button>
             </div>
           )}
         </div>
