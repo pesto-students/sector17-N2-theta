@@ -9,7 +9,7 @@ import MyAccountStyle from "./Style";
 
 const MyAccount = () => {
   const [isEdit, setIsEdit] = useState(true);
-  const [address, setAddress] = useState();
+  const [address, setAddress] = useState([]);
   const [userId, setUserId] = useState();
   const {
     isLogin,
@@ -22,8 +22,10 @@ const MyAccount = () => {
   useEffect(() => {
     if (user) {
       setUserId(user.uid);
+      setAddress(userAddress);
     }
-  }, []);
+    console.log(userId);
+  }, [address]);
 
   const onClickHandler = () => {
     isLogin ? setIsEdit(true) : setIsEdit(false);
@@ -32,10 +34,9 @@ const MyAccount = () => {
     <MyAccountStyle>
       {!!user && (
         <div className="row_group">
-          {console.log(userAddress)}
-          {console.log(user.email)}
           <ProfileSidebar />
           <div className="dashboard">
+            {!isLoading && console.log(address)}
             <Address isEdit={isEdit} onClick={onClickHandler} user={user} />
           </div>
         </div>
