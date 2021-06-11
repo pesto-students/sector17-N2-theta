@@ -30,7 +30,7 @@ const Filter = (props) => {
           </div>
           <Nouislider
             range={{ min: 0, max: 100000 }}
-            start={[props.price!='' ? props.price[0] : 20, props.price!='' ? props.price[1] : 100000]}
+            start={[20, 100000]}
             connect
             onSet={onSet}
           />

@@ -25,15 +25,9 @@ const User = (props) => {
     <UserStyle>
       <div className="header__action-item user">
         <div className="clickable" onClick={handleClick}>
-          {!!user ? (
-            <span className={user.photoURL ? "profile_pic" : "icon" }>
-               {user.photoURL ? <img src={user.photoURL} /> : <i className="fa fa-user" />}
-            </span>
-          ) : (
-            <span className="icon">
-              <i className="fa fa-user" />
-            </span>
-          )}
+          <span className="icon">
+            <i className="fa fa-user" />
+          </span>
 
           <span className="label"> {isLogin ? "My Account" : "Login"}</span>
         </div>

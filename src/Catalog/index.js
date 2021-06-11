@@ -1,7 +1,8 @@
-import { useCategories, useProducts } from "@/data";
+import { useProducts } from "@/data";
 import { useSingleCategory } from "@/data/hooks/use-categories";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
 import Filter from "shared/Components/Filter";
 import ProductCard from "../../shared/Components/ProductCard";
 import Grid from "../../shared/Styles/Grid";
@@ -29,18 +30,22 @@ const Catalog = () => {
   } = useProducts(offset, limit, "sku", currentPage, manufacturer, price);
 
   useEffect(() => {
-    setProducts({});    
-    if (manufacturer.length > 0 || price!='') {
+    setProducts({});
+    const identifier = setTimeout(() => {
+      if (manufacturer.length > 0 || price != "") {
         router.push(
           `/categories/${currentPage}?price=${price}&manufacturer=${manufacturer}`
         );
-    }
-  }, [currentPage,manufacturer, price,clear]);
+      }
+    }, 500);
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [currentPage, manufacturer, price, clear]);
 
   useEffect(() => {
     isSuccess && setProducts({ ...products, ...data });
   }, [data]);
-
 
   const loadMore = () => {
     const productKeys = Object.keys(data);
