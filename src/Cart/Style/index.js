@@ -2,12 +2,20 @@ import styled, { css } from 'styled-components';
 
 const CartWithItems = css`
   justify-content: space-between;
-  gap: 20px;
+  flex-wrap: wrap;
 
   .products {
-    width: calc(100% - 320px);
+    width: 100%;
     border: 1px solid ${props => props.theme.color.lightGrey};
     border-radius: 3px;
+
+    @media screen and (min-width: 768px) {
+      width: calc(100% - 230px);
+    }
+
+    @media screen and (min-width: 992px) {
+      width: calc(100% - 300px);
+    }
 
 
     h1 {
@@ -26,9 +34,21 @@ const CartWithItems = css`
       font-size: 1.6rem;
     }
   }
+
   .summary {
-    width: 300px;
+    width: 100%;
+    @media screen and (max-width: 767px) {
+      padding-top: 15px;
+    }
+    @media screen and (min-width: 768px) {
+      width: 230px;
+      padding-left: 15px;
+    }
+    @media screen and (min-width: 992px) {
+      width: 300px;
+    }
   }
+  
 `;
 
 const EmptyCart = css`
@@ -45,7 +65,7 @@ const EmptyCart = css`
 
 const CartStyle = styled.div`
   display: flex;
-  padding: 30px;
+  padding: 30px 0 0;
   ${props => props.emptyCart ? EmptyCart : CartWithItems}
 `;
 

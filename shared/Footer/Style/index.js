@@ -6,15 +6,25 @@ const FooterStyle = styled.footer`
   margin-top: 60px;
 
   .footer__inner {
-    max-width: ${props => props.theme.maxWidth};
-    padding: 40px 40px 0 40px;
+    // max-width: ${props => props.theme.maxWidth};
+    // padding: 40px 40px 0 40px;
+    padding: 40px 0;
 
     .footer__blocks {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
-      gap: 160px;
+      gap: 0;
       padding-bottom: 30px;
       border-bottom: 1px solid ${props => props.theme.color.grey};
+
+      @media screen and (min-width: 768px) {
+        gap: 160px;
+      }
+      &:last-child {
+        padding-bottom: 0;
+      }
+      
 
       &+.footer__blocks {
         padding-top: 30px;
@@ -28,7 +38,11 @@ const FooterStyle = styled.footer`
       .footer__link-blocks {
         display: flex;
         justify-content: flex-start;
-        gap: 160px;
+        gap: 100px;
+
+        @media screen and (min-width: 768px) {
+          gap: 160px;
+        }
 
         .footer__link-block {
           

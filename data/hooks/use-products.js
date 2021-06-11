@@ -1,10 +1,18 @@
 import { useQuery } from "react-query";
 import { getProducts, getSingleProduct } from "../firestore/products";
 
-const useProducts = (offset = 0, limit = 10, orderBy = "sku", category = "") =>
+const useProducts = (
+  offset = 0,
+  limit = 10,
+  orderBy = "sku",
+  category = "",
+  filter = [],
+  price = []
+) =>
   useQuery(
-    ["products", { offset, limit, orderBy, category }],
-    async () => await getProducts({ offset, limit, orderBy, category })
+    ["products", { offset, limit, orderBy, category, filter, price }],
+    async () =>
+      await getProducts({ offset, limit, orderBy, category, filter, price })
   );
 
 export const useSingleProduct = (id) =>

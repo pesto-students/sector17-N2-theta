@@ -19,6 +19,7 @@ const User = (props) => {
   };
 
   useEffect(() => {
+    console.log(user);
     const currentWishlist = getWishlistItems();
     setWishlistItems(currentWishlist);
   }, []);
@@ -27,15 +28,9 @@ const User = (props) => {
     <UserStyle>
       <div className="header__action-item user">
         <div className="clickable" onClick={handleClick}>
-          {isLogin ? (
-            <span className="profile_pic">
-              <img src={user.photoURL} />
-            </span>
-          ) : (
-            <span className="icon">
-              <i className="fa fa-user" />
-            </span>
-          )}
+          <span className="icon">
+            <i className="fa fa-user" />
+          </span>
 
           <span className="label"> {isLogin ? "My Account" : "Login"}</span>
         </div>
