@@ -9,7 +9,7 @@ const AddToRecentlyViewed = dynamic(
     }
 );
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductCard from "shared/Components/ProductCard";
 import Grid from "shared/Styles/Grid";
 import HeadingStyle from "shared/Styles/HeadingStyle";
@@ -17,10 +17,12 @@ import ProductDetailStyle from "./Style";
 import AddToCart from "shared/Utils/AddToCart";
 import Breadcrumbs from "shared/Components/Breadcrumbs";
 import axios from "axios";
+import Quantity from "shared/Components/Quantity";
 
 const Product = () => {
     const router = useRouter();
     const [qty, setQty] = useState(1);
+
     const {
         data: product = {},
         isLoading,
@@ -30,15 +32,6 @@ const Product = () => {
     // Similer Products
     const { data: products = {} } = useProducts(0, 4, "sku", product.category);
     console.log(product.category);
-
-    const onQtyDecreaseHandler = () => {
-        if (qty > 0) {
-            setQty(qty - 1);
-        }
-    };
-    const onQtyIncreaseHandler = () => {
-        setQty(qty + 1);
-    };
 
     const onPincodeHandler = async () => {
         const response = await axios.get(
@@ -109,30 +102,7 @@ const Product = () => {
 											</span>
 										</div>
 
-										<div className="qty">
-											<ul>
-												<li>Quantity</li>
-												<li>
-													<div>
-														<button
-															onClick={
-																onQtyDecreaseHandler
-															}
-														>
-															-
-														</button>
-														<span>{qty}</span>
-														<button
-															onClick={
-																onQtyIncreaseHandler
-															}
-														>
-															+
-														</button>
-													</div>
-												</li>
-											</ul>
-										</div>
+										<Quantity onQtyUpdate={setQty} from="product" />
 
 										<AddToCart
 											productSku={product.sku}

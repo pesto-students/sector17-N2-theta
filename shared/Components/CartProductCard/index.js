@@ -1,12 +1,34 @@
 import CartProductCardStyle from "./Style";
 import { RemoveCartItemButton } from "../../Utils/RemoveCartItem";
 import { MoveToWishlistButton } from "shared/Utils/MoveToWishlist";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import GlobalContext from "context/GlobalContext";
+import Quantity from "../Quantity";
+import { updateCart } from "shared/Utils/AddToCart";
+import saveCartItems from "shared/Utils/saveCartItems";
 
 const CartProductCard = (props) => {
-  const { name, sku, price, image, manufacturer, model } = props;
-  const { wishlistItems } = useContext(GlobalContext);
+  const { name, sku, price, image, manufacturer, model, quantity } = props;
+  const { 
+    wishlistItems,
+    setCartItems,
+    setNotificationMessage,
+    setNotificationVisibility
+  } = useContext(GlobalContext);
+  const [qty, setQty] = useState(quantity);
+
+  const updateProductQuantity = async () => {
+    const updatedCartItems = await updateCart(sku, qty);
+
+    setCartItems(updatedCartItems);
+    saveCartItems(updatedCartItems);
+    setNotificationVisibility(true);
+    setNotificationMessage("Quantity update successfully");
+  }
+
+  useEffect(() => {
+    updateProductQuantity();
+  }, [qty])
 
   return <CartProductCardStyle>
     <div className="image-wrapper">
@@ -29,10 +51,13 @@ const CartProductCard = (props) => {
         </div>
       </div>
       <div className="price">
-        <span className="main-price">Rs. { price }</span>
+        <span className="main-price">Rs. { price*qty }</span>
         {/*<span className="strike-off-price">Rs. 2,399</span>
         <span className="discount">(62% OFF)</span>*/}
       </div>
+      
+      <Quantity onQtyUpdate={setQty} quantity={qty} from="cart" sku={sku}/>
+
       <div className="actions">
         {
           wishlistItems.indexOf(sku) < 0 ? (

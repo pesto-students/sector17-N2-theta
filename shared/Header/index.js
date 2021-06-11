@@ -24,31 +24,31 @@ const Header = () => {
     setDropMenu('');
   }, [currentPath])
 
-    return (
-        <HeaderStyle>
-            <div className="app-container">
-                <div className="header__wrapper">
-                    <div className="logo">
-                        <Link href="/">
-                            <a>Sector17</a>
-                        </Link>
-                    </div>
-                    <div className="header__actions">
-                        <Search />
-                        <User
-                            dropMenu={dropMenu}
-                            handleDropMenu={handleDropMenu}
-                        />
-                        <MiniCart
-                            dropMenu={dropMenu}
-                            handleDropMenu={handleDropMenu}
-                        />
-                    </div>
-                </div>
-            </div>
-            <Navigation />
-        </HeaderStyle>
-    );
+  return (
+      <HeaderStyle>
+          <div className="app-container">
+              <div className="header__wrapper">
+                  <div className="logo">
+                      <Link href="/">
+                          <a>Sector17</a>
+                      </Link>
+                  </div>
+                  <div className="header__actions">
+                      <Search />
+                      <User
+                          dropMenu={dropMenu}
+                          handleDropMenu={handleDropMenu}
+                      />
+                      <MiniCart
+                          dropMenu={dropMenu}
+                          handleDropMenu={handleDropMenu}
+                      />
+                  </div>
+              </div>
+          </div>
+          <Navigation />
+      </HeaderStyle>
+  );
 };
 
 export default Header;

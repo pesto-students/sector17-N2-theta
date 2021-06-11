@@ -1,7 +1,19 @@
 import GlobalContext from "context/GlobalContext";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import getCartItems from "./getCartItems";
 import saveCartItems from "./saveCartItems";
+
+const updateCart = (productSku, quantity) => {
+  const cartItems = getCartItems();
+  
+  const updatedCartItems = {
+    ...cartItems,
+    [productSku]: { qty: quantity },
+  }
+
+  return updatedCartItems;
+}
 
 const AddToCart = (props) => {
   const { children, productSku, quantity } = props;
@@ -13,7 +25,7 @@ const AddToCart = (props) => {
     setNotificationVisibility,
   } = useContext(GlobalContext);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     let message = "Successfully Added to Cart";
 
     if (cartItems && cartItems[productSku]) {
@@ -30,10 +42,7 @@ const AddToCart = (props) => {
       return false;
     }
 
-    const updatedCartItems = {
-      ...cartItems,
-      [productSku]: { qty: quantity },
-    };
+    const updatedCartItems = await updateCart(productSku, quantity);
 
     setCartItems(updatedCartItems);
     saveCartItems(updatedCartItems);
@@ -72,3 +81,4 @@ const AddToCart = (props) => {
 };
 
 export default AddToCart;
+export { updateCart };
