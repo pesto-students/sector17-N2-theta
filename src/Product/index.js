@@ -54,6 +54,7 @@ const Product = () => {
       if (resData.name.rows[0].elements[0].status === "NOT_FOUND") {
         setDelivery("Pincode is Invalid");
       } else {
+        localStorage.setItem("pincode", destinationPincode);
         let deliveryMessage = "";
         const distacne =
           resData.name.rows[0].elements[0].distance.text.split(" ");
@@ -95,14 +96,14 @@ const Product = () => {
                 <Grid count={2} gap={20}>
                   <div className="product_gallery">
                     <div className="product_thumbnail">
-                      <ul>
+                      {/* <ul>
                         <li>
                           <img src="/images/product-img.png" />
                         </li>
                         <li>
                           <img src="/images/product-img.png" />
                         </li>
-                      </ul>
+                      </ul> */}
                     </div>
                     <div className="product_full">
                       <img src={product.image} />
