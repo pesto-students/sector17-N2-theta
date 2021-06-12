@@ -8,27 +8,14 @@ import ProfileSidebar from "../../shared/Components/ProfileSidebar";
 import MyAccountStyle from "./Style";
 
 const MyAccount = () => {
-  const [isEdit, setIsEdit] = useState(true);
-  const [address, setAddress] = useState([]);
-  const [userId, setUserId] = useState();
   const {
     isLogin,
     currentUser: user,
     setWishlistItems,
   } = useContext(GlobalContext);
 
-  const { isLoading, data: userAddress } = useAddress(userId);
-
-  useEffect(() => {
-    if (user) {
-      setUserId(user.uid);
-      setAddress(userAddress);
-    }
-    console.log(userId);
-  }, [address]);
-
   const onClickHandler = () => {
-    isLogin ? setIsEdit(true) : setIsEdit(false);
+    setIsEdit(!!isLogin);
   };
   return (
     <MyAccountStyle>
@@ -36,8 +23,7 @@ const MyAccount = () => {
         <div className="row_group">
           <ProfileSidebar />
           <div className="dashboard">
-            {!isLoading && console.log(address)}
-            <Address isEdit={isEdit} onClick={onClickHandler} user={user} />
+            {isLogin && <Address onClick={onClickHandler} user={user} />}
           </div>
         </div>
       )}
