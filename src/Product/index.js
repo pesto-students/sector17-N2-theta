@@ -37,7 +37,6 @@ const Product = () => {
   );
   // Similer Products
   const { data: products = {} } = useProducts(0, 4, "sku", product.category);
-  console.log(product.category);
 
   const onPincodeHandler = async (event) => {
     event.preventDefault();
@@ -50,14 +49,14 @@ const Product = () => {
       headers: { "Content-Type": "application/json" },
     });
     const resData = await response.json();
-    if (resData.name.status === "OK") {
-      if (resData.name.rows[0].elements[0].status === "NOT_FOUND") {
+    if (resData.distance.status === "OK") {
+      if (resData.distance.rows[0].elements[0].status === "NOT_FOUND") {
         setDelivery("Pincode is Invalid");
       } else {
         localStorage.setItem("pincode", destinationPincode);
         let deliveryMessage = "";
         const distacne =
-          resData.name.rows[0].elements[0].distance.text.split(" ");
+          resData.distance.rows[0].elements[0].distance.text.split(" ");
         if (distacne[0] > 0 && distacne[0] <= 20) {
           deliveryMessage = "1 Working Day Delivery";
         } else if (distacne[0] > 20 && distacne[0] <= 250) {
