@@ -35,7 +35,7 @@ const Address = (props) => {
       setPhone(userAddress.address.phone);
     }
   }, [userAddress]);
-  
+
   useEffect(() => {
     const addressIdentifier = setTimeout(() => {
       if (formIsValid) {
@@ -57,12 +57,13 @@ const Address = (props) => {
         });
         setLoading(false);
         setFormIsValid(false);
+        setIsEdit(!isEdit);
       }
     }, 500);
     return () => {
       clearTimeout(addressIdentifier);
     };
-  }, [onClickSaveHandeler,formIsValid]);
+  }, [onClickSaveHandeler, formIsValid]);
 
   const onClickSaveHandeler = (e) => {
     e.preventDefault();
@@ -102,26 +103,33 @@ const Address = (props) => {
             <div>
               {!isLoading && (
                 <div>
-                  <strong>
-                    {userAddress.address.firstName +
-                      " " +
-                      userAddress.address.lastName}
-                  </strong>
-                  <p>
-                    {userAddress.address.street} {userAddress.address.appartment}, {userAddress.address.city},{" "}
-                    {userAddress.address.state},<br />
-                    {userAddress.address.country}- {userAddress.address.pincode}
-                  </p>
-                  <p>
-                    <a href={`mailto:${userAddress.address.email}`}>
-                      {userAddress.address.email}
-                    </a>
-                  </p>
-                  <p>
-                    <a href={`tel:${userAddress.address.phone}`}>
-                      {userAddress.address.phone}
-                    </a>
-                  </p>
+                  {!!userAddress && (
+                    <div>
+                      <strong>
+                        {userAddress.address.firstName +
+                          " " +
+                          userAddress.address.lastName}
+                      </strong>
+                      <p>
+                        {userAddress.address.street}{" "}
+                        {userAddress.address.appartment},{" "}
+                        {userAddress.address.city}, {userAddress.address.state},
+                        <br />
+                        {userAddress.address.country}-{" "}
+                        {userAddress.address.pincode}
+                      </p>
+                      <p>
+                        <a href={`mailto:${userAddress.address.email}`}>
+                          {userAddress.address.email}
+                        </a>
+                      </p>
+                      <p>
+                        <a href={`tel:${userAddress.address.phone}`}>
+                          {userAddress.address.phone}
+                        </a>
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
