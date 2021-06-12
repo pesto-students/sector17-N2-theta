@@ -252,8 +252,8 @@ const Address = (props) => {
                 </div>
 
                 {loading && (
-                  <div>
-                    <i className="fas fa-spinner"></i>
+                  <div className="btn push-right">
+                    <i className="fa fa-spinner"></i>
                   </div>
                 )}
                 {!loading && <button className="btn push-right">Save</button>}
