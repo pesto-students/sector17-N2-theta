@@ -41,6 +41,7 @@ const Cart = () => {
             key={index}
             id={sku}
             {...products[sku]}
+            quantity={cartItems[sku].qty}
           />
         ))}
 

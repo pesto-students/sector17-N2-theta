@@ -8,6 +8,7 @@ import UserStyle from "./Style";
 
 const User = (props) => {
   const { dropMenu, handleDropMenu } = props;
+  
   const {
     isLogin,
     currentUser: user,
@@ -17,11 +18,13 @@ const User = (props) => {
   const handleClick = () => {
     handleDropMenu(dropMenu === "user" ? "" : "user");
   };
+
   useEffect(() => {
     console.log(user);
     const currentWishlist = getWishlistItems();
     setWishlistItems(currentWishlist);
   }, []);
+
   return (
     <UserStyle>
       <div className="header__action-item user">
