@@ -22,7 +22,7 @@ const Address = (props) => {
   const { isLoading, data: userAddress } = useAddress(props.user.uid);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && !!userAddress) {
       setFirstName(userAddress.address.firstName);
       setLastName(userAddress.address.lastName);
       setStreet(userAddress.address.street);
@@ -33,6 +33,8 @@ const Address = (props) => {
       setPincode(userAddress.address.pincode);
       setEmail(userAddress.address.email);
       setPhone(userAddress.address.phone);
+    } else {
+      setIsEdit(true);
     }
   }, [userAddress]);
 
