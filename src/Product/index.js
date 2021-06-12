@@ -40,7 +40,7 @@ const Product = () => {
   console.log(product.category);
 
   const onPincodeHandler = async (event) => {
-	event.preventDefault();
+    event.preventDefault();
     const originPincode = 143001;
     const destinationPincode = pincode;
     const data = { origin: originPincode, destination: destinationPincode };
@@ -51,25 +51,29 @@ const Product = () => {
     });
     const resData = await response.json();
     if (resData.name.status === "OK") {
-      let deliveryMessage = "";
-      const distacne =
-        resData.name.rows[0].elements[0].distance.text.split(" ");
-      if (distacne[0] > 0 && distacne[0] <= 20) {
-        deliveryMessage = "1 Working Day Delivery";
-      } else if (distacne[0] > 20 && distacne[0] <= 250) {
-        deliveryMessage = "2 Working Days Delivery";
-      } else if (distacne[0] > 250 && distacne[0] <= 500) {
-        deliveryMessage = "3 Working Days Delivery";
-      } else if (distacne[0] > 500 && distacne[0] <= 750) {
-        deliveryMessage = "4 Working Days Delivery";
-      } else if (distacne[0] > 750 && distacne[0] <= 1000) {
-        deliveryMessage = "5 Working Days Delivery";
+      if (resData.name.rows[0].elements[0].status === "NOT_FOUND") {
+        setDelivery("Pincode is Invalid");
       } else {
-        deliveryMessage = "10 Working Days Delivery";
+        let deliveryMessage = "";
+        const distacne =
+          resData.name.rows[0].elements[0].distance.text.split(" ");
+        if (distacne[0] > 0 && distacne[0] <= 20) {
+          deliveryMessage = "1 Working Day Delivery";
+        } else if (distacne[0] > 20 && distacne[0] <= 250) {
+          deliveryMessage = "2 Working Days Delivery";
+        } else if (distacne[0] > 250 && distacne[0] <= 500) {
+          deliveryMessage = "3 Working Days Delivery";
+        } else if (distacne[0] > 500 && distacne[0] <= 750) {
+          deliveryMessage = "4 Working Days Delivery";
+        } else if (distacne[0] > 750 && distacne[0] <= 1000) {
+          deliveryMessage = "5 Working Days Delivery";
+        } else {
+          deliveryMessage = "10 Working Days Delivery";
+        }
+        setDelivery(deliveryMessage);
       }
-      setDelivery(deliveryMessage);
     } else {
-      setDelivery("Something wrong");
+      setDelivery("Something is wrong with selection");
     }
   };
   return (
