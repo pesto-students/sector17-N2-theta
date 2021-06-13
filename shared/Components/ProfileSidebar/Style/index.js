@@ -8,6 +8,9 @@ const ProfileSidebarStyle = styled.div`
       padding: 10px;
       border: 1px solid ${(props) => props.theme.color.lightGrey};
     }
+    .active a {
+      color: ${(props) => props.theme.color.primary};
+    }
   }
 `;
 
