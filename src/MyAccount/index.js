@@ -14,16 +14,13 @@ const MyAccount = () => {
     setWishlistItems,
   } = useContext(GlobalContext);
 
-  const onClickHandler = () => {
-    setIsEdit(!!isLogin);
-  };
   return (
     <MyAccountStyle>
       {!!user && (
         <div className="row_group">
           <ProfileSidebar />
           <div className="dashboard">
-            {isLogin && <Address onClick={onClickHandler} user={user} />}
+            {isLogin && <Address  user={user} />}
           </div>
         </div>
       )}
