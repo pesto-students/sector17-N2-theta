@@ -45,38 +45,44 @@ const CartWithItems = css`
     border: 1px solid ${props => props.theme.color.lightGrey};
     border-radius: 3px;
 
-    .details-heading {
-      ${heading}
-    }
+    .summary-inner {
+      position: sticky;
+      top: 140px;
 
-    .details {
-      padding:0 20px;
+      .details-heading {
+        ${heading}
+      }
 
-      li {
-        line-height: 40px;
-        display: flex;
-        justify-content: space-between;
+      .details {
+        padding:0 20px;
 
-        &.total {
-          border-top: 1px solid ${props => props.theme.color.lightGrey};
-          font-weight: 600;
-        }
-
-        .form {
+        li {
+          line-height: 40px;
           display: flex;
           justify-content: space-between;
 
-          input[type="text"]{
-            border: none;
-            border-bottom: 1px solid ${props => props.theme.color.grey};
+          &.total {
+            border-top: 1px solid ${props => props.theme.color.lightGrey};
+            font-weight: 600;
           }
-          button {
-            color: ${props => props.theme.color.primary};
-            white-space: nowrap;
+
+          .form {
+            display: flex;
+            justify-content: space-between;
+
+            input[type="text"]{
+              border: none;
+              border-bottom: 1px solid ${props => props.theme.color.grey};
+            }
+            button {
+              color: ${props => props.theme.color.primary};
+              white-space: nowrap;
+            }
           }
         }
       }
     }
+
 
     @media screen and (max-width: 767px) {
       padding-top: 15px;
