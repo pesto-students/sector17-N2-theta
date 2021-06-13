@@ -16,6 +16,7 @@ const Address = (props) => {
   const [pincode, setPincode] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState({});
 
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -33,9 +34,7 @@ const Address = (props) => {
       setPincode(userAddress.address.pincode);
       setEmail(userAddress.address.email);
       setPhone(userAddress.address.phone);
-    } else {
-      setIsEdit(true);
-    }
+    } 
   }, [userAddress]);
 
   useEffect(() => {
@@ -59,7 +58,7 @@ const Address = (props) => {
         });
         setLoading(false);
         setFormIsValid(false);
-        setIsEdit(!isEdit);
+        setIsEdit(false);
       }
     }, 500);
     return () => {
@@ -93,50 +92,33 @@ const Address = (props) => {
         <div className="title">
           <div className="row_group">
             <div>Shipping Address</div>
-            <div>
-              <button className="btn" onClick={onEditAddress}>
-                Edit/Add Address
-              </button>
-            </div>
           </div>
         </div>
         <div className="form_container">
           {!isEdit && (
             <div>
-              {!isLoading && (
-                <div>
-                  {!!userAddress && (
-                    <div>
-                      <strong>
-                        {userAddress.address.firstName +
-                          " " +
-                          userAddress.address.lastName}
-                      </strong>
-                      <p>
-                        {userAddress.address.street}{" "}
-                        {userAddress.address.appartment},{" "}
-                        {userAddress.address.city}, {userAddress.address.state},
-                        <br />
-                        {userAddress.address.country}-{" "}
-                        {userAddress.address.pincode}
-                      </p>
-                      <p>
-                        <a href={`mailto:${userAddress.address.email}`}>
-                          {userAddress.address.email}
-                        </a>
-                      </p>
-                      <p>
-                        <a href={`tel:${userAddress.address.phone}`}>
-                          {userAddress.address.phone}
-                        </a>
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
+              <div className="shipping_address">
+                {!!userAddress && (
+                  <div className="address">
+                    <strong>{firstName + " " + lastName}</strong>
+                    <p>
+                      {street} {appartment},
+                      <br />
+                      {city}, {state}, Pincode {pincode} <br />
+                      Phone Number <a href={`tel:${phone}`}>{phone}</a> <br />
+                      {country}
+                    </p>
+                  </div>
+                )}
+
+                <span className="action" onClick={onEditAddress}>
+                  Edit
+                </span>
+              </div>
             </div>
           )}
-          {isEdit && (
+
+          {!!userAddress || isEdit && (
             <div>
               <form onSubmit={onClickSaveHandeler}>
                 <div className="row_group">
@@ -232,7 +214,7 @@ const Address = (props) => {
                     placeholder="Email"
                     required="yes"
                     onChange={(event) => setEmail(event.target.value)}
-                    value={props.user.email ? props.user.emai : email}
+                    value={props.user.email ? props.user.email : email}
                   />
 
                   <Input
@@ -252,9 +234,9 @@ const Address = (props) => {
                 </div>
 
                 {loading && (
-                  <div className="btn push-right">
+                  <span className="push-right">
                     <i className="fa fa-spinner"></i>
-                  </div>
+                  </span>
                 )}
                 {!loading && <button className="btn push-right">Save</button>}
               </form>

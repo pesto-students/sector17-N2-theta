@@ -1,16 +1,19 @@
 import GlobalContext from "@/appContext";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import Address from "shared/Components/Address";
 
 const Checkout = () => {
   const router = useRouter();
-  const { cartPriceDetails } = useContext(GlobalContext);
+  const { cartPriceDetails, isLogin, currentUser } = useContext(GlobalContext);
 
-  if(cartPriceDetails && cartPriceDetails.total == 0){
-    router.push('/cart');
+  if (cartPriceDetails && cartPriceDetails.total == 0) {
+    // router.push("/cart");
   }
 
-  return <div>Checkout</div>
-}
+  return (
+    <div>{isLogin && <Address user={currentUser} />}</div>
+  );
+};
 
 export default Checkout;

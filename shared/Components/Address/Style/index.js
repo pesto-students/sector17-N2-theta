@@ -7,6 +7,28 @@ const AddressStyle = styled.div`
     .push-right {
       margin: 0 0 0 auto;
     }
+    .shipping_address {
+      border: 1px solid ${(props) => props.theme.color.grey};
+      background: ${(props) => props.theme.color.lightGrey};
+      display: flex;
+      padding: 10px;
+      .address {
+        flex: 1;
+      }
+      .action {
+        flex: 1;
+        text-align: right;
+      }
+    }
+
+    span {
+      font-size: 1.4rem;
+      position: relative;
+      bottom: 1.2rem;
+      padding: 10px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
   .title {
     border-bottom: 1px solid ${(props) => props.theme.color.grey};
@@ -17,12 +39,10 @@ const AddressStyle = styled.div`
     padding: 10px;
     text-decoration: underline;
   }
-  span {
-    flex: 1;
-    font-size: 1.2rem;
-    position: relative;
-    bottom: 1.2rem;
-    padding: 10px;
+  form {
+    span {
+      flex: 1;
+    }
   }
 `;
 
