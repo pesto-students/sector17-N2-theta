@@ -5,7 +5,6 @@ import Banner from "../../shared/Components/Banner";
 import USP from "../../shared/Components/USP";
 import TopTrendingProducts from "../../shared/Components/TopTrendingProducts";
 import FeaturedCollections from "../../shared/Components/FeaturedCollections";
-
 const RecentlyViewed = dynamic(() => import("../../shared/Components/RecentlyViewed"), {
   ssr: false
 });
