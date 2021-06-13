@@ -61,23 +61,76 @@ const CartWithItems = css`
           display: flex;
           justify-content: space-between;
 
+          &.coupon-discount, &.delivery-charge {
+            .value, .green {
+              color: ${props => props.theme.color.green};
+            }
+          }
+
           &.total {
             border-top: 1px solid ${props => props.theme.color.lightGrey};
             font-weight: 600;
           }
 
-          .form {
-            display: flex;
-            justify-content: space-between;
+          &.button{
+            padding-top: 10px;
+            padding-bottom: 20px;
 
-            input[type="text"]{
-              border: none;
-              border-bottom: 1px solid ${props => props.theme.color.grey};
+            a {
+              display: block;
+              width: 100%;
+              background: ${props => props.theme.color.primary};
+              text-align: center;
+              border-radius: 3px;
+              color: ${props => props.theme.color.white};
+              font-size: 1.6rem;
+              letter-spacing: 1px;
             }
-            button {
-              color: ${props => props.theme.color.primary};
-              white-space: nowrap;
+          }
+
+          button {
+            color: ${props => props.theme.color.primary};
+            white-space: nowrap;
+            border: none;
+            background: none;
+            cursor: pointer;
+          }
+
+          .form {
+            width: 100%;
+
+            .fields{
+              display: flex;
+              justify-content: space-between;
+              gap: 10px;
+
+              input[type="text"]{
+                width: 100%;
+                height: 40px;
+                border: none;
+                border-bottom: 1px solid ${props => props.theme.color.grey};
+
+                &:focus{
+                  border-bottom: 1px solid ${props => props.theme.color.black};
+                }
+              }
+              button {
+                padding: 0;
+                height: 40px;
+
+                &:disabled{
+                  color: ${props => props.theme.color.darkGrey};
+                  pointer-events: none;
+                }
+              }
             }
+
+            .error {
+              line-height: 25px;
+              color: #ff0000;
+              font-size: 1.2rem;
+            }
+
           }
         }
       }
