@@ -9,9 +9,6 @@ const QuantityStyle = styled.div`
       flex-direction: column;
 
       li {
-          // flex: 1;
-          // background: none;
-          // font-weight: bold;
           > div {
               margin-top: 5px;
               display: flex;
@@ -30,6 +27,11 @@ const QuantityStyle = styled.div`
               font-size: 21px;
               color: #333;
               cursor: pointer;
+
+              &:disabled{
+                  pointer-events: none;
+                  opacity: 0.5;
+              }
 
               &:hover {
                   border-color: #ddd;

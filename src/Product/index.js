@@ -124,7 +124,11 @@ const Product = () => {
                       <span className="stike-through">Rs.150</span>
                     </div>
 
-                    <Quantity onQtyUpdate={setQty} from="product" />
+                    <Quantity
+                      onQtyUpdate={setQty}
+                      quantity={qty}
+                      from="product"
+                    />
 
                     <AddToCart productSku={product.sku} quantity={qty}>
                       Add to Cart

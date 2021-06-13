@@ -13,6 +13,12 @@ const MyApp = ({ Component, pageProps }) => {
   const [wishlistItems, setWishlistItems] = useState();
   const [notificationVisibility, setNotificationVisibility] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
+  const [cartPriceDetails, setCartPriceDetails] = useState({
+    subTotal : 0,
+    discount : 0,
+    couponDiscount : 0,
+    total : 0
+  });
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -23,6 +29,8 @@ const MyApp = ({ Component, pageProps }) => {
   });
 
   const contextData = {
+    cartPriceDetails,
+    setCartPriceDetails,
     cartItemsCount,
     setCartItemsCount,
     isLogin,

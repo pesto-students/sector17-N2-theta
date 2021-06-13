@@ -1,4 +1,5 @@
 import CartProductCardStyle from "./Style";
+import Link from "next/link";
 import { RemoveCartItemButton } from "../../Utils/RemoveCartItem";
 import { MoveToWishlistButton } from "shared/Utils/MoveToWishlist";
 import { useContext, useEffect, useState } from "react";
@@ -6,24 +7,28 @@ import GlobalContext from "context/GlobalContext";
 import Quantity from "../Quantity";
 import { updateCart } from "shared/Utils/AddToCart";
 import saveCartItems from "shared/Utils/saveCartItems";
+import getWishlistItems from "shared/Utils/getWishlistItems";
 
 const CartProductCard = (props) => {
-  const { name, sku, price, image, manufacturer, model, quantity } = props;
+  const { name, sku, price, image, manufacturer, model, quantity, category } = props;
   const { 
-    wishlistItems,
     setCartItems,
     setNotificationMessage,
     setNotificationVisibility
   } = useContext(GlobalContext);
+
+  const wishlistItems = getWishlistItems();
+
   const [qty, setQty] = useState(quantity);
 
   const updateProductQuantity = async () => {
-    const updatedCartItems = await updateCart(sku, qty);
-
-    setCartItems(updatedCartItems);
-    saveCartItems(updatedCartItems);
-    setNotificationVisibility(true);
-    setNotificationMessage("Quantity update successfully");
+    if(sku){
+      const updatedCartItems = await updateCart(sku, qty);
+      setCartItems(updatedCartItems);
+      saveCartItems(updatedCartItems);
+      setNotificationVisibility(true);
+      setNotificationMessage("Quantity update successfully");
+    }
   }
 
   useEffect(() => {
@@ -32,10 +37,18 @@ const CartProductCard = (props) => {
 
   return <CartProductCardStyle>
     <div className="image-wrapper">
-      <img src={image} alt={name} />
+      <Link href={`/categories/${category}/${sku}`}>
+        <a>
+          <img src={image} alt={name} />
+        </a>
+      </Link>
     </div>
     <div className="details-wrapper">
-      <div className="name">{ name }</div>
+      <div className="name">
+        <Link href={`/categories/${category}/${sku}`}>
+          <a>{ name }</a>
+        </Link>
+      </div>
       <div className="details">
         <div>
           <span className="label">Sku:</span> 
@@ -51,7 +64,7 @@ const CartProductCard = (props) => {
         </div>
       </div>
       <div className="price">
-        <span className="main-price">Rs. { price*qty }</span>
+        <span className="main-price">Rs.{ price * qty }</span>
         {/*<span className="strike-off-price">Rs. 2,399</span>
         <span className="discount">(62% OFF)</span>*/}
       </div>
@@ -60,7 +73,7 @@ const CartProductCard = (props) => {
 
       <div className="actions">
         {
-          wishlistItems.indexOf(sku) < 0 ? (
+          wishlistItems && wishlistItems.indexOf(sku) < 0 ? (
             <>
               <MoveToWishlistButton productSku={sku} />
               <span> | </span>
