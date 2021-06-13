@@ -4,9 +4,9 @@ import { useContext } from "react";
 import getCartItems from "./getCartItems";
 import saveCartItems from "./saveCartItems";
 
-const updateCart = (productSku, quantity) => {
-  const cartItems = getCartItems();
-  
+const updateCart = async (productSku, quantity, currentUser) => {
+  const cartItems = await getCartItems(currentUser ? currentUser.uid : null);
+
   const updatedCartItems = {
     ...cartItems,
     [productSku]: { qty: quantity },
@@ -19,6 +19,7 @@ const AddToCart = (props) => {
   const { children, productSku, quantity } = props;
   const router = useRouter();
   const {
+    currentUser,
     cartItems,
     setCartItems,
     setNotificationMessage,
@@ -42,10 +43,10 @@ const AddToCart = (props) => {
       return false;
     }
 
-    const updatedCartItems = await updateCart(productSku, quantity);
+    const updatedCartItems = await updateCart(productSku, quantity, currentUser);
 
     setCartItems(updatedCartItems);
-    saveCartItems(updatedCartItems);
+    saveCartItems(updatedCartItems, currentUser ? currentUser.uid : null);
     setNotificationVisibility(true);
     setNotificationMessage(message);
   };

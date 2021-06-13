@@ -3,19 +3,27 @@ import { useContext } from "react";
 import getWishlistItems from "./getWishlistItems";
 import saveWishlistItems from "./saveWishlistItems";
 
-const handleWishlistItems = (productSku) => {
+const handleWishlistItems = async (productSku, currentUser) => {
   let action = '';
-  let currentWishlistItems = getWishlistItems();
-  const itemIndex = currentWishlistItems.indexOf(productSku);
-  if(itemIndex < 0){
-    currentWishlistItems.push(productSku);
-    action = 'add';
-  }else{
-    currentWishlistItems = currentWishlistItems.filter((item) => item !== productSku);
-    action = 'remove';
-  }
+  let currentWishlistItems = await getWishlistItems(currentUser.uid);
 
-  saveWishlistItems(currentWishlistItems);
+  console.log('currentWishlistItems currentWishlistItems currentWishlistItems');
+  console.log(currentWishlistItems);
+
+  if(currentWishlistItems == null){
+    currentWishlistItems = [productSku];
+  }else{
+    const itemIndex = currentWishlistItems.indexOf(productSku);
+    if(itemIndex < 0){
+      currentWishlistItems.push(productSku);
+      action = 'add';
+    }else{
+      currentWishlistItems = currentWishlistItems.filter((item) => item !== productSku);
+      action = 'remove';
+    }
+  }
+  
+  saveWishlistItems(currentWishlistItems, currentUser.uid);
 
   return {
     items : currentWishlistItems,
@@ -27,6 +35,7 @@ const AddToWishlistButton = (props) => {
   const { productSku } = props;
 
   const {
+    currentUser,
     wishlistItems,
     setWishlistItems,
     setNotificationMessage,
@@ -36,7 +45,8 @@ const AddToWishlistButton = (props) => {
   const handleClick = async () => {
     let message = "";
 
-    const wishlist = await handleWishlistItems(productSku);
+    const wishlist = await handleWishlistItems(productSku, currentUser);
+    
     if(wishlist.action == 'add'){
       message = "Successfully Added to Wishlist";
     }else{
@@ -50,11 +60,17 @@ const AddToWishlistButton = (props) => {
 
   return (
     <button className='add-to-wishlist' onClick={handleClick}>
-      {!wishlistItems || wishlistItems && wishlistItems.indexOf(productSku) < 0 ? (
-        <i className='fa fa-heart-o' aria-hidden='true'></i>
-      ) : (
-        <i className='fa fa-heart' aria-hidden='true'></i>
-      )}
+      {
+        wishlistItems == null ? (
+          <i className='fa fa-heart-o' aria-hidden='true'></i>
+        ) : (
+          wishlistItems && wishlistItems.indexOf(productSku) >= 0 ? (
+            <i className='fa fa-heart' aria-hidden='true'></i>
+          ) : (
+            <i className='fa fa-heart-o' aria-hidden='true'></i>
+          )
+        )
+      }
     </button>
   );
 }

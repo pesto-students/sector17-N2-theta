@@ -3,9 +3,9 @@ import { useContext } from "react";
 import handleWishlistItems from "./AddToWishlist";
 import RemoveCartItem from "./RemoveCartItem";
 
-const moveToWishlist = (productSku) => {
-  const cartItems = RemoveCartItem(productSku)
-  const wishlistItems = handleWishlistItems(productSku);
+const moveToWishlist = (productSku, currentUser) => {
+  const cartItems = RemoveCartItem(productSku, currentUser)
+  const wishlistItems = handleWishlistItems(productSku, currentUser);
   
   return {
     cartItems,
@@ -15,10 +15,10 @@ const moveToWishlist = (productSku) => {
 
 const MoveToWishlistButton = (props) => {
   const { productSku } = props;
-  const { setWishlistItems, setCartItems, setNotificationMessage, setNotificationVisibility } = useContext(GlobalContext);
+  const { currentUser, setWishlistItems, setCartItems, setNotificationMessage, setNotificationVisibility } = useContext(GlobalContext);
 
   const handleClick = async () => {
-    const { cartItems, wishlistItems } = await moveToWishlist(productSku);
+    const { cartItems, wishlistItems } = await moveToWishlist(productSku, currentUser);
 
     setCartItems(cartItems);
     setWishlistItems(wishlistItems);

@@ -10,20 +10,12 @@ const User = (props) => {
   const { dropMenu, handleDropMenu } = props;
   
   const {
-    isLogin,
-    currentUser: user,
-    setWishlistItems,
+    isLogin
   } = useContext(GlobalContext);
 
   const handleClick = () => {
     handleDropMenu(dropMenu === "user" ? "" : "user");
   };
-
-  useEffect(() => {
-    console.log(user);
-    const currentWishlist = getWishlistItems();
-    setWishlistItems(currentWishlist);
-  }, []);
 
   return (
     <UserStyle>
