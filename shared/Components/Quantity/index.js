@@ -1,16 +1,18 @@
 import QuantityStyle from "./Style";
 
-const Quantity = ({ onQtyUpdate, quantity = 1, from, sku}) => {
+const Quantity = ({ onQtyUpdate, quantity = 1, from, setQtyUpdate}) => {
   const minQty = 1;
   
   const onQtyDecreaseHandler = () => {
     if (quantity > minQty) {
       onQtyUpdate(quantity - 1);
+      from == 'cart' && setQtyUpdate(true);
     }
   };
 
   const onQtyIncreaseHandler = () => {
     onQtyUpdate(quantity + 1);
+    from == 'cart' && setQtyUpdate(true);
   };
 
   return (

@@ -10,7 +10,7 @@ import saveCartItems from "shared/Utils/saveCartItems";
 import getWishlistItems from "shared/Utils/getWishlistItems";
 
 const CartProductCard = (props) => {
-  const { name, sku, price, image, manufacturer, model, quantity, category } = props;
+  const { name, sku, price, image, manufacturer, model, quantity, category, setQtyUpdate } = props;
   const { 
     setCartItems,
     setNotificationMessage,
@@ -64,12 +64,12 @@ const CartProductCard = (props) => {
         </div>
       </div>
       <div className="price">
-        <span className="main-price">Rs.{ price * qty }</span>
+        <span className="main-price">Rs.{ (price * qty).toFixed(2) }</span>
         {/*<span className="strike-off-price">Rs. 2,399</span>
         <span className="discount">(62% OFF)</span>*/}
       </div>
       
-      <Quantity onQtyUpdate={setQty} quantity={qty} from="cart" sku={sku}/>
+      <Quantity onQtyUpdate={setQty} quantity={qty} from="cart" sku={sku} setQtyUpdate={setQtyUpdate}/>
 
       <div className="actions">
         {

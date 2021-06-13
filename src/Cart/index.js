@@ -1,31 +1,30 @@
-import { useProductsBySKU } from "@/data";
 import GlobalContext from "context/GlobalContext";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import CartProductCard from "shared/Components/CartProductCard";
+import { useContext, useEffect, useState, useMemo } from "react";
 import getCartItems from "shared/Utils/getCartItems";
-import getCouponDiscount from "shared/Utils/getCouponDiscount";
 import CartStyle from "./Style";
+import CartProducts from "./Products";
+import getCouponDiscount from "shared/Utils/getCouponDiscount";
 
 const Cart = () => {
-  const [dataLimit, setDataLimit] = useState(10);
-  const [products, setProducts] = useState({});
-  const cartItems = getCartItems();
-  const cartItemsCount = Object.keys(cartItems).length;
-  const { cartPriceDetails, setCartPriceDetails } = useContext(GlobalContext);
-
-  const carItemsSku = Object.keys(cartItems).map((sku) => {
-    return parseInt(sku);
-  })
-
-  const { data, status, isLoading, isError } = useProductsBySKU(
-    0,
-    dataLimit,
-    [...carItemsSku]
-  );
+  const [cartItemsSku, setCartItemsSku] = useState([]);
+  const [cartItemsCount, setCartItemsCount] = useState();
+  const { cartPriceDetails, setCartPriceDetails, cartItems, setCartItems } = useContext(GlobalContext);
+  const [couponCode, setCouponCode] = useState('');
+  const [couponError, setCouponError] = useState('');
+  
+  const applyCoupon = () => {
+    if(couponCode == ''){
+      setCouponError('Please Enter a coupon code.')
+    }
+    if(couponCode == 'sector17'){
+      setCouponError('Please Enter a valid coupon code.')
+    }
+  }
 
   const preparePriceDetails = (data) => {
     let subTotal = 0;
+
     Object.keys(cartItems).map((sku) => {
       subTotal += data[sku].price * cartItems[sku].qty;
     });
@@ -38,30 +37,26 @@ const Cart = () => {
       discount : 0,
       coupon : couponInfo.coupon,
       couponDiscount : couponInfo.discount,
-      total : subTotal - couponInfo.discount
+      total : couponInfo.coupon ? subTotal - couponInfo.discount : subTotal
     })
   }
 
-  useEffect(() => {
-    if (status === "success") {
-      setProducts({ ...data });
-      preparePriceDetails(data);
-    }
-  }, [status]);
+  useEffect(async () => {
+    setCartItemsCount(Object.keys(cartItems).length);
+    setCartItemsSku(Object.keys(cartItems).map((sku) => {
+      return parseInt(sku);
+    }))
+  }, [cartItems])
 
   return (
     cartItemsCount > 0 ? <CartStyle>
       <div className="products">
         <h1>My Cart ({cartItemsCount})</h1>
 
-        {!isError && Object.keys(cartItems).map((sku, index) => (
-          <CartProductCard
-            key={index}
-            id={sku}
-            {...products[sku]}
-            quantity={cartItems[sku].qty}
-          />
-        ))}
+        <CartProducts 
+          cartItemsSku={cartItemsSku}
+          preparePriceDetails={preparePriceDetails}
+        />
 
         <div className="continue-shopping">
           <Link href="/">
@@ -70,47 +65,52 @@ const Cart = () => {
         </div>
       </div>
       <div className="summary">
-        <div className="details-heading">Price details</div>
-        {
-          cartPriceDetails && <ul className="details">
-            <li className="price">
-              <span className="label">Price ({cartItemsCount} items)</span>
-              <span className="value">{cartPriceDetails.subTotal}</span>
-            </li>
-            <li className="discount">
-              <span className="label">Discount</span>
-              <span className="value">0</span>
-            </li>
-            <li className="coupon-discount">
-              {
-                cartPriceDetails.coupon ? (
+        <div className="summary-inner">
+          <div className="details-heading">Price details</div>
+          {
+            cartPriceDetails && <ul className="details">
+              <li className="price">
+                <span className="label">Price ({cartItemsCount} items)</span>
+                <span className="value">{cartPriceDetails.subTotal.toFixed(2)}</span>
+              </li>
+              <li className="discount">
+                <span className="label">Discount</span>
+                <span className="value">0</span>
+              </li>
+              <li className="coupon-discount">
+                {cartPriceDetails.coupon ? (
                   <>
                     <span className="label">Coupon Discount ({cartPriceDetails.coupon})</span>
-                    <span className="value">{cartPriceDetails.couponDiscount}</span>
+                    <span className="value">{cartPriceDetails.couponDiscount.toFixed(2)}</span>
                   </>
                 ) : (
-                  <div className="form">
-                    <input type="text" name="" id="" />
-                    <button>Apply Coupon</button>
-                  </div>
-                )
-              }
-            </li>
-            <li className="delivery-charge">
-              <span className="label">Delivery Charge</span>
-              <span className="value">Free</span>
-            </li>
-            <li className="total">
-              <span className="label">Total Amount</span>
-              <span className="value">{cartPriceDetails.total}</span>
-            </li>
-            <li className="button">
-              <Link href="/checkout">
-                <a>Place Order</a>
-              </Link>
-            </li>
-          </ul>
-        }
+                  <>
+                    <div className="form">
+                      <input type="text" value={couponCode} onChange={setCouponCode} name="" id="" placeholder="Enter Coupon Code" />
+                      <button onClick={applyCoupon}>Apply Coupon</button>
+                    </div>
+                    <div className="error">
+                      {couponError}
+                    </div>
+                  </>
+                )}
+              </li>
+              <li className="delivery-charge">
+                <span className="label">Delivery Charge</span>
+                <span className="value">Free</span>
+              </li>
+              <li className="total">
+                <span className="label">Total Amount</span>
+                <span className="value">{cartPriceDetails.total.toFixed(2)}</span>
+              </li>
+              <li className="button">
+                <Link href="/checkout">
+                  <a>Place Order</a>
+                </Link>
+              </li>
+            </ul>
+          }
+        </div>
       </div>
     </CartStyle> : <CartStyle emptyCart={true}>
       No Items in Your Cart
