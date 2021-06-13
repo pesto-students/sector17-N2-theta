@@ -8,7 +8,7 @@ const AddToCart = dynamic(() => import("shared/Utils/AddToCart"), {
 });
 
 const ProductCard = (props) => {
-  const { image, title, price, sku, slug } = props;
+  const { image, name: title, price, sku, slug } = props;
 
   return (
     <ProductCardStyle>
@@ -19,7 +19,7 @@ const ProductCard = (props) => {
               <img src={ image } />
             </div>
             <div className="product_caption">
-              <span className="soldby">Sold by: Nike</span>
+              <span className="soldby">&nbsp;</span>
               <div className="product_title">{ title }</div>
               <div className="review">
                 <i className="fa fa-star" />
@@ -27,12 +27,12 @@ const ProductCard = (props) => {
                 <i className="fa fa-star" />
                 <i className="fa fa-star" />
                 <i className="fa fa-star" />
-                <span className="count">149</span>
+                <span className="count"></span>
               </div>
               <div className="row_group">
                 <div className="price">
                   <span className="main-price">Rs.{ price }</span>
-                  <span className="stike-through">Rs.150</span>
+                  <span className="stike-through"></span>
                 </div>
                 <div className="add-to-cart-placeholder"></div>
               </div>
