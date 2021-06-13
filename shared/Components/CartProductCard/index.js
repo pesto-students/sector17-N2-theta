@@ -7,7 +7,6 @@ import GlobalContext from "context/GlobalContext";
 import Quantity from "../Quantity";
 import { updateCart } from "shared/Utils/AddToCart";
 import saveCartItems from "shared/Utils/saveCartItems";
-import getWishlistItems from "shared/Utils/getWishlistItems";
 
 const CartProductCard = (props) => {
   const { name, sku, price, image, manufacturer, model, quantity, category, setQtyUpdate } = props;

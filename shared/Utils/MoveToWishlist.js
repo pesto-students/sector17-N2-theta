@@ -3,10 +3,10 @@ import { useContext } from "react";
 import handleWishlistItems from "./AddToWishlist";
 import RemoveCartItem from "./RemoveCartItem";
 
-const moveToWishlist = (productSku, currentUser) => {
-  const cartItems = RemoveCartItem(productSku, currentUser)
-  const wishlistItems = handleWishlistItems(productSku, currentUser);
-  
+const moveToWishlist = async (productSku, currentUser) => {
+  const cartItems = await RemoveCartItem(productSku, currentUser)
+  const wishlistItems = await handleWishlistItems(productSku, currentUser);
+
   return {
     cartItems,
     wishlistItems
@@ -21,7 +21,7 @@ const MoveToWishlistButton = (props) => {
     const { cartItems, wishlistItems } = await moveToWishlist(productSku, currentUser);
 
     setCartItems(cartItems);
-    setWishlistItems(wishlistItems);
+    setWishlistItems(wishlistItems.items);
     setNotificationVisibility(true);
     setNotificationMessage('Successfully Removed from Cart and Added to Wishlist');
   }
