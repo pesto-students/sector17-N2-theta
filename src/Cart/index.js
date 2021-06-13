@@ -9,17 +9,41 @@ import getCouponDiscount from "shared/Utils/getCouponDiscount";
 const Cart = () => {
   const [cartItemsSku, setCartItemsSku] = useState([]);
   const [cartItemsCount, setCartItemsCount] = useState();
-  const { cartPriceDetails, setCartPriceDetails, cartItems, setCartItems } = useContext(GlobalContext);
+  const { cartPriceDetails, setCartPriceDetails, cartItems } = useContext(GlobalContext);
   const [couponCode, setCouponCode] = useState('');
   const [couponError, setCouponError] = useState('');
   
+  const handleCouponCodeChange = (e) => {
+    setCouponCode(e.target.value);
+    setCouponError('');
+  }
+
   const applyCoupon = () => {
     if(couponCode == ''){
-      setCouponError('Please Enter a coupon code.')
+      setCouponError('Please Enter a coupon code.');
+      return;
     }
-    if(couponCode == 'sector17'){
-      setCouponError('Please Enter a valid coupon code.')
+    if(couponCode !== 'sector17'){
+      setCouponError('Please Enter a valid coupon code.');
+      return;
     }
+
+    localStorage.setItem('coupon', couponCode);
+    setCartPriceDetails({
+      ...cartPriceDetails,
+      coupon : couponCode,
+      total : cartPriceDetails.subTotal - cartPriceDetails.couponDiscount
+    })
+  }
+
+  const removeCouponCode = () => {
+    setCouponCode('');
+    localStorage.removeItem('coupon');
+    setCartPriceDetails({
+      ...cartPriceDetails,
+      coupon : null,
+      total : cartPriceDetails.subTotal
+    })
   }
 
   const preparePriceDetails = (data) => {
@@ -73,25 +97,31 @@ const Cart = () => {
                 <span className="label">Price ({cartItemsCount} items)</span>
                 <span className="value">{cartPriceDetails.subTotal.toFixed(2)}</span>
               </li>
-              <li className="discount">
+              {/* <li className="discount">
                 <span className="label">Discount</span>
                 <span className="value">0</span>
-              </li>
+              </li> */}
               <li className="coupon-discount">
                 {cartPriceDetails.coupon ? (
                   <>
-                    <span className="label">Coupon Discount ({cartPriceDetails.coupon})</span>
-                    <span className="value">{cartPriceDetails.couponDiscount.toFixed(2)}</span>
+                    <span className="label">
+                      Coupon (<span className="green">{cartPriceDetails.coupon}</span>)
+                      <button title="Remove Coupon" onClick={removeCouponCode}>x</button>
+                    </span>
+                    <span className="value">- {cartPriceDetails.couponDiscount.toFixed(2)}</span>
                   </>
                 ) : (
                   <>
                     <div className="form">
-                      <input type="text" value={couponCode} onChange={setCouponCode} name="" id="" placeholder="Enter Coupon Code" />
-                      <button onClick={applyCoupon}>Apply Coupon</button>
+                      <div className="fields">
+                        <input type="text" value={couponCode} onChange={handleCouponCodeChange} name="" id="" placeholder="Enter Coupon Code" />
+                        <button onClick={applyCoupon} disabled={couponError !== '' || couponCode == ''}>Apply Coupon</button>
+                      </div>
+                      <div className="error">
+                        {couponError}
+                      </div>
                     </div>
-                    <div className="error">
-                      {couponError}
-                    </div>
+                    
                   </>
                 )}
               </li>
