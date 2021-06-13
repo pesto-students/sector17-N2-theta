@@ -1,10 +1,9 @@
 import GlobalContext from "context/GlobalContext";
 import { useContext, useEffect, useState } from "react";
 import getCartItems from "../../../Utils/getCartItems";
-import saveCartItems from "../../../Utils/saveCartItems";
 
 const ItemsCount = () => {
-  const {cartItems, setCartItems} = useContext(GlobalContext);
+  const {currentUser, cartItems, setCartItems} = useContext(GlobalContext);
   const [count, setCount] = useState();
 
   useEffect(() => {
@@ -14,7 +13,7 @@ const ItemsCount = () => {
   }, [cartItems])
 
   useEffect(() => {
-    const itemsInCart = getCartItems();
+    const itemsInCart = getCartItems(currentUser ? currentUser.uid : null);
     setCartItems(itemsInCart);
     setCount(Object.keys(itemsInCart).length)
   }, [])

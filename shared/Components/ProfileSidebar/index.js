@@ -10,11 +10,11 @@ const ProfileSidebar = () => {
         <li className={router.pathname === "/profile" ? "active" : ""}>
           <Link href="/profile">My Profile</Link>
         </li>
-        <li className={router.pathname === "/orders" ? "active" : ""}>
-          <Link href="/orders">Orders</Link>
+        <li>
+          <Link href="/profile/orders">Orders</Link>
         </li>
-        <li className={router.pathname === "/wishlist" ? "active" : ""}>
-          <Link href="/wishlist">Wishlist</Link>
+        <li>
+          <Link href="/profile/wishlist">Wislist</Link>
         </li>
       </ul>
     </ProfileSidebarStyle>

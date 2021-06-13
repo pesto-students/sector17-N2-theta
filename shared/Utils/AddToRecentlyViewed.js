@@ -20,7 +20,7 @@ const AddToRecentlyViewed = ({productSku}) => {
     addCollectionToDb({ 
       collection : 'recentViewed', 
       userId : 'X1tDHanwBCb1I8e7iEgdFAVBZdX2', 
-      cart : JSON.stringify(currentViewedProducts)
+      data : JSON.stringify(currentViewedProducts)
     })
   }
 

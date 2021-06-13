@@ -7,25 +7,26 @@ import GlobalContext from "context/GlobalContext";
 import Quantity from "../Quantity";
 import { updateCart } from "shared/Utils/AddToCart";
 import saveCartItems from "shared/Utils/saveCartItems";
-import getWishlistItems from "shared/Utils/getWishlistItems";
 
 const CartProductCard = (props) => {
   const { name, sku, price, image, manufacturer, model, quantity, category, setQtyUpdate } = props;
+
   const { 
+    currentUser,
+    wishlistItems, 
+    setWishlistItems,
     setCartItems,
     setNotificationMessage,
     setNotificationVisibility
   } = useContext(GlobalContext);
 
-  const wishlistItems = getWishlistItems();
-
   const [qty, setQty] = useState(quantity);
 
   const updateProductQuantity = async () => {
     if(sku){
-      const updatedCartItems = await updateCart(sku, qty);
+      const updatedCartItems = await updateCart(sku, qty, currentUser);
       setCartItems(updatedCartItems);
-      saveCartItems(updatedCartItems);
+      saveCartItems(updatedCartItems, currentUser ? currentUser.uid : null);
       setNotificationVisibility(true);
       setNotificationMessage("Quantity update successfully");
     }

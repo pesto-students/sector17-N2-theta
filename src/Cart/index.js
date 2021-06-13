@@ -1,7 +1,6 @@
 import GlobalContext from "context/GlobalContext";
 import Link from "next/link";
-import { useContext, useEffect, useState, useMemo } from "react";
-import getCartItems from "shared/Utils/getCartItems";
+import { useContext, useEffect, useState } from "react";
 import CartStyle from "./Style";
 import CartProducts from "./Products";
 import getCouponDiscount from "shared/Utils/getCouponDiscount";
@@ -66,10 +65,12 @@ const Cart = () => {
   }
 
   useEffect(async () => {
-    setCartItemsCount(Object.keys(cartItems).length);
-    setCartItemsSku(Object.keys(cartItems).map((sku) => {
-      return parseInt(sku);
-    }))
+    if(cartItems){
+      setCartItemsCount(Object.keys(cartItems).length);
+      setCartItemsSku(Object.keys(cartItems).map((sku) => {
+        return parseInt(sku);
+      }))
+    }
   }, [cartItems])
 
   return (
