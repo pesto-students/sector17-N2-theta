@@ -11,10 +11,10 @@ const ProfileSidebar = () => {
           <Link href="/profile">My Profile</Link>
         </li>
         <li>
-          <Link href="/">Orders</Link>
+          <Link href="/profile/orders">Orders</Link>
         </li>
         <li>
-          <Link href="/profile">Wislist</Link>
+          <Link href="/profile/wishlist">Wislist</Link>
         </li>
       </ul>
     </ProfileSidebarStyle>
