@@ -8,13 +8,17 @@ const CartProductCardStyle = styled.div`
 
   .image-wrapper{
     width: 100px;
+    max-height: 100px;
 
     @media screen and (min-width: 768px) {
       width: 150px;
+      max-height: 150px;
     }
 
     img {
       width: 100%;
+      height: 100%;
+      object-fit: contain;
       display: block;
     }
   }
@@ -22,6 +26,7 @@ const CartProductCardStyle = styled.div`
   .details-wrapper{
     width: calc(100% - 100px);
     padding-left: 15px;
+    
     @media screen and (min-width: 768px) {
       width: calc(100% - 150px);
     }

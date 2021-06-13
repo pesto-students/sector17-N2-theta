@@ -1,9 +1,10 @@
 import QuantityStyle from "./Style";
 
 const Quantity = ({ onQtyUpdate, quantity = 1, from, sku}) => {
-
+  const minQty = 1;
+  
   const onQtyDecreaseHandler = () => {
-    if (quantity > 0) {
+    if (quantity > minQty) {
       onQtyUpdate(quantity - 1);
     }
   };
@@ -22,6 +23,7 @@ const Quantity = ({ onQtyUpdate, quantity = 1, from, sku}) => {
               onClick={
                 onQtyDecreaseHandler
               }
+              disabled={parseInt(quantity) == minQty}
             >
               -
             </button>

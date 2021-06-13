@@ -102,7 +102,7 @@ const Product = () => {
 											</span>
 										</div>
 
-										<Quantity onQtyUpdate={setQty} from="product" />
+										<Quantity onQtyUpdate={setQty} quantity={qty} from="product" />
 
 										<AddToCart
 											productSku={product.sku}

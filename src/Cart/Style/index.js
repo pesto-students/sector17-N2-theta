@@ -1,8 +1,18 @@
 import styled, { css } from 'styled-components';
 
+const heading = css`
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 45px;
+  border-bottom: 1px solid ${props => props.theme.color.lightGrey};
+  padding:0 20px;
+`;
+
 const CartWithItems = css`
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 20px;
 
   .products {
     width: 100%;
@@ -10,21 +20,16 @@ const CartWithItems = css`
     border-radius: 3px;
 
     @media screen and (min-width: 768px) {
-      width: calc(100% - 230px);
+      width: calc(100% - 250px);
     }
 
     @media screen and (min-width: 992px) {
-      width: calc(100% - 300px);
+      width: calc(100% - 320px);
     }
 
 
     h1 {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 500;
-      line-height: 45px;
-      border-bottom: 1px solid ${props => props.theme.color.lightGrey};
-      padding:0 20px;
+      ${heading}
     }
 
     .continue-shopping {
@@ -37,12 +42,47 @@ const CartWithItems = css`
 
   .summary {
     width: 100%;
+    border: 1px solid ${props => props.theme.color.lightGrey};
+    border-radius: 3px;
+
+    .details-heading {
+      ${heading}
+    }
+
+    .details {
+      padding:0 20px;
+
+      li {
+        line-height: 40px;
+        display: flex;
+        justify-content: space-between;
+
+        &.total {
+          border-top: 1px solid ${props => props.theme.color.lightGrey};
+          font-weight: 600;
+        }
+
+        .form {
+          display: flex;
+          justify-content: space-between;
+
+          input[type="text"]{
+            border: none;
+            border-bottom: 1px solid ${props => props.theme.color.grey};
+          }
+          button {
+            color: ${props => props.theme.color.primary};
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
     @media screen and (max-width: 767px) {
       padding-top: 15px;
     }
     @media screen and (min-width: 768px) {
       width: 230px;
-      padding-left: 15px;
     }
     @media screen and (min-width: 992px) {
       width: 300px;
