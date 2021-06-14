@@ -1,0 +1,96 @@
+[debug] [2021-06-09T15:38:28.148Z] ----------------------------------------------------------------------
+[debug] [2021-06-09T15:38:28.154Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Jessica\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2021-06-09T15:38:28.155Z] CLI Version:   9.12.0
+[debug] [2021-06-09T15:38:28.155Z] Platform:      win32
+[debug] [2021-06-09T15:38:28.155Z] Node Version:  v14.15.4
+[debug] [2021-06-09T15:38:28.170Z] Time:          Wed Jun 09 2021 21:08:28 GMT+0530 (India Standard Time)
+[debug] [2021-06-09T15:38:28.171Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-06-09T15:38:28.177Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-06-09T15:38:28.215Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-06-09T15:38:28.215Z] > authorizing via signed-in user (sharmapardeep971@gmail.com)
+[debug] [2021-06-09T15:38:28.215Z] [iam] checking project sector17-chandigarh for permissions ["firebase.projects.get"]
+[debug] [2021-06-09T15:38:28.217Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-06-09T15:38:28.217Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-09T15:38:28.477Z] <<< HTTP RESPONSE 200 {"date":"Wed, 09 Jun 2021 15:38:29 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-09T15:38:28.495Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sector17-chandigarh:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-06-09T15:38:29.298Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-06-09T15:38:29.299Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2021-06-09T15:38:30.214Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 09 Jun 2021 15:38:30 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1388","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-09T15:38:30.308Z] [functions] Using node@14 from host.
+[debug] [2021-06-09T15:38:30.310Z] defaultcredentials: writing to file C:\Users\Jessica\AppData\Roaming\firebase\sharmapardeep971_gmail_com_application_default_credentials.json
+[debug] [2021-06-09T15:38:30.313Z] DEBUG: Setting GAC to C:\Users\Jessica\AppData\Roaming\firebase\sharmapardeep971_gmail_com_application_default_credentials.json
+[debug] [2021-06-09T15:38:30.314Z] > refreshing access token with scopes: []
+[debug] [2021-06-09T15:38:30.315Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-09T15:38:30.530Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Wed, 09 Jun 2021 15:38:31 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-09T15:38:30.571Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sector17-chandigarh/adminSdkConfig [none]
+[debug] [2021-06-09T15:38:31.252Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sector17-chandigarh/adminSdkConfig 200
+[debug] [2021-06-09T15:38:31.252Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sector17-chandigarh/adminSdkConfig {"projectId":"sector17-chandigarh","storageBucket":"sector17-chandigarh.appspot.com","locationId":"asia-south1"}
+[debug] [2021-06-09T15:38:31.276Z] [functions] Watching "E:\PestoTechAssignment\Frontend\sector17-N2-theta\server\functions" for Cloud Functions...
+[debug] [2021-06-09T15:38:31.306Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2021-06-09T15:38:31.306Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2021-06-09T15:38:31.307Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2021-06-09T15:38:31.307Z] DEBUG: [worker-~diagnostic~-f00c9f5c-42a7-40de-a27a-58c96e7d47f2]: Assigning socketPath: \\?\pipe\E:\PestoTechAssignment\Frontend\sector17-N2-theta\server\functions\21404
+[debug] [2021-06-09T15:38:31.307Z] DEBUG: [worker-~diagnostic~-f00c9f5c-42a7-40de-a27a-58c96e7d47f2]: BUSY
+[debug] [2021-06-09T15:38:31.763Z] DEBUG: [runtime-status] [21404] Functions runtime initialized. {"cwd":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions","node_version":"14.15.4"}
+[debug] [2021-06-09T15:38:31.764Z] DEBUG: [runtime-status] [21404] Disabled runtime features: undefined
+[warn] !  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory. {"metadata":{"emulator":{"name":"functions"},"message":"The Cloud Functions emulator requires the module \"firebase-admin\" to be installed. This package is in your package.json, but it's not available. You probably need to run \"npm install\" in your functions directory."}}
+[debug] [2021-06-09T15:38:31.768Z] [functions] Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2021-06-09T15:38:31.792Z] DEBUG: [worker-~diagnostic~-f00c9f5c-42a7-40de-a27a-58c96e7d47f2]: exited
+[debug] [2021-06-09T15:38:31.793Z] DEBUG: [worker-~diagnostic~-f00c9f5c-42a7-40de-a27a-58c96e7d47f2]: FINISHED
+[debug] [2021-06-09T15:48:02.192Z] ----------------------------------------------------------------------
+[debug] [2021-06-09T15:48:02.197Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Jessica\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2021-06-09T15:48:02.198Z] CLI Version:   9.12.0
+[debug] [2021-06-09T15:48:02.198Z] Platform:      win32
+[debug] [2021-06-09T15:48:02.199Z] Node Version:  v14.15.4
+[debug] [2021-06-09T15:48:02.211Z] Time:          Wed Jun 09 2021 21:18:02 GMT+0530 (India Standard Time)
+[debug] [2021-06-09T15:48:02.212Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-06-09T15:48:02.235Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-06-09T15:48:02.235Z] > authorizing via signed-in user (sharmapardeep971@gmail.com)
+[debug] [2021-06-09T15:48:02.236Z] [iam] checking project sector17-chandigarh for permissions ["firebase.projects.get"]
+[debug] [2021-06-09T15:48:02.242Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-06-09T15:48:02.243Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-09T15:48:02.590Z] <<< HTTP RESPONSE 200 {"date":"Wed, 09 Jun 2021 15:48:03 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-09T15:48:02.617Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sector17-chandigarh:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-06-09T15:48:04.209Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 09 Jun 2021 15:48:04 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1376","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-09T15:48:04.261Z] [functions] Using node@14 from host.
+[debug] [2021-06-09T15:48:04.263Z] defaultcredentials: writing to file C:\Users\Jessica\AppData\Roaming\firebase\sharmapardeep971_gmail_com_application_default_credentials.json
+[debug] [2021-06-09T15:48:04.265Z] DEBUG: Setting GAC to C:\Users\Jessica\AppData\Roaming\firebase\sharmapardeep971_gmail_com_application_default_credentials.json
+[debug] [2021-06-09T15:48:04.268Z] > refreshing access token with scopes: []
+[debug] [2021-06-09T15:48:04.268Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-09T15:48:04.490Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Wed, 09 Jun 2021 15:48:05 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-09T15:48:04.514Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sector17-chandigarh/adminSdkConfig [none]
+[debug] [2021-06-09T15:48:05.187Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sector17-chandigarh/adminSdkConfig 200
+[debug] [2021-06-09T15:48:05.188Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sector17-chandigarh/adminSdkConfig {"projectId":"sector17-chandigarh","storageBucket":"sector17-chandigarh.appspot.com","locationId":"asia-south1"}
+[debug] [2021-06-09T15:48:05.227Z] [functions] Watching "E:\PestoTechAssignment\Frontend\sector17-N2-theta\server\functions" for Cloud Functions...
+[debug] [2021-06-09T15:48:05.273Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2021-06-09T15:48:05.273Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2021-06-09T15:48:05.274Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2021-06-09T15:48:05.275Z] DEBUG: [worker-~diagnostic~-1898aee2-1f1e-44b0-a8f1-6b7aebf900df]: Assigning socketPath: \\?\pipe\E:\PestoTechAssignment\Frontend\sector17-N2-theta\server\functions\11084
+[debug] [2021-06-09T15:48:05.276Z] DEBUG: [worker-~diagnostic~-1898aee2-1f1e-44b0-a8f1-6b7aebf900df]: BUSY
+[debug] [2021-06-09T15:48:05.833Z] DEBUG: [runtime-status] [11084] Functions runtime initialized. {"cwd":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions","node_version":"14.15.4"}
+[debug] [2021-06-09T15:48:05.834Z] DEBUG: [runtime-status] [11084] Disabled runtime features: undefined
+[debug] [2021-06-09T15:48:05.842Z] DEBUG: [runtime-status] [11084] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.9.0","resolution":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2021-06-09T15:48:05.846Z] DEBUG: [runtime-status] [11084] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-06-09T15:48:05.849Z] DEBUG: [runtime-status] [11084] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-06-09T15:48:05.854Z] DEBUG: [runtime-status] [11084] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}]
+[debug] [2021-06-09T15:48:05.855Z] DEBUG: [runtime-status] [11084] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-06-09T15:48:06.513Z] DEBUG: [runtime-status] [11084] Checked functions.config() {"config":{}}
+[debug] [2021-06-09T15:48:06.514Z] DEBUG: [runtime-status] [11084] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"3.14.1","resolution":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions\\node_modules\\firebase-functions\\lib\\index.js"}}
+[debug] [2021-06-09T15:48:06.515Z] DEBUG: [runtime-status] [11084] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-06-09T15:48:06.517Z] DEBUG: [runtime-status] [11084] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.9.0","resolution":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2021-06-09T15:48:06.519Z] DEBUG: [runtime-status] [11084] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-06-09T15:48:06.520Z] DEBUG: [runtime-status] [11084] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"9.9.0","resolution":"E:\\PestoTechAssignment\\Frontend\\sector17-N2-theta\\server\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[debug] [2021-06-09T15:48:09.715Z] DEBUG: [runtime-status] [11084] initializeApp(DEFAULT) {"credential":{"implicit":false,"projectId":"sector17-chandigarh","privateKey":"-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDYuEoHxkux1pIX\nOg3RodJSi/05UQQ2wpE5cuu0Y5tuhDFiJVYSwYY+SyajN/a8ScG0Bab22fQRsWP+\nfaX4R3mWsRIMsmk95NkfK+K53G8Mg5DSjaombP04DhVSWx7yoyO/xeHqunO5o/Zj\nqtAb85OCEqM/QULGdHmqtwSDZCHit3NhjCEuKhHZH3tKfxQy1La2GZ+NtonvQ/Zl\nTu90dBnGrSPugaRVKcAc9bkOHwFp0f3cgVSuq7Awhpw1GCwJTkwkujObkY0m1riG\nOu7ZI8vfs3mqfVWiWkj5b1S4fum9Y4fyp/9bIuMnRwRZAaYo02krdLJbGeVvXgVm\n3A+IupKdAgMBAAECgf81JrRvDyDKjzDXgXe9lrujFWkXt9k+cFUJHV0fPCoZlVI+\nG1fJ+KyYdfqD6LXRnI5lPP2jsawYGHvJJXV8ylP1angVEtEqk771iruQbCQ92ysp\nnScwINP5tJ8YXNMDZf9w0k46nskMPoWvNSMeSh7Q/sEvZuRVEPLF/fhUQShXhA4x\nWDANj/PDahSpRBjlbLawZAZsGxwftdbGkOYN+N7XsN40m+cN/iExXKSpn+m9nUsn\nGQrApN58gJ9wSaCn0UDDCG98pAEq9b/ImaXsIOqKLyIW/7pewrr97e/S5TBKfZtQ\nsxnEVvJPmhPSIMuXjdefgMseh2xrRLRJHgyRVCECgYEA/BsixAxSYCx1lLO76Uee\nZkEkMl5o9ozd0Hu7hcC5kQOT1ZSas6OTLY/kEbLgjmODMKy1Y84UdrZY3A3X76cj\nUAC78EtCh9il1SgWfsMB9tpYL75A/t7MbVzcFwTqcUByymCjCgqCcUYjKRrv+2eh\nukt6rkdbA/ej/zYfIM/TabECgYEA3BE7QLeve1dKt/k+eS77U8eJYIzW6PIhkSVg\nUVQlbwPLj23M3tfgYN3G5CAx6Kb11WrHXF9lN8fhlUpGFQGzXfckMXebXEshyn41\n5jznXmHacB+JrYEylK8lJtNtZMxM5fhzrmOCc03d1Nv08YCSD21GqUs5BvVXqjrI\n9v8CBq0CgYBYFF78IdXx9faKopUHdtc3oJC17Fg9s4+X1HL60w/CQ362Azpdgsvc\nAkbLjDR6avgd3GlvWkO6ChFXqJqGB14GCIug85pl/eJKa7wYQ6d/CGABJjZtFYhU\nuTnH7Ra/xKWWYVb1HiDe1INaTCgGLPnLLa3KD/ITm8S3WMBdZV7WsQKBgDYhJuns\nRIWaGw7Vh8BXBgq9cdUFz3bM1+TTxLU8dVixHkjRQSsu/knVQy6pnJ0VNDKiaRcX\nf9YQnDQUaNiR6oSaXZStTtGMyWr9UFSpdl+IwioCF+NNfBuGWSULrES229NVIV8r\nqtKhvIa287DTZxnUTyUlE4nanw2IGBZo8x6hAoGBAPe76+0T9fogmHo7SJglvmxb\nCAxjnkBTEj/UdnpOR1CyTERG0+XnXjhrUMzDqWV1TmnpumZNr97x1mephNdNt5Yt\nKhlMsDTMr1qSJkStOMOSDqjCdKy5JqaCBWUClTMlxAX7kHcghFPpM7SVQMS/CgsH\nsfKsxbm7KxghyJcHIHW0\n-----END PRIVATE KEY-----\n","clientEmail":"firebase-adminsdk-m6tbv@sector17-chandigarh.iam.gserviceaccount.com","httpClient":{"retry":{"maxRetries":4,"statusCodes":[503],"ioErrorCodes":["ECONNRESET","ETIMEDOUT"],"backOffFactor":0.5,"maxDelayInMillis":60000}}}}
+[warn] !  functions: The Cloud Firestore emulator is not running, so calls to Firestore will affect production. {"metadata":{"emulator":{"name":"functions"},"message":"The Cloud Firestore emulator is not running, so calls to Firestore will affect production."}}
+[debug] [2021-06-09T15:48:10.147Z] [functions[asia-south1-sector17]] http function initialized (http://localhost:5000/sector17-chandigarh/asia-south1/sector17).
+[info] i  functions: Loaded functions: sector17 
+[warn] !  functions: The following emulators are not running, calls to these services will affect production: firestore, database, pubsub, storage 
+[debug] [2021-06-09T15:48:10.201Z] DEBUG: [worker-~diagnostic~-1898aee2-1f1e-44b0-a8f1-6b7aebf900df]: IDLE

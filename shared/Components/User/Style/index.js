@@ -8,7 +8,7 @@ const UserStyle = styled.div`
       width: 100%;
       border-radius: 50%;
       position: relative;
-      top: 0.5rem;
+      // top: 0.5rem;
     }
   }
 `;

@@ -3,10 +3,10 @@ import { useContext } from "react";
 import handleWishlistItems from "./AddToWishlist";
 import RemoveCartItem from "./RemoveCartItem";
 
-const moveToWishlist = (productSku) => {
-  const cartItems = RemoveCartItem(productSku)
-  const wishlistItems = handleWishlistItems(productSku);
-  
+const moveToWishlist = async (productSku, currentUser) => {
+  const cartItems = await RemoveCartItem(productSku, currentUser)
+  const wishlistItems = await handleWishlistItems(productSku, currentUser);
+
   return {
     cartItems,
     wishlistItems
@@ -15,13 +15,13 @@ const moveToWishlist = (productSku) => {
 
 const MoveToWishlistButton = (props) => {
   const { productSku } = props;
-  const { setWishlistItems, setCartItems, setNotificationMessage, setNotificationVisibility } = useContext(GlobalContext);
+  const { currentUser, setWishlistItems, setCartItems, setNotificationMessage, setNotificationVisibility } = useContext(GlobalContext);
 
   const handleClick = async () => {
-    const { cartItems, wishlistItems } = await moveToWishlist(productSku);
+    const { cartItems, wishlistItems } = await moveToWishlist(productSku, currentUser);
 
     setCartItems(cartItems);
-    setWishlistItems(wishlistItems);
+    setWishlistItems(wishlistItems.items);
     setNotificationVisibility(true);
     setNotificationMessage('Successfully Removed from Cart and Added to Wishlist');
   }

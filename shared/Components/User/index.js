@@ -1,4 +1,5 @@
 import GlobalContext from "context/GlobalContext";
+import Link from 'next/link';
 import { useContext, useEffect, useState } from "react";
 import getWishlistItems from "shared/Utils/getWishlistItems";
 import SocialLogin from "../SocialLogin";
@@ -7,32 +8,22 @@ import UserStyle from "./Style";
 
 const User = (props) => {
   const { dropMenu, handleDropMenu } = props;
+  
   const {
-    isLogin,
-    currentUser: user,
-    setWishlistItems,
+    isLogin
   } = useContext(GlobalContext);
 
   const handleClick = () => {
     handleDropMenu(dropMenu === "user" ? "" : "user");
   };
-  useEffect(() => {
-    const currentWishlist = getWishlistItems();
-    setWishlistItems(currentWishlist);
-  }, []);
+
   return (
     <UserStyle>
       <div className="header__action-item user">
         <div className="clickable" onClick={handleClick}>
-          {isLogin ? (
-            <span className="profile_pic">
-              <img src={user.photoURL} />
-            </span>
-          ) : (
-            <span className="icon">
-              <i className="fa fa-user" />
-            </span>
-          )}
+          <span className="icon">
+            <i className="fa fa-user" />
+          </span>
 
           <span className="label"> {isLogin ? "My Account" : "Login"}</span>
         </div>
@@ -42,7 +33,7 @@ const User = (props) => {
               <SocialLogin />
               {isLogin && (
                 <>
-                  <li>My Profile</li>
+                  <li><Link href="/profile"> My Profile</Link></li>
                   <li>Orders</li>
                   <li>Wishlist</li>
                   <li>
