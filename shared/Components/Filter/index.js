@@ -1,14 +1,18 @@
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
+import { useState } from "react";
 import FilterStyle from "./Style";
 
 const Filter = (props) => {
+  const [startPrice,setStartPrice] =useState([20,100000]);
   const onFilter = (filter) => {
     props.onFilter(filter);
   };
 
   const onSet = (render, handle, value, un, percent) => {
-    props.onPriceChange(parseInt(value[0]), parseInt(value[1]));
+    if (parseInt(value[0]) > 20 || parseInt(value[1]) < 100000) {
+      props.onPriceChange(parseInt(value[0]), parseInt(value[1]));
+    }
   };
   return (
     <FilterStyle>
@@ -37,7 +41,7 @@ const Filter = (props) => {
         </div>
         <div className="filter_title">Manufacturer</div>
         <ul className="">
-          {!!props.category &&
+          {!props.isLoading &&
             Object.keys(props.category.manufacturers).map((item, index) => (
               <li
                 key={index}
@@ -45,7 +49,7 @@ const Filter = (props) => {
                   this,
                   props.category.manufacturers[item]
                 )}
-                className={
+                className={props.activeList.length > 0 &&
                   props.activeList.find(
                     (isActive) =>
                       isActive === props.category.manufacturers[item]
