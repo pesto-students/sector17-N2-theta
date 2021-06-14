@@ -12,7 +12,7 @@ const TopTrendingProducts = (props) => {
         data: products = {},
         isLoading,
         isSuccess,
-    } = useProducts(offset, limit, "sku");
+    } = useProducts(offset, limit, "sku", "topcat000100");
 
     return (
         <div className="top-trending-products">
