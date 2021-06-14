@@ -5,15 +5,29 @@ import CategoryCard from "../CategoryCard";
 import CollectionsStyle from "./Style";
 import useCategories from "@/data/hooks/use-categories";
 import { useEffect, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const FeaturedCollections = () => {
-  const {
-    data: categories = {},
-    isLoading,
-    isSuccess,
-  } = useCategories(0, 2);
+  const { data: categories = {}, isLoading, isSuccess } = useCategories(0, 2);
 
-
+  if (isLoading) {
+    return (
+      <CollectionsStyle>
+        <HeadingStyle>
+          <h2 className="heading">
+            <Skeleton />
+          </h2>
+        </HeadingStyle>
+        <Grid className="" count={2} gap={20}>
+          <CategoryCard />
+          <CategoryCard />
+        </Grid>
+        <div className="view-all">
+          <Skeleton height={40} width={100} />
+        </div>
+      </CollectionsStyle>
+    );
+  }
   return (
     <CollectionsStyle>
       <HeadingStyle>

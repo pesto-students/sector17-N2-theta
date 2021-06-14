@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const BannerStyle = styled.div`
   margin-top: 20px;
+  min-heigh: 250px;
   .slide {
     img {
       width: 100%;

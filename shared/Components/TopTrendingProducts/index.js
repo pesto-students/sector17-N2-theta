@@ -3,38 +3,55 @@ import { useState } from "react";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
 import ProductCard from "../ProductCard";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const TopTrendingProducts = (props) => {
-    const [offset, setOffset] = useState(0);
-    const [limit, setLimit] = useState(8);
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(8);
 
-    const {
-        data: products = {},
-        isLoading,
-        isSuccess,
-    } = useProducts(offset, limit, "sku", "topcat000100");
-
+  const {
+    data: products = {},
+    isLoading,
+    isSuccess,
+  } = useProducts(offset, limit, "sku", "topcat000100");
+  if (isLoading) {
     return (
-        <div className="top-trending-products">
-            <HeadingStyle>
-                <h2 className="heading">
-                    Top Trending Products
-                    <span className="heading-underline"></span>
-                </h2>
-            </HeadingStyle>
-            <Grid count={4} gap={20}>
-                {isSuccess &&
-                    !!products &&
-                    Object.keys(products).map((product, index) => (
-                        <ProductCard
-                            key={index}
-                            id={product}
-                            {...products[product]}
-                        />
-                    ))}
-            </Grid>
-        </div>
+      <div className="top-trending-products">
+        <HeadingStyle>
+          <h2 className="heading">
+            <Skeleton />
+          </h2>
+        </HeadingStyle>
+        <Grid count={4} gap={20}>
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+        </Grid>
+      </div>
     );
+  }
+  return (
+    <div className="top-trending-products">
+      <HeadingStyle>
+        <h2 className="heading">
+          Top Trending Products
+          <span className="heading-underline"></span>
+        </h2>
+      </HeadingStyle>
+      <Grid count={4} gap={20}>
+        {isSuccess &&
+          !!products &&
+          Object.keys(products).map((product, index) => (
+            <ProductCard key={index} id={product} {...products[product]} />
+          ))}
+      </Grid>
+    </div>
+  );
 };
 
 export default TopTrendingProducts;

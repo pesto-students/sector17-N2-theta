@@ -2,6 +2,7 @@ import { useProducts } from "@/data";
 import { useSingleCategory } from "@/data/hooks/use-categories";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import Filter from "shared/Components/Filter";
 import ProductCard from "../../shared/Components/ProductCard";
@@ -80,6 +81,44 @@ const Catalog = () => {
     setClear(false);
     router.push(`/categories/${currentPage}`);
   };
+  if (isLoading) {
+    return (
+      <CatalogStyle>
+        <div className="filters">
+          <div className="filter_options">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </div>
+        </div>
+        <div className="products">
+          <div className="heading">
+            <span className="category_title">
+              <Skeleton />
+            </span>
+          </div>
+
+          <div className="product_list">
+            <Grid count={4} gap={15}>
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+            </Grid>
+          </div>
+        </div>
+      </CatalogStyle>
+    );
+  }
   return (
     <CatalogStyle>
       <div className="filters">

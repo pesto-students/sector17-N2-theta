@@ -4,6 +4,7 @@ import Grid from "../../shared/Styles/Grid";
 import CategoryCard from "../../shared/Components/CategoryCard";
 import { useEffect, useState } from "react";
 import useCategories from "@/data/hooks/use-categories";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Categories = () => {
   const [offset, setOffset] = useState(0);
@@ -26,6 +27,24 @@ const Categories = () => {
     const offset = Object.keys(categories)[Object.keys(categories).length - 1];
     setOffset(categories[offset].id);
   };
+  if (isLoading) {
+    return (
+      <CategoriesStyle>
+        <HeadingStyle>
+          <h2 className="heading">
+            <Skeleton />
+          </h2>
+        </HeadingStyle>
+        <Grid className="" count={2} gap={20}>
+          <CategoryCard />
+          <CategoryCard />
+        </Grid>
+        <div className="view-all">
+          <Skeleton height={40} width={100} />
+        </div>
+      </CategoriesStyle>
+    );
+  }
 
   return (
     <CategoriesStyle>
