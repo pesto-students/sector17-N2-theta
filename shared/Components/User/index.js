@@ -1,5 +1,5 @@
 import GlobalContext from "context/GlobalContext";
-import Link from 'next/link';
+import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import getWishlistItems from "shared/Utils/getWishlistItems";
 import SocialLogin from "../SocialLogin";
@@ -8,10 +8,8 @@ import UserStyle from "./Style";
 
 const User = (props) => {
   const { dropMenu, handleDropMenu } = props;
-  
-  const {
-    isLogin
-  } = useContext(GlobalContext);
+
+  const { isLogin } = useContext(GlobalContext);
 
   const handleClick = () => {
     handleDropMenu(dropMenu === "user" ? "" : "user");
@@ -33,9 +31,15 @@ const User = (props) => {
               <SocialLogin />
               {isLogin && (
                 <>
-                  <li><Link href="/profile"> My Profile</Link></li>
-                  <li>Orders</li>
-                  <li>Wishlist</li>
+                  <li>
+                    <Link href="/profile"> My Profile</Link>
+                  </li>
+                  <li>
+                    <Link href="/profile/orders">Orders</Link>
+                  </li>
+                  <li>
+                    <Link href="/profile/wishlist"> Wishlist</Link>
+                  </li>
                   <li>
                     <a onClick={() => fbAuth().signOut()}>Logout</a>
                   </li>

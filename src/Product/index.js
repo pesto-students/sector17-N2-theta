@@ -52,6 +52,7 @@ const Product = () => {
     if (resData.distance.status === "OK") {
       if (resData.distance.rows[0].elements[0].status === "NOT_FOUND") {
         setDelivery("Pincode is Invalid");
+        throw new Error("Pincode is Invalid");
       } else {
         localStorage.setItem("pincode", destinationPincode);
         let deliveryMessage = "";
@@ -74,6 +75,7 @@ const Product = () => {
       }
     } else {
       setDelivery("Something is wrong with selection");
+      throw new Error("Something is wrong with selection");
     }
   };
   return (

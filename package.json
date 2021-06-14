@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.1.0",
+    "@sentry/nextjs": "^6.6.0",
     "algoliasearch": "^4.9.1",
     "axios": "^0.21.1",
     "firebase": "^8.6.2",
@@ -19,6 +20,7 @@
     "react-dom": "17.0.2",
     "react-firebaseui": "^5.0.2",
     "react-instantsearch-dom": "^6.11.0",
+    "react-loading-skeleton": "^2.2.0",
     "react-query": "^3.16.0",
     "react-slick": "^0.28.1",
     "slick-carousel": "^1.8.1",

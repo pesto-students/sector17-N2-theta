@@ -10,12 +10,25 @@ import "firebase/firestore";
 import saveCartItems from "shared/Utils/saveCartItems";
 import getWishlistItems from "shared/Utils/getWishlistItems";
 
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
+import { withSentry } from '@sentry/nextjs';
+
+Sentry.init({
+  dsn: "https://ea0a55f9b7b14acc8d08568db512ab14@o844204.ingest.sentry.io/5814430",
+  
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+
 const db = firebase.firestore();
 
-const deleteCollectionFromDb = async ({ collection, userId}) => {
+const deleteCollectionFromDb = async ({ collection, userId }) => {
   await db.collection(collection).doc(userId).delete();
   return;
-}
+};
 
 const MyApp = ({ Component, pageProps }) => {
   const [cartItemsCount, setCartItemsCount] = useState(0);
@@ -27,10 +40,10 @@ const MyApp = ({ Component, pageProps }) => {
   const [notificationMessage, setNotificationMessage] = useState("");
 
   const [cartPriceDetails, setCartPriceDetails] = useState({
-    subTotal : 0,
-    discount : 0,
-    couponDiscount : 0,
-    total : 0
+    subTotal: 0,
+    discount: 0,
+    couponDiscount: 0,
+    total: 0,
   });
 
   const queryClient = new QueryClient({
@@ -42,34 +55,34 @@ const MyApp = ({ Component, pageProps }) => {
   });
 
   const handleCartItems = async (items, sessionId, user) => {
-    if(sessionId){
+    if (sessionId) {
       const localItems = await getCartItems(sessionId);
       const cartItems = {
         ...items,
-        ...localItems
-      }
+        ...localItems,
+      };
       setCartItems(cartItems);
       saveCartItems(cartItems, user.uid);
-      
-      sessionStorage.removeItem('_s17');
+
+      sessionStorage.removeItem("_s17");
 
       deleteCollectionFromDb({
-        collection : 'carts',
-        userId : sessionId
-      })
-    }else{
+        collection: "carts",
+        userId: sessionId,
+      });
+    } else {
       setCartItems(items);
     }
-  }
+  };
 
   const handleWishlistData = async (userId) => {
     const items = await getWishlistItems(userId);
-    
-    console.log('items items  items items items  itemsitems items items items');
+
+    console.log("items items  items items items  itemsitems items items items");
     console.log(items);
-    
+
     setWishlistItems(items);
-  }
+  };
 
   const contextData = {
     cartPriceDetails,
@@ -83,66 +96,65 @@ const MyApp = ({ Component, pageProps }) => {
     wishlistItems,
     setWishlistItems,
     setNotificationMessage,
-    setNotificationVisibility
+    setNotificationVisibility,
   };
 
   useEffect(async () => {
-    let sessionId = sessionStorage.getItem('_s17');
+    let sessionId = sessionStorage.getItem("_s17");
 
-    if(user){
+    if (user) {
       const items = await getCartItems(user.uid);
 
       handleCartItems(items, sessionId, user);
       handleWishlistData(user.uid);
 
       setCurrentUser({
-        ...user
-      })
-    }else{
-      if(!isLogin){
-        if(!sessionId){
-          sessionId = '_' + Math.random().toString(36).substr(2, 9);
-          sessionStorage.setItem('_s17', sessionId);
+        ...user,
+      });
+    } else {
+      if (!isLogin) {
+        if (!sessionId) {
+          sessionId = "_" + Math.random().toString(36).substr(2, 9);
+          sessionStorage.setItem("_s17", sessionId);
         }
-        
+
         const items = await getCartItems(sessionId);
         setCartItems(items);
 
         setCurrentUser({
-          uid : sessionId
-        })
+          uid: sessionId,
+        });
       }
     }
-  }, [isLogin, user])
+  }, [isLogin, user]);
 
   useEffect(() => {
-    if(notificationMessage !== ''){
+    if (notificationMessage !== "") {
       let timer1 = setTimeout(() => setNotificationVisibility(false), 3000);
       let timer2 = setTimeout(() => setNotificationMessage(""), 5000);
       return () => {
         clearTimeout(timer1);
         clearTimeout(timer2);
-      }
+      };
     }
-  }, [notificationMessage, notificationVisibility])
+  }, [notificationMessage, notificationVisibility]);
 
   return (
     <GlobalContextProvider value={contextData}>
-          <QueryClientProvider client={queryClient}>
-            <Root>
-              {
-                isLogin 
-                  ? <Component {...pageProps} />
-                  : <Component {...pageProps} />
-              }
-            </Root>
-          </QueryClientProvider>
-
-          <Notification 
-            visible={notificationVisibility}
-            message={notificationMessage} 
-            setNotificationVisibility={setNotificationVisibility}
-          />
+      <QueryClientProvider client={queryClient}>
+        <Root>
+          {isLogin ? (
+            <Component {...pageProps} />
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </Root>
+      </QueryClientProvider>
+      <Notification
+        visible={notificationVisibility}
+        message={notificationMessage}
+        setNotificationVisibility={setNotificationVisibility}
+      />
     </GlobalContextProvider>
   );
 };
