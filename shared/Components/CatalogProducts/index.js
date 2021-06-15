@@ -35,7 +35,7 @@ const CatalogProducts = (props) => {
       setPriceFilter(router.query["price"].split(","));
     }
     if (router.query["manufacturer"] && router.query["manufacturer"] != "") {
-      setManufacturerFilter(router.query["price"].split(","));
+      setManufacturerFilter(router.query["manufacturer"].split(","));
     }
     console.log("Price Filter ", priceFilter);
   }, []);

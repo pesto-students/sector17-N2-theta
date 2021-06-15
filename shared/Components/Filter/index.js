@@ -31,7 +31,6 @@ const Filter = (props) => {
   }, [manufacturer, price]);
 
   const onFilter = (filter) => {
-    // props.onFilter(filter);
     if (manufacturer.length > 0) {
       const index = manufacturer.indexOf(filter);
       if (index > -1) {
@@ -48,6 +47,7 @@ const Filter = (props) => {
 
   const onSet = (render, handle, value, un, percent) => {
     setPrice([parseInt(value[0]),parseInt(value[1])]);
+    setClear(true);
   };
 
   const onPriceChange = (min, max) => {
@@ -56,6 +56,7 @@ const Filter = (props) => {
   };
 
   const onClearHandeler = () => {
+    setClear(false);
     router.push(`/categories/${currentPage}`);
   };
 
