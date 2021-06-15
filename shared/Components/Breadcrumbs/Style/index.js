@@ -5,7 +5,7 @@ const BreadcrumbsStyle = styled.div`
     list-style: none;
     margin: 10px 0px;
     a {
-      color: ${(props) => props.theme.color.lightGray};
+      color: ${(props) => props.theme.color.blue};
     }
     li {
       display: inline;

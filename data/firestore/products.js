@@ -29,6 +29,7 @@ export const getProducts = async ({
     where.push(["price", "<=",parseInt(price[1])]);
     orderBy = "price";
   }
+  console.log("Where Query ",where);
   return await paginationQuery("products", orderBy, offset, limit, where);
 };
 
