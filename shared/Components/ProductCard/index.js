@@ -20,7 +20,7 @@ const ProductCard = (props) => {
         <a>
           <div className="product_item">
             <div className="image_wrapper">
-              {image ? <img src={image} /> : <Skeleton height={200} />}
+              {image ? <img src={image} alt={title} /> : <Skeleton height={200} />}
             </div>
             <div className="product_caption">
               <span className="soldby">&nbsp;</span>
