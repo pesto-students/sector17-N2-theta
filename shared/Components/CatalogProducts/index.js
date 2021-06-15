@@ -1,9 +1,7 @@
 import { useProducts } from "@/data";
-import { useSingleCategory } from "@/data/hooks/use-categories";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import ProductCard from "../ProductCard";
 import Grid from "../../Styles/Grid";
 
