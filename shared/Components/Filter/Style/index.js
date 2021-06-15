@@ -33,6 +33,7 @@ const FilterStyle = styled.div`
             font-size: 1.2rem;
             padding: 5px 10px;
             border-bottom: 1px solid ${(props) => props.theme.color.grey};
+            cursor  :pointer;
         }
         .filter_price {
             margin: 15px 0px;

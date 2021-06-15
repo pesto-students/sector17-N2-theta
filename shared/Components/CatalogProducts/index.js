@@ -5,15 +5,22 @@ import { useEffect, useState } from "react";
 import ProductCard from "../ProductCard";
 import Grid from "../../Styles/Grid";
 
+import GlobalContext from "context/GlobalContext";
+import { useContext } from "react";
+
 const CatalogProducts = (props) => {
   const router = useRouter();
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(16);
   const [products, setProducts] = useState({});
+
   const [manufacturerFilter, setManufacturerFilter] = useState([]);
   const [priceFilter, setPriceFilter] = useState([]);
 
   const currentPage = router.query["category-slug"];
+
+  const { globalManufacturerFilter, globalPriceFilter } =
+    useContext(GlobalContext);
 
   const {
     data = {},
@@ -24,36 +31,20 @@ const CatalogProducts = (props) => {
     limit,
     "sku",
     currentPage,
-    manufacturerFilter,
-    priceFilter
+    globalManufacturerFilter,
+    globalPriceFilter
   );
 
   useEffect(() => {
+    !isLoading && setProducts({ ...data });
+      console.log(globalManufacturerFilter);
     if (router.query["price"] && router.query["price"] != "") {
       setPriceFilter(router.query["price"].split(","));
     }
     if (router.query["manufacturer"] && router.query["manufacturer"] != "") {
       setManufacturerFilter(router.query["manufacturer"].split(","));
     }
-    console.log("Price Filter ", priceFilter);
-  }, []);
 
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      if (router.query["price"] && router.query["price"] != "") {
-        setPriceFilter(router.query["price"].split(","));
-      }
-      if (router.query["manufacturer"] && router.query["manufacturer"] != "") {
-        setManufacturerFilter(router.query["manufacturer"].split(","));
-      }
-    }, 500);
-    return () => {
-      clearTimeout(identifier);
-    };
-  }, [manufacturerFilter, priceFilter]);
-
-  useEffect(() => {
-    !isLoading && setProducts({ ...data });
   }, [data]);
 
   const loadMore = () => {
