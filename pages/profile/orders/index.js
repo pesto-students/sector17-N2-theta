@@ -1,9 +1,9 @@
 import { Fragment } from "react"
 import Orders from "src/Orders"
 
-const Orders = () => {
+const OrdersPage = () => {
     return <Fragment>
         <Orders />
     </Fragment>
 }
-export default Orders;
+export default OrdersPage;
