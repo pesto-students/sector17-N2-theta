@@ -8,24 +8,24 @@ import ProfileSidebar from "../../shared/Components/ProfileSidebar";
 import MyAccountStyle from "./Style";
 
 const MyAccount = () => {
-  const {
-    isLogin,
-    currentUser: user,
-    setWishlistItems,
-  } = useContext(GlobalContext);
+    const {
+        isLogin,
+        currentUser: user,
+        setWishlistItems,
+    } = useContext(GlobalContext);
 
-  return (
-    <MyAccountStyle>
-      {!!user && (
-        <div className="row_group">
-          <ProfileSidebar />
-          <div className="dashboard">
-            {isLogin && <Address  user={user} />}
-          </div>
-        </div>
-      )}
-    </MyAccountStyle>
-  );
+    return (
+        <MyAccountStyle>
+            {!!user && (
+                <div className="row_group my-account-wrapper">
+                    <ProfileSidebar />
+                    <div className="dashboard">
+                        {isLogin && <Address user={user} />}
+                    </div>
+                </div>
+            )}
+        </MyAccountStyle>
+    );
 };
 
 export default MyAccount;
