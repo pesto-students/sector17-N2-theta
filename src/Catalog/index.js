@@ -1,11 +1,7 @@
-import { useProducts } from "@/data";
 import { useSingleCategory } from "@/data/hooks/use-categories";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
 import Filter from "shared/Components/Filter";
-import ProductCard from "../../shared/Components/ProductCard";
-import Grid from "../../shared/Styles/Grid";
 import CatalogStyle from "./Style";
 import CatalogProducts from "../../shared/Components/CatalogProducts";
 const Catalog = () => {
