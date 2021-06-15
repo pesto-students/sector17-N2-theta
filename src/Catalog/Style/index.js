@@ -8,15 +8,16 @@ const CatalogStyle = styled.div`
     @media screen and (max-width: 1200px) {
         .product_list {
             > div {
-                grid-template-columns: calc((100% - 45px) / 2) calc((100% - 45px) / 2);
+                grid-template-columns: calc((100% - 45px) / 2) calc(
+                        (100% - 45px) / 2
+                    );
             }
         }
     }
-	@media screen and (max-width: 768px) {
+    @media screen and (max-width: 768px) {
         flex-wrap: wrap;
-	}
+    }
     @media screen and (max-width: 600px) {
-
         .product_list {
             > div {
                 grid-template-columns: calc(100% / 1);
@@ -52,6 +53,22 @@ const CatalogStyle = styled.div`
         }
         .products {
             width: calc(100% - 300px);
+        }
+    }
+
+    .filter-mobile-btn {
+        background: #fe5a58;
+        color: #fff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 10px 20px 9px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        margin-right: auto;
+
+        @media screen and (min-width: 768px) {
+            display: none !important;
         }
     }
 `;

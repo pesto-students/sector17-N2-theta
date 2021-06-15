@@ -1,9 +1,9 @@
 import { Fragment } from "react"
-import Orders from "src/Orders"
+import Order from "src/MyAccount/Order";
 
 const OrdersPage = () => {
     return <Fragment>
-        <Orders />
+        <Order />
     </Fragment>
 }
 export default OrdersPage;
