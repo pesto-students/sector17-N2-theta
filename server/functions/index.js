@@ -14,6 +14,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var productsRouter = require("./routes/products");
+var ordersRouter = require("./routes/orders");
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.get("/", (req, res) =>
 );
 
 app.use("/products", productsRouter);
+app.use("/orders", ordersRouter);
 
 /** Error handler */
 app.use((err, req, res, next) => {
