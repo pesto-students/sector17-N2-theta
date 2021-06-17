@@ -10,6 +10,19 @@ import "firebase/firestore";
 import saveCartItems from "shared/Utils/saveCartItems";
 import getWishlistItems from "shared/Utils/getWishlistItems";
 
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
+import { withSentry } from "@sentry/nextjs";
+
+Sentry.init({
+    dsn: "https://ea0a55f9b7b14acc8d08568db512ab14@o844204.ingest.sentry.io/5814430",
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+});
+
 const db = firebase.firestore();
 
 const deleteCollectionFromDb = async ({ collection, userId }) => {
