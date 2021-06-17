@@ -6,7 +6,7 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const moduleExports = {
-  // Your existing module.exports
+  target : "serverless"
 };
 
 const SentryWebpackPluginOptions = {
