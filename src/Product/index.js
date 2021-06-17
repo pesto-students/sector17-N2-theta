@@ -11,6 +11,7 @@ const AddToRecentlyViewed = dynamic(
 );
 
 import { useState } from "react";
+import Head from "next/head";
 import ProductCard from "shared/Components/ProductCard";
 import Grid from "shared/Styles/Grid";
 import HeadingStyle from "shared/Styles/HeadingStyle";
@@ -59,17 +60,17 @@ const Product = () => {
         const distacne =
           resData.distance.rows[0].elements[0].distance.text.split(" ");
         if (distacne[0] > 0 && distacne[0] <= 20) {
-          deliveryMessage = "1 Working Day Delivery";
+          deliveryMessage = "Delivery in 1 Working days";
         } else if (distacne[0] > 20 && distacne[0] <= 250) {
-          deliveryMessage = "2 Working Days Delivery";
+          deliveryMessage = "Delivery in 2 Working days";
         } else if (distacne[0] > 250 && distacne[0] <= 500) {
-          deliveryMessage = "3 Working Days Delivery";
+          deliveryMessage = "Delivery in 3 Working days";
         } else if (distacne[0] > 500 && distacne[0] <= 750) {
-          deliveryMessage = "4 Working Days Delivery";
+          deliveryMessage = "Delivery in 4 Working days";
         } else if (distacne[0] > 750 && distacne[0] <= 1000) {
-          deliveryMessage = "5 Working Days Delivery";
+          deliveryMessage = "Delivery in 5 Working days";
         } else {
-          deliveryMessage = "10 Working Days Delivery";
+          deliveryMessage = "Delivery in 10 Working days";
         }
         setDelivery(deliveryMessage);
       }
@@ -208,6 +209,9 @@ const Product = () => {
     router && (
       <div>
         <ProductDetailStyle>
+            <Head>
+                <title>{product.name } | Sector 17</title>
+            </Head>
           {!categoryLoading && (
             <Breadcrumbs
               parent="Products"
