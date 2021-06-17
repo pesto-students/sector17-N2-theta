@@ -1,10 +1,25 @@
 import GlobalContext from "@/appContext";
 import { useProductsBySKU } from "@/data";
-import { useContext, useEffect, useState, useMemo } from "react";
+import firebase from "@/data/firebase";
+import { getSellers } from "@/data/firestore/sellers";
+import { useContext, useEffect, useState } from "react";
 import CartProductCard from "shared/Components/CartProductCard";
 
+
+const useSellersById = (offset = 0, limit = 10, id = []) => {
+  return getSellers({
+    offset,
+    limit,
+    orderBy: firebase.firestore.FieldPath.documentId(),
+    id,
+  })
+}
+
 const CartProducts = (props) => {
-  const { cartPriceDetails, setCartPriceDetails, cartItems } = useContext(GlobalContext);
+  const { cartItems, setCartItemSellers } = useContext(GlobalContext);
+
+  if(!cartItems){ return null; }
+
   const {cartItemsSku, preparePriceDetails} = props;
   const [dataLimit, setDataLimit] = useState(10);
   const [products, setProducts] = useState({});
@@ -16,9 +31,29 @@ const CartProducts = (props) => {
     [...cartItemsSku]
   );
 
+  const prepareSellers = async () => {
+    let sellers = [];
+
+    Object.keys(cartItems).map((sku) => {
+      const seller = data[sku].seller;
+      if(sellers.indexOf(seller) < 0){
+        sellers.push(seller);
+      }
+    });
+
+    const sellerData = await useSellersById(
+      0,
+      dataLimit,
+      [...sellers]
+    )
+
+    setCartItemSellers(sellerData);
+  }
+
   useEffect(async () => {
     if(data){
       preparePriceDetails(data);
+      prepareSellers();
     }
   }, [cartItems])
 
@@ -30,15 +65,17 @@ const CartProducts = (props) => {
   }, [status]);
 
   return (
-    !isError && Object.keys(cartItems).map((sku, index) => (
-      products[sku] && <CartProductCard
-        key={index}
-        id={sku}
-        {...products[sku]}
-        quantity={cartItems[sku].qty}
-        setQtyUpdate={setQtyUpdate}
-      />
-    ))
+    !isError && products && cartItems 
+      ? Object.keys(cartItems).map((sku, index) => (
+          products[sku] && <CartProductCard
+            key={index}
+            id={sku}
+            {...products[sku]}
+            quantity={cartItems[sku].qty}
+            setQtyUpdate={setQtyUpdate}
+          />
+        ))
+      : null
   )
 }
 

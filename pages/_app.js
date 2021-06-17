@@ -30,24 +30,24 @@ const deleteCollectionFromDb = async ({ collection, userId }) => {
 };
 
 const MyApp = ({ Component, pageProps }) => {
-  const [cartItemsCount, setCartItemsCount] = useState(0);
   const { isLogin, user } = useLoginStatus();
   const [currentUser, setCurrentUser] = useState(user);
   const [cartItems, setCartItems] = useState();
-  const [wishlistItems, setWishlistItems] = useState(null);
-  const [notificationVisibility, setNotificationVisibility] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState("");
-
-  const [globalManufacturerFilter, setGlobalManufacturerFilter] = useState([]);
-  const [globalPriceFilter, setGlobalPriceFilter] = useState([]);
-  const [clearFilter, setClearFilter] = useState(false);
-
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+  const [cartItemSellers, setCartItemSellers] = useState();
   const [cartPriceDetails, setCartPriceDetails] = useState({
     subTotal: 0,
     discount: 0,
     couponDiscount: 0,
     total: 0,
   });
+
+  const [wishlistItems, setWishlistItems] = useState(null);
+  const [notificationVisibility, setNotificationVisibility] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [globalManufacturerFilter, setGlobalManufacturerFilter] = useState([]);
+  const [globalPriceFilter, setGlobalPriceFilter] = useState([]);
+  const [clearFilter, setClearFilter] = useState(false);
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -80,10 +80,6 @@ const MyApp = ({ Component, pageProps }) => {
 
   const handleWishlistData = async (userId) => {
     const items = await getWishlistItems(userId);
-
-    console.log("items items  items items items  itemsitems items items items");
-    console.log(items);
-
     setWishlistItems(items);
   };
 
@@ -100,13 +96,14 @@ const MyApp = ({ Component, pageProps }) => {
     setWishlistItems,
     setNotificationMessage,
     setNotificationVisibility,
-
     globalManufacturerFilter,
     globalPriceFilter,
     setGlobalManufacturerFilter,
     setGlobalPriceFilter,
     clearFilter,
     setClearFilter,
+    cartItemSellers, 
+    setCartItemSellers
   };
 
   useEffect(async () => {
