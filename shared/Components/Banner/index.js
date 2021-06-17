@@ -1,14 +1,14 @@
 // SLICK SLIDER
 import Slider from "react-slick";
-import BannerStyle from "./Style";
+import Skeleton from "react-loading-skeleton";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import useSlider from "@/data/hooks/use-slider";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import useSlider from "../../../data/hooks/use-slider";
+import BannerStyle from "./Style";
 
 const Banner = () => {
-  const { data, isError, isLoading, isSuccess } = useSlider();
-  var settings = {
+  const { data, isLoading } = useSlider();
+  const settings = {
     dots: true,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -35,7 +35,7 @@ const Banner = () => {
         {!!data &&
           Object.keys(data).map((slide, index) => (
             <div className="slide" key={index}>
-              <img src={data[slide].image} />
+              <img src={data[slide].image} alt={`banner ${index}`} />
             </div>
           ))}
       </Slider>

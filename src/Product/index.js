@@ -3,22 +3,22 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
+import { useState } from "react";
+import ProductCard from "shared/Components/ProductCard";
+import Grid from "shared/Styles/Grid";
+import HeadingStyle from "shared/Styles/HeadingStyle";
+import AddToCart from "shared/Utils/AddToCart";
+import Breadcrumbs from "shared/Components/Breadcrumbs";
+import { useSingleCategory } from "@/data/hooks/use-categories";
+import Quantity from "shared/Components/Quantity";
+import ProductDetailStyle from "./Style";
+
 const AddToRecentlyViewed = dynamic(
   () => import("../../shared/Utils/AddToRecentlyViewed"),
   {
     ssr: false,
   }
 );
-
-import { useState } from "react";
-import ProductCard from "shared/Components/ProductCard";
-import Grid from "shared/Styles/Grid";
-import HeadingStyle from "shared/Styles/HeadingStyle";
-import ProductDetailStyle from "./Style";
-import AddToCart from "shared/Utils/AddToCart";
-import Breadcrumbs from "shared/Components/Breadcrumbs";
-import { useSingleCategory } from "@/data/hooks/use-categories";
-import Quantity from "shared/Components/Quantity";
 
 const Product = () => {
   const router = useRouter();
@@ -114,7 +114,7 @@ const Product = () => {
                     <span className="main-price">
                       <Skeleton height={50} />
                     </span>
-                    <span className="stike-through"></span>
+                    <span className="stike-through" />
                   </div>
 
                   <Skeleton height={20} />
@@ -144,7 +144,7 @@ const Product = () => {
                 <HeadingStyle>
                   <h2 className="heading">
                     Product Description
-                    <span className="heading-underline"></span>
+                    <span className="heading-underline" />
                   </h2>
                 </HeadingStyle>
                 <div className="description">
@@ -184,7 +184,7 @@ const Product = () => {
                 <HeadingStyle>
                   <h2 className="heading">
                     Similar Products
-                    <span className="heading-underline"></span>
+                    <span className="heading-underline" />
                   </h2>
                 </HeadingStyle>
 
@@ -222,8 +222,7 @@ const Product = () => {
               <div className="product_view_container">
                 <Grid count={2} gap={20}>
                   <div className="product_gallery">
-                    <div className="product_thumbnail">
-                    </div>
+                    <div className="product_thumbnail" />
                     <div className="product_full">
                       <img src={product.image} />
                     </div>
@@ -241,7 +240,7 @@ const Product = () => {
                     </div>
                     <div className="price">
                       <span className="main-price">Rs.{product.price}</span>
-                      <span className="stike-through"></span>
+                      <span className="stike-through" />
                     </div>
 
                     <Quantity
@@ -278,7 +277,7 @@ const Product = () => {
                   <HeadingStyle>
                     <h2 className="heading">
                       Product Description
-                      <span className="heading-underline"></span>
+                      <span className="heading-underline" />
                     </h2>
                   </HeadingStyle>
                   <div className="description">
@@ -310,7 +309,7 @@ const Product = () => {
                   <HeadingStyle>
                     <h2 className="heading">
                       Similar Products
-                      <span className="heading-underline"></span>
+                      <span className="heading-underline" />
                     </h2>
                   </HeadingStyle>
 

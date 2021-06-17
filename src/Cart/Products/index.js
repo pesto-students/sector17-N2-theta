@@ -6,14 +6,12 @@ import { useContext, useEffect, useState } from "react";
 import CartProductCard from "shared/Components/CartProductCard";
 
 
-const useSellersById = (offset = 0, limit = 10, id = []) => {
-  return getSellers({
+const useSellersById = (offset = 0, limit = 10, id = []) => getSellers({
     offset,
     limit,
     orderBy: firebase.firestore.FieldPath.documentId(),
     id,
   })
-}
 
 const CartProducts = (props) => {
   const { cartItems, setCartItemSellers } = useContext(GlobalContext);
@@ -32,10 +30,10 @@ const CartProducts = (props) => {
   );
 
   const prepareSellers = async () => {
-    let sellers = [];
+    const sellers = [];
 
     Object.keys(cartItems).map((sku) => {
-      const seller = data[sku].seller;
+      const {seller} = data[sku];
       if(sellers.indexOf(seller) < 0){
         sellers.push(seller);
       }
@@ -55,14 +53,14 @@ const CartProducts = (props) => {
       preparePriceDetails(data);
       prepareSellers();
     }
-  }, [cartItems])
+  }, [cartItems, data, preparePriceDetails, prepareSellers])
 
   useEffect(() => {
     if (status === "success") {
       setProducts({ ...data });
       preparePriceDetails(data);
     }
-  }, [status]);
+  }, [data, preparePriceDetails, status]);
 
   return (
     !isError && products && cartItems 

@@ -2,8 +2,8 @@ import GlobalContext from "context/GlobalContext";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import getWishlistItems from "shared/Utils/getWishlistItems";
-import SocialLogin from "../SocialLogin";
 import { fbAuth } from "@/auth";
+import SocialLogin from "../SocialLogin";
 import UserStyle from "./Style";
 
 const User = (props) => {

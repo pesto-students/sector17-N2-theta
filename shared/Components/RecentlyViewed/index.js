@@ -24,14 +24,14 @@ const RecentlyViewed = () => {
     if (status === "success") {
       setProducts({ ...data });
     }
-  }, [status]);
+  }, [data, status]);
 
   return (
     <div className="top-trending-products">
       <HeadingStyle>
         <h2 className="heading">
           Recently Viewed Products
-          <span className="heading-underline"></span>
+          <span className="heading-underline" />
         </h2>
       </HeadingStyle>
       <Grid className="" count={4} gap={20}>

@@ -41,7 +41,7 @@ const Search = () => {
                 .getElementsByClassName("ais-SearchBox-reset")[0]
                 .removeEventListener("click", resetSearch);
         };
-    }, []);
+    }, [onFocusOutside]);
 
     return (
         <SearchContext.Provider value={openParams}>

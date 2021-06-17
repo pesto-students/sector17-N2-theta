@@ -1,7 +1,6 @@
 import USPStyle from "./Style";
 
-const USP = () => {
-  return (
+const USP = () => (
     <USPStyle>
       <section className="usp_row">
         <div className="usp_item">
@@ -31,6 +30,5 @@ const USP = () => {
       </section>
     </USPStyle>
   );
-};
 
 export default USP;

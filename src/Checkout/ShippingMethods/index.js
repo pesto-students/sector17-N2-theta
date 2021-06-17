@@ -1,5 +1,4 @@
-const ShippingMethods = ({ enabled }) => {
-  return <div>
+const ShippingMethods = ({ enabled }) => <div>
     <div>Shipping Methods</div>
     {
       enabled && (
@@ -17,6 +16,5 @@ const ShippingMethods = ({ enabled }) => {
     }
     
   </div>
-}
 
 export default ShippingMethods;

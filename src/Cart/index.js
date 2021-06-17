@@ -1,10 +1,10 @@
 import GlobalContext from "context/GlobalContext";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import CartStyle from "./Style";
-import CartProducts from "./Products";
 import getCouponDiscount from "shared/Utils/getCouponDiscount";
 import { useRouter } from "next/router";
+import CartStyle from "./Style";
+import CartProducts from "./Products";
 
 const Cart = () => {
   const router = useRouter();
@@ -69,9 +69,7 @@ const Cart = () => {
   useEffect(async () => {
     if(cartItems){
       setCartItemsCount(Object.keys(cartItems).length);
-      setCartItemsSku(Object.keys(cartItems).map((sku) => {
-        return parseInt(sku);
-      }))
+      setCartItemsSku(Object.keys(cartItems).map((sku) => parseInt(sku)))
     }
   }, [cartItems])
 
@@ -151,7 +149,7 @@ const Cart = () => {
             }
           </div>
         </div>
-      </CartStyle> : <CartStyle emptyCart={true}>
+      </CartStyle> : <CartStyle emptyCart>
         No Items in Your Cart
         <br />
         <Link href="/">

@@ -9,15 +9,26 @@
     "lint": "eslint ./src/** ./pages/** ./shared/** -c .eslintrc.json --ext js,jsx",
     "lint-fix": "eslint ./src/** ./pages/** ./shared/** -c .eslintrc.json --fix --ext js,jsx"
   },
+  "husky": {
+    "hooks": {
+      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
+      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
+      "post-applypatch": "echo \"[Husky] post-applypatch\"",
+      "pre-commit": "echo \"[Husky] pre-commit\""
+    }
+  },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.1.0",
     "@sentry/nextjs": "^6.6.0",
+    "@sentry/react": "^6.7.1",
     "algoliasearch": "^4.9.1",
     "axios": "^0.21.1",
     "firebase": "^8.6.2",
     "googleapis": "^75.0.0",
+    "husky": "^6.0.0",
     "next": "10.2.3",
     "nouislider-react": "^3.4.0",
+    "prettier": "^2.3.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-firebaseui": "^5.0.2",

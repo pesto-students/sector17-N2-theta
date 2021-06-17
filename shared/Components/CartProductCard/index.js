@@ -1,13 +1,13 @@
-import CartProductCardStyle from "./Style";
 import Link from "next/link";
-import { RemoveCartItemButton } from "../../Utils/RemoveCartItem";
-import { MoveToWishlistButton } from "shared/Utils/MoveToWishlist";
-import { useContext, useEffect, useState } from "react";
-import GlobalContext from "context/GlobalContext";
-import Quantity from "../Quantity";
-import { updateCart } from "shared/Utils/AddToCart";
-import saveCartItems from "shared/Utils/saveCartItems";
 import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
+import { MoveToWishlistButton } from "../../Utils/MoveToWishlist";
+import GlobalContext from "../../../context/GlobalContext";
+import { updateCart } from "../../Utils/AddToCart";
+import saveCartItems from "../../Utils/saveCartItems";
+import Quantity from "../Quantity";
+import { RemoveCartItemButton } from "../../Utils/RemoveCartItem";
+import CartProductCardStyle from "./Style";
 
 const CartProductCard = (props) => {
   const router = useRouter();
@@ -33,19 +33,20 @@ const CartProductCard = (props) => {
 
   const [qty, setQty] = useState(quantity);
 
-  const updateProductQuantity = async () => {
-    if (sku) {
-      const updatedCartItems = await updateCart(sku, qty, currentUser);
-      setCartItems(updatedCartItems);
-      saveCartItems(updatedCartItems, currentUser ? currentUser.uid : null);
-      setNotificationVisibility(true);
-      setNotificationMessage("Quantity update successfully");
-    }
-  };
+  
 
   useEffect(() => {
+    const updateProductQuantity = async () => {
+      if (sku) {
+        const updatedCartItems = await updateCart(sku, qty, currentUser);
+        setCartItems(updatedCartItems);
+        saveCartItems(updatedCartItems, currentUser ? currentUser.uid : null);
+        setNotificationVisibility(true);
+        setNotificationMessage("Quantity update successfully");
+      }
+    };
     updateProductQuantity();
-  }, [qty]);
+  }, [qty, currentUser, setCartItems, setNotificationMessage, setNotificationVisibility, sku]);
 
   return (
     <CartProductCardStyle>

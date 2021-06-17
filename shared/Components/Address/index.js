@@ -1,9 +1,10 @@
-import GlobalContext from "@/appContext";
-import addAddressCollection from "@/data/firestore/address";
-import useAddress from "@/data/hooks/use-address";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import addAddressCollection from "../../../data/firestore/address";
+import useAddress from "../../../data/hooks/use-address";
 import Input from "../Input";
 import AddressStyle from "./Style";
+import GlobalContext from "../../../context/GlobalContext";
+
 const Address = ({ setValidAddress, setPincode }) => {
   const [isEdit, setIsEdit] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -45,11 +46,13 @@ const Address = ({ setValidAddress, setPincode }) => {
     if (currentUser) {
       setUserId(currentUser.uid);
     }
-  }, [userAddress, currentUser]);
+  }, [userAddress, currentUser, isLoading, setValidAddress]);
 
   useEffect(() => {
-    typeof setPincode == 'function' && setPincode(address.pincode);
-  }, [address])
+    if(typeof setPincode === 'function'){
+      setPincode(address.pincode);
+    }
+  }, [address, setPincode])
 
   useEffect(() => {
     const addressIdentifier = setTimeout(() => {
@@ -70,21 +73,21 @@ const Address = ({ setValidAddress, setPincode }) => {
     return () => {
       clearTimeout(addressIdentifier);
     };
-  }, [formIsValid]);
+  }, [address, currentUser.uid, formIsValid, setValidAddress]);
 
   const onClickSaveHandeler = (e) => {
     e.preventDefault();
     setLoading(true);
     if (
-      address.firstName != "" &&
-      address.lastName != "" &&
-      address.street != "" &&
-      address.city != "" &&
-      address.state != "" &&
-      address.country != "" &&
-      address.pincode != "" &&
-      address.email != "" &&
-      address.phone != ""
+      address.firstName !== "" &&
+      address.lastName !== "" &&
+      address.street !== "" &&
+      address.city !== "" &&
+      address.state !== "" &&
+      address.country !== "" &&
+      address.pincode !== "" &&
+      address.email !== "" &&
+      address.phone !== ""
     ) {
       setFormIsValid(true);
     }
@@ -224,17 +227,17 @@ const Address = ({ setValidAddress, setPincode }) => {
 
                   {loading && (
                     <span className="push-right">
-                      <i className="fa fa-spinner"></i>
+                      <i className="fa fa-spinner" />
                     </span>
                   )}
-                  {!loading && <button className="btn push-right">Save</button>}
+                  {!loading && <button className="btn push-right" type="submit">Save</button>}
                 </form>
               </div>
             ) : (
               <div>
                 <div className="shipping_address">
                   <div className="address">
-                    <strong>{address.firstName + " " + address.lastName}</strong>
+                    <strong>{`${address.firstName  } ${  address.lastName}`}</strong>
                     <p>
                       {address.street} {address.appartment},
                       <br />
@@ -244,9 +247,9 @@ const Address = ({ setValidAddress, setPincode }) => {
                     </p>
                   </div>
 
-                  <span className="action" onClick={onEditAddress}>
+                  <button type="button" className="action" onClick={onEditAddress}>
                     Edit
-                  </span>
+                  </button>
                 </div>
               </div>
             )}
