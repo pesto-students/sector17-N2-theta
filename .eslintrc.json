@@ -34,12 +34,10 @@
   },
   "plugins": ["react", "react-hooks"],
   "rules": {
-    // NextJs specific fix: suppress errors for missing 'import React' in files for nextjs
     "react/react-in-jsx-scope": "off",
     "react/prop-types" : "off",
     "react/jsx-props-no-spreading" : "off",
     "jsx-a11y/anchor-is-valid": "off",
-   // NextJs specific fix: allow jsx syntax in js files
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }], //should add ".ts" if typescript project
     "react/display-name": 1
   }

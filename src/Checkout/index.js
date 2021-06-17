@@ -1,15 +1,14 @@
-import GlobalContext from "@/appContext";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import Address from "shared/Components/Address";
-import CheckoutStyle from "./Style";
+import GlobalContext from "../../context/GlobalContext";
+import Address from "../../shared/Components/Address";
 import Cart from "../Cart";
 import ShippingMethods from "./ShippingMethods";
+import CheckoutStyle from "./Style";
 
 const Checkout = () => {
   const router = useRouter();
-  const { cartItems, cartPriceDetails, cartItemSellers } =
-    useContext(GlobalContext);
+  const { cartPriceDetails, cartItemSellers } = useContext(GlobalContext);
   const [validAddress, setValidAddress] = useState(false);
   const [pincode, setPincode] = useState();
   const [shippingEnabled, setShippingEnabled] = useState(false);
@@ -22,9 +21,11 @@ const Checkout = () => {
     }
   }, [validAddress]);
 
-  if (cartPriceDetails && cartPriceDetails.total == 0) {
-    // router.push("/cart");
-  }
+  useEffect(() => {
+    if (cartPriceDetails && cartPriceDetails.total === 0) {
+      router.push("/cart");
+    }
+  }, [cartPriceDetails])
 
   return (
     <CheckoutStyle>

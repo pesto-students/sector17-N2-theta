@@ -73,7 +73,7 @@ const Address = ({ setValidAddress, setPincode }) => {
     return () => {
       clearTimeout(addressIdentifier);
     };
-  }, [address, currentUser.uid, formIsValid, setValidAddress]);
+  }, [formIsValid]);
 
   const onClickSaveHandeler = (e) => {
     e.preventDefault();
