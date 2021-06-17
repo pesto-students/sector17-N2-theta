@@ -1,66 +1,66 @@
-import GlobalContext from "@/appContext";
-import { useProductsBySKU } from "@/data";
-import firebase from "@/data/firebase";
-import { getSellers } from "@/data/firestore/sellers";
 import { useContext, useEffect, useState } from "react";
-import CartProductCard from "shared/Components/CartProductCard";
+import { useProductsBySKU } from "../../../data";
+import firebase from "../../../data/firebase";
+import { getSellers } from "../../../data/firestore/sellers";
+import CartProductCard from "../../../shared/Components/CartProductCard";
+import GlobalContext from "../../../context/GlobalContext";
 
+const CartProducts = (props) => {
+  const { cartItems, setCartItemSellers } = useContext(GlobalContext);
+  const {cartItemsSku, preparePriceDetails} = props;
+  const dataLimit = 10;
+  const [products, setProducts] = useState({});
+  const [qtyUpdate, setQtyUpdate] = useState(false);
+  
+  const { data, status, isError } = useProductsBySKU(
+    0,
+    dataLimit,
+    [...cartItemsSku]
+  );
 
-const useSellersById = (offset = 0, limit = 10, id = []) => getSellers({
+  const useSellersById = (offset = 0, limit = 10, id = []) => getSellers({
     offset,
     limit,
     orderBy: firebase.firestore.FieldPath.documentId(),
     id,
   })
 
-const CartProducts = (props) => {
-  const { cartItems, setCartItemSellers } = useContext(GlobalContext);
-
-  if(!cartItems){ return null; }
-
-  const {cartItemsSku, preparePriceDetails} = props;
-  const [dataLimit, setDataLimit] = useState(10);
-  const [products, setProducts] = useState({});
-  const [qtyUpdate, setQtyUpdate] = useState(false);
+  useEffect(() => {
+    async function prepareSellers(){
+      const sellers = [];
   
-  const { data, status, isLoading, isError } = useProductsBySKU(
-    0,
-    dataLimit,
-    [...cartItemsSku]
-  );
+      Object.keys(cartItems).map((sku) => {
+        const {seller} = data[sku];
+        if(sellers.indexOf(seller) < 0){
+          sellers.push(seller);
+        }
+      });
+  
+      const sellerData = await useSellersById(
+        0,
+        dataLimit,
+        [...sellers]
+      )
+  
+      setCartItemSellers(sellerData);
+    }
 
-  const prepareSellers = async () => {
-    const sellers = [];
-
-    Object.keys(cartItems).map((sku) => {
-      const {seller} = data[sku];
-      if(sellers.indexOf(seller) < 0){
-        sellers.push(seller);
-      }
-    });
-
-    const sellerData = await useSellersById(
-      0,
-      dataLimit,
-      [...sellers]
-    )
-
-    setCartItemSellers(sellerData);
-  }
-
-  useEffect(async () => {
     if(data){
       preparePriceDetails(data);
       prepareSellers();
     }
-  }, [cartItems, data, preparePriceDetails, prepareSellers])
+  }, [cartItems])
 
   useEffect(() => {
     if (status === "success") {
       setProducts({ ...data });
       preparePriceDetails(data);
     }
-  }, [data, preparePriceDetails, status]);
+  }, [status]);
+
+  if(!cartItems){ 
+    return null; 
+  }
 
   return (
     !isError && products && cartItems 
