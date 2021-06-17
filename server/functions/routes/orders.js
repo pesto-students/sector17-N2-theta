@@ -1,9 +1,22 @@
 const express = require("express");
 const router = express.Router();
+const cors = require("cors");
 
-const {createOrder, getOrders} = require("../controllers/orders");
+const {createOrder} = require("../controllers/orders");
 
-router.posts("/", createOrder);
-router.get("/", getOrders);
+const whitelist = ['http://localhost:3000']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+}
+
+router.post("/", createOrder);
+router.options('/', cors());
+//router.get("/", getOrders);
 
 module.exports = router;
