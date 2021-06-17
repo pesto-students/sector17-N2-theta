@@ -1,20 +1,44 @@
-import GlobalContext from "@/appContext";
 import { useRouter } from "next/router";
-import { useContext } from "react";
-import Address from "shared/Components/Address";
-import CheckoutStyle from './Style';
+import { useContext, useEffect, useState } from "react";
+import GlobalContext from "../../context/GlobalContext";
+import Address from "../../shared/Components/Address";
+import Cart from "../Cart";
+import ShippingMethods from "./ShippingMethods";
+import CheckoutStyle from "./Style";
 
 const Checkout = () => {
   const router = useRouter();
-  const { cartPriceDetails, isLogin, currentUser:user } = useContext(GlobalContext);
+  const { cartPriceDetails, cartItemSellers } = useContext(GlobalContext);
+  const [validAddress, setValidAddress] = useState(false);
+  const [pincode, setPincode] = useState();
+  const [shippingEnabled, setShippingEnabled] = useState(false);
 
-  if (cartPriceDetails && cartPriceDetails.total == 0) {
-    // router.push("/cart");
-  }
+  useEffect(() => {
+    if (validAddress) {
+      setShippingEnabled(true);
+    } else {
+      setShippingEnabled(false);
+    }
+  }, [validAddress]);
+
+  useEffect(() => {
+    if (cartPriceDetails && cartPriceDetails.total === 0) {
+      router.push("/cart");
+    }
+  }, [cartPriceDetails])
 
   return (
     <CheckoutStyle>
-      <div>{isLogin && <Address user={user} />}</div>
+      <div style={{ textAlign: "center" }}>Login</div>
+      <Address setValidAddress={setValidAddress} setPincode={setPincode} />
+      {cartItemSellers && (
+        <ShippingMethods
+          enabled={shippingEnabled}
+          pincode={pincode}
+          cartItemSellers={cartItemSellers}
+        />
+      )}
+      <Cart />
     </CheckoutStyle>
   );
 };

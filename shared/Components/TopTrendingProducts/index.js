@@ -1,9 +1,9 @@
 import { useProducts } from "@/data";
 import { useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
 import ProductCard from "../ProductCard";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const TopTrendingProducts = (props) => {
   const [offset, setOffset] = useState(0);
@@ -40,7 +40,7 @@ const TopTrendingProducts = (props) => {
       <HeadingStyle>
         <h2 className="heading">
           Top Trending Products
-          <span className="heading-underline"></span>
+          <span className="heading-underline" />
         </h2>
       </HeadingStyle>
       <Grid count={4} gap={20}>

@@ -16,7 +16,7 @@ const ItemsCount = () => {
     const itemsInCart = getCartItems(currentUser ? currentUser.uid : null);
     setCartItems(itemsInCart);
     setCount(Object.keys(itemsInCart).length)
-  }, [])
+  }, [currentUser, setCartItems])
 
   return (
     count > 0 && <span className='count'>{count}</span>

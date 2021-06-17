@@ -1,9 +1,6 @@
-import { Fragment } from "react"
-import MyAccount from "src/MyAccount"
+import MyAccount from "../../src/MyAccount"
 
-const Profile = () => {
-    return <Fragment>
+const Profile = () => <>
         <MyAccount />
-    </Fragment>
-}
+    </>
 export default Profile;

@@ -10,11 +10,13 @@ const AddressStyle = styled.div`
     .shipping_address {
       border: 1px solid ${(props) => props.theme.color.grey};
       background: ${(props) => props.theme.color.lightGrey};
-      display: flex;
       padding: 10px;
+      position: relative;
+
       .address {
         flex: 1;
       }
+      
       .action {
         flex: 1;
         text-align: right;

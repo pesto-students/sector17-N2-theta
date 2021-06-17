@@ -1,8 +1,8 @@
 import useCategories from "@/data/hooks/use-categories";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import NavigationStyle from "./Style";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import NavigationStyle from "./Style";
 
 const Navigation = () => {
   const router = useRouter();

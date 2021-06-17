@@ -12,6 +12,7 @@ class Root extends Component {
   static async getInitialProps({ query }) {
     return { page: query };
   }
+
   render() {
     return (
       <ThemeProvider theme={ThemeVariables}>
