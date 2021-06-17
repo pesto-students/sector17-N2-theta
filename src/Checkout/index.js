@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../context/GlobalContext";
 import Address from "../../shared/Components/Address";
@@ -7,11 +6,11 @@ import ShippingMethods from "./ShippingMethods";
 import CheckoutStyle from "./Style";
 
 const Checkout = () => {
-  const router = useRouter();
-  const { cartPriceDetails, cartItemSellers } = useContext(GlobalContext);
+  const { cartProducts, cartPriceDetails, cartItemSellers } = useContext(GlobalContext);
   const [validAddress, setValidAddress] = useState(false);
   const [pincode, setPincode] = useState();
   const [shippingEnabled, setShippingEnabled] = useState(false);
+  const [summaryEnabled, setSummaryEnabled] = useState(false);
 
   useEffect(() => {
     if (validAddress) {
@@ -20,12 +19,6 @@ const Checkout = () => {
       setShippingEnabled(false);
     }
   }, [validAddress]);
-
-  useEffect(() => {
-    if (cartPriceDetails && cartPriceDetails.total === 0) {
-      router.push("/cart");
-    }
-  }, [cartPriceDetails])
 
   return (
     <CheckoutStyle>
@@ -36,9 +29,12 @@ const Checkout = () => {
           enabled={shippingEnabled}
           pincode={pincode}
           cartItemSellers={cartItemSellers}
+          cartProducts={cartProducts}
+          setSummaryEnabled={setSummaryEnabled}
         />
       )}
-      <Cart />
+      
+      <Cart showSummary={summaryEnabled}/>
     </CheckoutStyle>
   );
 };

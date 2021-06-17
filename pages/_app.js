@@ -39,6 +39,7 @@ const MyApp = ({ Component, pageProps }) => {
     couponDiscount: 0,
     total: 0,
   });
+  const [cartProducts, setCartProducts] = useState();
 
   const [wishlistItems, setWishlistItems] = useState(null);
   const [notificationVisibility, setNotificationVisibility] = useState(false);
@@ -101,7 +102,9 @@ const MyApp = ({ Component, pageProps }) => {
     clearFilter,
     setClearFilter,
     cartItemSellers, 
-    setCartItemSellers
+    setCartItemSellers,
+    cartProducts, 
+    setCartProducts
   };
 
   useEffect(() => {
