@@ -5,7 +5,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 const CategoryCard = (props) => {
   return (
     <CategoryCardStyle>
-      <div className="category_item">
+      <div className="category_item" role="categories">
         {props.image ? (
           <Link href={`/categories/${props.id}`}>
             <img src={props.image ? props.image : "./images/category.jpg"} />

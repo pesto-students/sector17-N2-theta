@@ -10,7 +10,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest --env=jsdom"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.1.0",

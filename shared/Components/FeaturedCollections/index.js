@@ -4,7 +4,6 @@ import HeadingStyle from "../../Styles/HeadingStyle";
 import CategoryCard from "../CategoryCard";
 import CollectionsStyle from "./Style";
 import useCategories from "../../../data/hooks/use-categories";
-import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const FeaturedCollections = () => {
