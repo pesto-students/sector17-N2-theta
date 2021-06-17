@@ -1,10 +1,10 @@
-import GlobalContext from "context/GlobalContext";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import getCouponDiscount from "shared/Utils/getCouponDiscount";
 import { useRouter } from "next/router";
-import CartStyle from "./Style";
+import { useContext, useEffect, useState } from "react";
+import GlobalContext from "../../context/GlobalContext";
+import getCouponDiscount from "../../shared/Utils/getCouponDiscount";
 import CartProducts from "./Products";
+import CartStyle from "./Style";
 
 const Cart = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const Cart = () => {
   }
 
   const applyCoupon = () => {
-    if(couponCode == ''){
+    if(couponCode === ''){
       setCouponError('Please Enter a coupon code.');
       return;
     }
@@ -66,21 +66,25 @@ const Cart = () => {
     })
   }
 
-  useEffect(async () => {
-    if(cartItems){
-      setCartItemsCount(Object.keys(cartItems).length);
-      setCartItemsSku(Object.keys(cartItems).map((sku) => parseInt(sku)))
+  useEffect(() => {
+    async function handleCartData(){
+      if(cartItems){
+        setCartItemsCount(Object.keys(cartItems).length);
+        setCartItemsSku(Object.keys(cartItems).map((sku) => parseInt(sku)))
+      }
     }
+    handleCartData()
   }, [cartItems])
 
+  if(router.asPath === '/checkout'){
+    return <CartProducts 
+      cartItemsSku={cartItemsSku}
+      preparePriceDetails={preparePriceDetails}
+    />
+  }
+
   return (
-    router.asPath == '/checkout' ? (
-      <CartProducts 
-        cartItemsSku={cartItemsSku}
-        preparePriceDetails={preparePriceDetails}
-      />
-    ) : (
-      cartItemsCount > 0 ? <CartStyle>
+    cartItemsCount > 0 ? <CartStyle>
         <div className="products">
           <h1>My Cart ({cartItemsCount})</h1>
 
@@ -104,16 +108,12 @@ const Cart = () => {
                   <span className="label">Price ({cartItemsCount} items)</span>
                   <span className="value">{cartPriceDetails.subTotal.toFixed(2)}</span>
                 </li>
-                {/* <li className="discount">
-                  <span className="label">Discount</span>
-                  <span className="value">0</span>
-                </li> */}
                 <li className="coupon-discount">
                   {cartPriceDetails.coupon ? (
                     <>
                       <span className="label">
                         Coupon (<span className="green">{cartPriceDetails.coupon}</span>)
-                        <button title="Remove Coupon" onClick={removeCouponCode}>x</button>
+                        <button type="button" title="Remove Coupon" onClick={removeCouponCode}>x</button>
                       </span>
                       <span className="value">- {cartPriceDetails.couponDiscount.toFixed(2)}</span>
                     </>
@@ -122,7 +122,7 @@ const Cart = () => {
                       <div className="form">
                         <div className="fields">
                           <input type="text" value={couponCode} onChange={handleCouponCodeChange} name="" id="" placeholder="Enter Coupon Code" />
-                          <button onClick={applyCoupon} disabled={couponError !== '' || couponCode == ''}>Apply Coupon</button>
+                          <button type="button" onClick={applyCoupon} disabled={couponError !== '' || couponCode === ''}>Apply Coupon</button>
                         </div>
                         <div className="error">
                           {couponError}
@@ -157,7 +157,6 @@ const Cart = () => {
         </Link>
       </CartStyle>
     )
-  )
 }
 
 export default Cart;
