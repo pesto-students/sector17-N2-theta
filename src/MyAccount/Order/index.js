@@ -1,5 +1,3 @@
-const Order = () => {
-    return <div>Orders</div>;
-}
+const Order = () => <div>Orders</div>
 
 export default Order;

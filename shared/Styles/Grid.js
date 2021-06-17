@@ -4,9 +4,7 @@ const generateColumns = (count, gap) => {
     const columns = [...Array(count).keys()];
 
     return columns
-        .map(() => {
-            return `calc((100% - ${(count - 1) * gap}px) / ${count})`;
-        })
+        .map(() => `calc((100% - ${(count - 1) * gap}px) / ${count})`)
         .join(" ");
 };
 

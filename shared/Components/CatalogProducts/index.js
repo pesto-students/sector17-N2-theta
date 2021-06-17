@@ -1,17 +1,15 @@
-import { useProducts } from "@/data";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState , useContext } from "react";
+import GlobalContext from "../../../context/GlobalContext";
+import { useProducts } from "../../../data";
 import ProductCard from "../ProductCard";
 import Grid from "../../Styles/Grid";
 
-import GlobalContext from "context/GlobalContext";
-import { useContext } from "react";
-
 const CatalogProducts = (props) => {
   const router = useRouter();
+  const { categoryLoading, singleCategory } = props;
   const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(16);
+  const limit = useState(16);
   const [products, setProducts] = useState({});
 
   const [manufacturerFilter, setManufacturerFilter] = useState([]);
@@ -36,27 +34,29 @@ const CatalogProducts = (props) => {
   );
 
   useEffect(() => {
-    !isLoading && setProducts({ ...data });
-      console.log(globalManufacturerFilter);
-    if (router.query["price"] && router.query["price"] != "") {
-      setPriceFilter(router.query["price"].split(","));
-    }
-    if (router.query["manufacturer"] && router.query["manufacturer"] != "") {
-      setManufacturerFilter(router.query["manufacturer"].split(","));
+    if(!isLoading){
+      setProducts({ ...data })
     }
 
-  }, [data]);
+    if (router.query.price && router.query.price !== "") {
+      setPriceFilter(router.query.price.split(","));
+    }
+    if (router.query.manufacturer && router.query.manufacturer !== "") {
+      setManufacturerFilter(router.query.manufacturer.split(","));
+    }
+
+  }, [data, globalManufacturerFilter, isLoading, router.query]);
 
   const loadMore = () => {
     const productKeys = Object.keys(data);
-    const offset = productKeys[productKeys.length - 1];
-    setOffset(parseInt(offset));
+    const newOffset = parseInt(productKeys[productKeys.length - 1], 10);
+    setOffset(newOffset);
   };
 
   if (isLoading) {
     return (
       <div>
-        <div className="heading"></div>
+        <div className="heading" />
 
         <div className="product_list">
           <Grid count={4} gap={15}>
@@ -78,7 +78,7 @@ const CatalogProducts = (props) => {
     <div>
       <div className="heading">
         <span className="category_title">
-          {!props.categoryLoading && props.singleCategory.name}
+          {!categoryLoading && singleCategory.name}
         </span>
         <span className="product_count">
           ({isSuccess && !!products && Object.keys(products).length})
@@ -88,8 +88,8 @@ const CatalogProducts = (props) => {
       <div className="product_list">
         <Grid count={4} gap={15}>
           {!!products &&
-            Object.keys(products).map((product, index) => (
-              <ProductCard key={index} id={product} {...products[product]} />
+            Object.keys(products).map((product) => (
+              <ProductCard key={product} id={product} {...products[product]} />
             ))}
         </Grid>
 
@@ -97,7 +97,7 @@ const CatalogProducts = (props) => {
           ((Object.keys(data).length > 0 &&
             Object.keys(data).length === limit) ||
             isLoading) && (
-            <button className="btn" disabled={isLoading} onClick={loadMore}>
+            <button type="button" className="btn" disabled={isLoading} onClick={loadMore}>
               {isLoading ? "Loading..." : "Load More"}
             </button>
           )}

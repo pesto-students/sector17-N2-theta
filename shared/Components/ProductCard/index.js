@@ -1,8 +1,8 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import ProductCardStyle from "./Style";
 import { AddToWishlistButton } from "shared/Utils/AddToWishlist";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import ProductCardStyle from "./Style";
 
 const AddToCart = dynamic(() => import("shared/Utils/AddToCart"), {
   ssr: false,
@@ -35,7 +35,7 @@ const ProductCard = (props) => {
                     <i className="fa fa-star" />
                     <i className="fa fa-star" />
                     <i className="fa fa-star" />
-                    <span className="count"></span>
+                    <span className="count" />
                   </>
                 ) : (
                   <Skeleton height={20} />
@@ -46,9 +46,9 @@ const ProductCard = (props) => {
                   <span className="main-price">
                     {price ? <span>Rs.{price}</span> : <Skeleton height={20} />}
                   </span>
-                  <span className="stike-through"></span>
+                  <span className="stike-through" />
                 </div>
-                <div className="add-to-cart-placeholder"></div>
+                <div className="add-to-cart-placeholder" />
               </div>
             </div>
           </div>
