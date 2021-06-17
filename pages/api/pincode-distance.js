@@ -1,4 +1,3 @@
-import { withSentry } from '@sentry/nextjs';
 const https = require("https");
 const handler = async (req, res) => {
   if (req.method === "POST") {
@@ -24,4 +23,4 @@ const handler = async (req, res) => {
   }
 };
 
-export default withSentry(handler);
+export default handler;
