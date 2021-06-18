@@ -7,15 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint ./src/** ./pages/** ./shared/** -c .eslintrc.json --ext js,jsx",
-    "lint-fix": "eslint ./src/** ./pages/** ./shared/** -c .eslintrc.json --fix --ext js,jsx"
-  },
-  "husky": {
-    "hooks": {
-      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
-      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
-      "post-applypatch": "echo \"[Husky] post-applypatch\"",
-      "pre-commit": "echo \"[Husky] pre-commit\""
-    }
+    "lint-fix": "eslint ./src/** ./pages/** ./shared/** -c .eslintrc.json --fix --ext js,jsx",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.1.0",
@@ -26,6 +19,7 @@
     "firebase": "^8.6.2",
     "googleapis": "^75.0.0",
     "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "next": "10.2.3",
     "nouislider-react": "^3.4.0",
     "prettier": "^2.3.1",
@@ -48,6 +42,23 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^1.7.0"
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-sonarjs": "^0.8.0-125",
+    "eslint-plugin-unicorn": "^33.0.1",
+    "husky": "^6.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*./{js,jsx}": [
+      "npm eslint",
+      "npm prettier --write",
+      "npm test --watchAll=false --findRelatedTests"
+    ]
   }
 }
