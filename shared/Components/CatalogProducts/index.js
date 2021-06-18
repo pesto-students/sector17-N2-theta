@@ -1,11 +1,11 @@
-import { useProducts } from "@/data";
+import useProducts from "../../../data/hooks/use-products";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import ProductCard from "../ProductCard";
 import Grid from "../../Styles/Grid";
 
-import GlobalContext from "context/GlobalContext";
+import GlobalContext from "../../../context/GlobalContext";
 import { useContext } from "react";
 
 const CatalogProducts = (props) => {
@@ -37,7 +37,6 @@ const CatalogProducts = (props) => {
 
   useEffect(() => {
     !isLoading && setProducts({ ...data });
-      console.log(globalManufacturerFilter);
     if (router.query["price"] && router.query["price"] != "") {
       setPriceFilter(router.query["price"].split(","));
     }
@@ -58,7 +57,7 @@ const CatalogProducts = (props) => {
       <div>
         <div className="heading"></div>
 
-        <div className="product_list">
+        <div className="product_list" role="loading">
           <Grid count={4} gap={15}>
             <ProductCard />
             <ProductCard />

@@ -12,6 +12,7 @@ import saveCartItems from "shared/Utils/saveCartItems";
 import getWishlistItems from "shared/Utils/getWishlistItems";
 
 import * as Sentry from "@sentry/react";
+import Error from "../shared/Components/Error";
 
 Sentry.init({
   dsn: "https://ea0a55f9b7b14acc8d08568db512ab14@o844204.ingest.sentry.io/5814430",
@@ -150,7 +151,8 @@ const MyApp = ({ Component, pageProps }) => {
   }, [notificationMessage, notificationVisibility]);
 
   return (
-    <GlobalContextProvider value={contextData}>
+    <Error>
+      <GlobalContextProvider value={contextData}>
         <QueryClientProvider client={queryClient}>
           <Root>
             {isLogin ? (
@@ -165,7 +167,8 @@ const MyApp = ({ Component, pageProps }) => {
           message={notificationMessage}
           setNotificationVisibility={setNotificationVisibility}
         />
-    </GlobalContextProvider>
+      </GlobalContextProvider>
+    </Error>
   );
 };
 
