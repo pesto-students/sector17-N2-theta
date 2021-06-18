@@ -1,7 +1,12 @@
+import GlobalContext from "@/appContext";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
 
 const CartSummary = (props) => {
+  const router = useRouter();
+  const { finalPriceToPay } = useContext(GlobalContext)
+  
   const {
     cartPriceDetails,
     cartItemsCount,
@@ -53,7 +58,7 @@ const CartSummary = (props) => {
             <li className='price'>
               <span className='label'>Price ({cartItemsCount} items)</span>
               <span className='value'>
-                {cartPriceDetails.subTotal.toFixed(2)}
+                Rs. {cartPriceDetails.subTotal.toFixed(2)}
               </span>
             </li>
             <li className='coupon-discount'>
@@ -70,7 +75,7 @@ const CartSummary = (props) => {
                     </button>
                   </span>
                   <span className='value'>
-                    - {cartPriceDetails.couponDiscount.toFixed(2)}
+                    - Rs. {cartPriceDetails.couponDiscount.toFixed(2)}
                   </span>
                 </>
               ) : (
@@ -97,19 +102,48 @@ const CartSummary = (props) => {
                 </>
               )}
             </li>
+
+            {
+              router.asPath === '/checkout' && cartPriceDetails.total !== finalPriceToPay && 
+              <li className='coupon-discount'>
+                  <span className='label green'>
+                    Nebougherhood Discount
+                  </span>
+                  <span className='value'>
+                    - Rs. {cartPriceDetails.total - finalPriceToPay}
+                  </span>
+              </li>
+            }
+
+
+            
             <li className='delivery-charge'>
               <span className='label'>Delivery Charge</span>
               <span className='value'>Free</span>
             </li>
+            
             <li className='total'>
               <span className='label'>Total Amount</span>
-              <span className='value'>{cartPriceDetails.total.toFixed(2)}</span>
+              {
+                router.asPath === '/checkout' && finalPriceToPay ? 
+                  <span className='value'>Rs. {finalPriceToPay.toFixed(2)}</span>
+                  : <span className='value'>Rs. {cartPriceDetails.total.toFixed(2)}</span>
+              }
             </li>
-            <li className='button'>
-              <Link href='/checkout'>
-                <a>Place Order</a>
-              </Link>
-            </li>
+
+            {router.asPath === '/checkout' ? (
+              <li className='button'>
+                <Link href='/payment'>
+                  <a>Proceed to Payment</a>
+                </Link>
+              </li>
+            ) : (
+              <li className='button'>
+                <Link href='/checkout'>
+                  <a>Place Order</a>
+                </Link>
+              </li>
+            )}
           </ul>
         )}
       </div>

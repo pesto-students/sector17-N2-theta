@@ -56,72 +56,63 @@ const CartProductCard = (props) => {
         </a>
       </Link>
     </div>
-    <div className="details-wrapper">
-      <div className="name">
-        <Link href={`/categories/${category}/${sku}`}>
-          <a>
-            <img src={image} alt={name} />
-          </a>
-        </Link>
-      </div>
-      <div className='details-wrapper'>
-        {router.asPath !== "/checkout" ? (
-          <>
-            <div className='name'>
-              <Link href={`/categories/${category}/${sku}`}>
-                <a>{name}</a>
-              </Link>
-            </div>
-            <div className='details'>
-              <div>
-                <span className='label'>Sku:</span>
-                <span className='value'>{sku}</span>
-              </div>
-              <div>
-                <span className='label'>Manufacturer:</span>
-                <span className='value'>{manufacturer}</span>
-              </div>
-              <div>
-                <span className='label'>Model:</span>
-                <span className='value'>{model}</span>
-              </div>
-            </div>
-          </>
-        ) : (
+    <div className='details-wrapper'>
+      {router.asPath !== "/checkout" ? (
+        <>
           <div className='name'>
-            {name}
+            <Link href={`/categories/${category}/${sku}`}>
+              <a>{name}</a>
+            </Link>
           </div>
-        )}
-        
-        <div className='price'>
-          <span className='main-price'>Rs.{(price * qty).toFixed(2)}</span>
-        </div>
-
-        {router.asPath !== "/checkout" && (
-          <>
-            <Quantity
-              onQtyUpdate={setQty}
-              quantity={qty}
-              from='cart'
-              sku={sku}
-              setQtyUpdate={setQtyUpdate}
-            />
-
-            <div className='actions'>
-              {wishlistItems && wishlistItems.indexOf(sku) < 0 ? (
-                <>
-                  <MoveToWishlistButton productSku={sku} />
-                  <span> | </span>
-                </>
-              ) : null}
-
-              <RemoveCartItemButton productSku={sku} />
+          <div className='details'>
+            <div>
+              <span className='label'>Sku:</span>
+              <span className='value'>{sku}</span>
             </div>
-          </>
-        )}
+            <div>
+              <span className='label'>Manufacturer:</span>
+              <span className='value'>{manufacturer}</span>
+            </div>
+            <div>
+              <span className='label'>Model:</span>
+              <span className='value'>{model}</span>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className='name'>
+          {name}
+        </div>
+      )}
+      
+      <div className='price'>
+        <span className='main-price'>Rs. {(price * qty).toFixed(2)}</span>
       </div>
-    </CartProductCardStyle>
-  );
+
+      {router.asPath !== "/checkout" && (
+        <>
+          <Quantity
+            onQtyUpdate={setQty}
+            quantity={qty}
+            from='cart'
+            sku={sku}
+            setQtyUpdate={setQtyUpdate}
+          />
+
+          <div className='actions'>
+            {wishlistItems && wishlistItems.indexOf(sku) < 0 ? (
+              <>
+                <MoveToWishlistButton productSku={sku} />
+                <span> | </span>
+              </>
+            ) : null}
+
+            <RemoveCartItemButton productSku={sku} />
+          </div>
+        </>
+      )}
+    </div>
+  </CartProductCardStyle>
 };
 
 export default CartProductCard;

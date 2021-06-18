@@ -25,7 +25,6 @@ const db = firebase.firestore();
 
 const deleteCollectionFromDb = async ({ collection, userId }) => {
   await db.collection(collection).doc(userId).delete();
-  
 };
 
 const MyApp = ({ Component, pageProps }) => {
@@ -40,6 +39,7 @@ const MyApp = ({ Component, pageProps }) => {
     couponDiscount: 0,
     total: 0,
   });
+  const [finalPriceToPay, setFinalPriceToPay] = useState();
   const [cartProducts, setCartProducts] = useState();
 
   const [wishlistItems, setWishlistItems] = useState(null);
@@ -48,6 +48,7 @@ const MyApp = ({ Component, pageProps }) => {
   const [globalManufacturerFilter, setGlobalManufacturerFilter] = useState([]);
   const [globalPriceFilter, setGlobalPriceFilter] = useState([]);
   const [clearFilter, setClearFilter] = useState(false);
+  const [userInfo, setUserInfo] = useState()
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -105,7 +106,11 @@ const MyApp = ({ Component, pageProps }) => {
     cartItemSellers, 
     setCartItemSellers,
     cartProducts, 
-    setCartProducts
+    setCartProducts,
+    finalPriceToPay, 
+    setFinalPriceToPay,
+    userInfo,
+    setUserInfo
   };
 
   useEffect(() => {

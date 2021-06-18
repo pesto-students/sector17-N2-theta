@@ -6,7 +6,7 @@ import ShippingMethods from "./ShippingMethods";
 import CheckoutStyle from "./Style";
 
 const Checkout = () => {
-  const { cartProducts, cartPriceDetails, cartItemSellers } = useContext(GlobalContext);
+  const { cartProducts, cartItemSellers } = useContext(GlobalContext);
   const [validAddress, setValidAddress] = useState(false);
   const [pincode, setPincode] = useState();
   const [shippingEnabled, setShippingEnabled] = useState(false);
@@ -22,7 +22,6 @@ const Checkout = () => {
 
   return (
     <CheckoutStyle>
-      <div style={{ textAlign: "center" }}>Login</div>
       <Address setValidAddress={setValidAddress} setPincode={setPincode} />
       {cartItemSellers && (
         <ShippingMethods
@@ -30,6 +29,7 @@ const Checkout = () => {
           pincode={pincode}
           cartItemSellers={cartItemSellers}
           cartProducts={cartProducts}
+          summaryEnabled={summaryEnabled}
           setSummaryEnabled={setSummaryEnabled}
         />
       )}
