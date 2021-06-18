@@ -37,7 +37,7 @@ const CartProductCard = (props) => {
   }, [qty])
 
   return <CartProductCardStyle>
-    <div className="image-wrapper">
+    <div className="image-wrapper" role="products">
       <Link href={`/categories/${category}/${sku}`}>
         <a>
           <img src={image} alt={name} />
