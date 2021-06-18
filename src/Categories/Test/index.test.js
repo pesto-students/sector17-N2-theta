@@ -1,27 +1,28 @@
 import { render, screen } from "../../../test/test-utils";
+import userEvent from "@testing-library/user-event";
 
 import TestCommon from "../../../test/TestCommon";
 import Categories from "../index";
 jest.mock("next/router", () => ({
-    useRouter() {
-      return {
-        prefetch: () => null,
-        query: "category-slug",
-      };
-    }
-  }));
+  useRouter() {
+    return {
+      prefetch: () => null,
+      query: "category-slug",
+    };
+  },
+}));
 describe("Categories", () => {
-  describe("Categories before loading", () => {   
+  describe("Categories before loading", () => {
     it("render categories before loading", () => {
-        jest.mock("../index", () => ({
-            useQuery: () => ({
-              data: (products = {}),
-              isLoading: false,
-              isSuccess: true,
-            }),
-          }));
+      jest.mock("../index", () => ({
+        useQuery: () => ({
+          data: (products = {}),
+          isLoading: false,
+          isSuccess: true,
+        }),
+      }));
       render(
-        <TestCommon>            
+        <TestCommon>
           <Categories />
         </TestCommon>
       );
@@ -44,8 +45,10 @@ describe("Categories", () => {
           <Categories />
         </TestCommon>
       );
+
       const title = await screen.findAllByRole("categories");
       expect(title).not.toHaveLength(0);
     });
   });
+
 });
