@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ./src/** ./pages/** ./shared/** -c .eslintrc.json --ext js,jsx",
+    "check-format": "prettier --check .",
+    "check-lint": "eslint ./src/** ./pages/** ./shared/** -c .eslintrc.json --ext js,jsx",
     "lint-fix": "eslint ./src/** ./pages/** ./shared/** -c .eslintrc.json --fix --ext js,jsx",
     "prepare": "husky install"
   },
@@ -48,17 +49,5 @@
     "eslint-plugin-sonarjs": "^0.8.0-125",
     "eslint-plugin-unicorn": "^33.0.1",
     "husky": "^6.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*./{js,jsx}": [
-      "npm eslint",
-      "npm prettier --write",
-      "npm test --watchAll=false --findRelatedTests"
-    ]
   }
 }
