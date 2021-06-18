@@ -5,8 +5,8 @@ const ErrorStyle = styled.div`
   .error-modal {
     position: absolute;
     top: 15vh;
-    left: calc(50% - 50rem);
-    width: 100rem;
+    left: calc(50% - 35rem);
+    width: 70rem;
     background: ${props=>props.theme.color.white};
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     z-index: 100;

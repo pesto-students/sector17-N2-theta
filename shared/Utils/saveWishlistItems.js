@@ -1,4 +1,4 @@
-import addCollectionToDb from "@/data/firestore/cart";
+import addCollectionToDb from "../../data/firestore/cart";
 
 const saveWishlistItems = (wishlistItems, userId) => {
   const currentWishlistItem = JSON.stringify(wishlistItems);

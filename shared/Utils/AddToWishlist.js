@@ -1,4 +1,4 @@
-import GlobalContext from "context/GlobalContext";
+import GlobalContext from "../../context/GlobalContext";
 import { useContext } from "react";
 import getWishlistItems from "./getWishlistItems";
 import saveWishlistItems from "./saveWishlistItems";

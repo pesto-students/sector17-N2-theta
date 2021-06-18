@@ -1,5 +1,6 @@
 import { useSingleCategory } from "@/data/hooks/use-categories";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import Filter from "shared/Components/Filter";
 import GlobalContext from "context/GlobalContext";
@@ -44,7 +45,10 @@ const Catalog = () => {
     };
 
     return (
-        <CatalogStyle>
+        <CatalogStyle>        
+            <Head>
+                <title>{category.name } | Sector 17</title>
+            </Head>
             <button className="filter-mobile-btn" onClick={handleFilterClick}>
                 {showFilters ? (
                     <span>Hide Filters</span>

@@ -1,4 +1,4 @@
-import addCollectionToDb from "@/data/firestore/cart";
+import addCollectionToDb from "../../data/firestore/cart";
 
 const saveCartItems = (cartItems, userId) => {
   const currentCartItem = JSON.stringify(cartItems);

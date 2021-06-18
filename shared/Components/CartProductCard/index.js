@@ -48,9 +48,16 @@ const CartProductCard = (props) => {
     updateProductQuantity();
   }, [qty, currentUser, setCartItems, setNotificationMessage, setNotificationVisibility, sku]);
 
-  return (
-    <CartProductCardStyle>
-      <div className='image-wrapper'>
+  return <CartProductCardStyle>
+    <div className="image-wrapper" role="products">
+      <Link href={`/categories/${category}/${sku}`}>
+        <a>
+          <img src={image} alt={name} />
+        </a>
+      </Link>
+    </div>
+    <div className="details-wrapper">
+      <div className="name">
         <Link href={`/categories/${category}/${sku}`}>
           <a>
             <img src={image} alt={name} />
