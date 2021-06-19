@@ -21,7 +21,7 @@ const Footer = () => (
                                     <li>
                                         <Link
                                             href="/categories/[category-slug]"
-                                            as="http://localhost:3000/categories/abcat0200000"
+                                            as="/categories/abcat0200000"
                                         >
                                             <a>Audio</a>
                                         </Link>
@@ -29,7 +29,7 @@ const Footer = () => (
                                     <li>
                                         <Link
                                             href="/categories/[category-slug]"
-                                            as="http://localhost:3000/categories/abcat0207000"
+                                            as="/categories/abcat0207000"
                                         >
                                             <a>Musical Instruments</a>
                                         </Link>
@@ -37,7 +37,7 @@ const Footer = () => (
                                     <li>
                                         <Link
                                             href="/categories/[category-slug]"
-                                            as="http://localhost:3000/categories/abcat0400000"
+                                            as="/categories/abcat0400000"
                                         >
                                             <a>Cameras & Camcorders</a>
                                         </Link>
@@ -45,7 +45,7 @@ const Footer = () => (
                                     <li>
                                         <Link
                                             href="/categories/[category-slug]"
-                                            as="http://localhost:3000/categories/abcat0410000"
+                                            as="/categories/abcat0410000"
                                         >
                                             <a>Digital Camera Accessories</a>
                                         </Link>
@@ -58,7 +58,7 @@ const Footer = () => (
                                     <li>
                                         <Link
                                             href="/categories/[category-slug]"
-                                            as="http://localhost:3000/categories/abcat0500000"
+                                            as="/categories/abcat0500000"
                                         >
                                             <a>Computers & Tablets</a>
                                         </Link>
@@ -66,7 +66,7 @@ const Footer = () => (
                                     <li>
                                         <Link
                                             href="/categories/[category-slug]"
-                                            as="http://localhost:3000/categories/abcat0700000"
+                                            as="/categories/abcat0700000"
                                         >
                                             <a>Video Games</a>
                                         </Link>
@@ -74,7 +74,7 @@ const Footer = () => (
                                     <li>
                                         <Link
                                             href="/categories/[category-slug]"
-                                            as="http://localhost:3000/categories/abcat0800000"
+                                            as="/categories/abcat0800000"
                                         >
                                             <a>Cell Phones</a>
                                         </Link>
@@ -82,7 +82,7 @@ const Footer = () => (
                                     <li>
                                         <Link
                                             href="/categories/[category-slug]"
-                                            as="http://localhost:3000/categories/abcat0900000"
+                                            as="/categories/abcat0900000"
                                         >
                                             <a>Appliances</a>
                                         </Link>
@@ -90,7 +90,7 @@ const Footer = () => (
                                     <li>
                                         <Link
                                             href="/categories/[category-slug]"
-                                            as="http://localhost:3000/categories/pcmcat252700050006"
+                                            as="/categories/pcmcat252700050006"
                                         >
                                             <a>Toys, Games & Drones</a>
                                         </Link>
