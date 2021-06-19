@@ -62,12 +62,12 @@ const AddToWishlistButton = (props) => {
     <button className='add-to-wishlist' onClick={handleClick}>
       {
         wishlistItems == null ? (
-          <i className='fa fa-heart-o' aria-hidden='true'></i>
+          <i className='fa fa-heart-o' aria-hidden='true' />
         ) : (
           wishlistItems && wishlistItems.indexOf(productSku) >= 0 ? (
-            <i className='fa fa-heart' aria-hidden='true'></i>
+            <i className='fa fa-heart' aria-hidden='true' />
           ) : (
-            <i className='fa fa-heart-o' aria-hidden='true'></i>
+            <i className='fa fa-heart-o' aria-hidden='true' />
           )
         )
       }

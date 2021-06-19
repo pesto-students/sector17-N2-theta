@@ -1,10 +1,10 @@
 import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
 import CategoryCard from "../CategoryCard";
 import CollectionsStyle from "./Style";
 import useCategories from "../../../data/hooks/use-categories";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const FeaturedCollections = () => {
   const { data: categories = {}, isLoading, isSuccess } = useCategories(0, 2);
@@ -32,7 +32,7 @@ const FeaturedCollections = () => {
       <HeadingStyle>
         <h2 className="heading">
           Featured Collections
-          <span className="heading-underline"></span>
+          <span className="heading-underline" />
         </h2>
       </HeadingStyle>
       <Grid className="" count={2} gap={20}>

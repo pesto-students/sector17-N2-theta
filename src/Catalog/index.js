@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 import Filter from "shared/Components/Filter";
+import GlobalContext from "context/GlobalContext";
+import { useContext, useState, useEffect } from "react";
 import CatalogStyle from "./Style";
 import CatalogProducts from "../../shared/Components/CatalogProducts";
 
-import GlobalContext from "context/GlobalContext";
 
-import { useContext, useState, useEffect } from "react";
 
 const Catalog = () => {
     const router = useRouter();

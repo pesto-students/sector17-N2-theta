@@ -8,7 +8,7 @@ const Notification = (props) => {
       { message }
 
       <button onClick={() => setNotificationVisibility(false)}>
-        <i className="fa fa-close"></i>
+        <i className="fa fa-close" />
       </button>
     </NotificationStyle>
   )

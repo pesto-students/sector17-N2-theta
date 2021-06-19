@@ -2,12 +2,12 @@ import { useSingleCategory } from "@/data/hooks/use-categories";
 import { useRouter } from "next/router";
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
-import { useEffect, useState } from "react";
-import FilterStyle from "./Style";
+import { useEffect, useState , useContext } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import GlobalContext from "context/GlobalContext";
-import { useContext } from "react";
+import FilterStyle from "./Style";
+
 
 const Filter = (props) => {
   const [startPrice, setStartPrice] = useState([20, 100000]);
@@ -43,7 +43,7 @@ const Filter = (props) => {
     return () => {
       clearTimeout(identifier);
     };
-  }, [manufacturer, price]);
+  }, [manufacturer, price, router]);
 
   const onFilter = (filter) => {
     if (manufacturer.length > 0) {
@@ -110,7 +110,7 @@ const Filter = (props) => {
     <FilterStyle>
       <div className="filter_action">
         <span>Filters</span>
-        {!clearFilter && <span></span>}
+        {!clearFilter && <span />}
         {clearFilter && (
           <span className="filter_clear" onClick={onClearHandeler}>
             Clear All

@@ -2,11 +2,11 @@ import GlobalContext from "@/appContext";
 import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import SocialLogin from "shared/Components/SocialLogin";
-import WishlistStyle from "./Style";
 import Grid from "shared/Styles/Grid";
 import ProductCard from "shared/Components/ProductCard";
 import { useProductsBySKU } from "@/data";
 import ProfileSidebar from "shared/Components/ProfileSidebar";
+import WishlistStyle from "./Style";
 import MyAccountStyle from "../Style";
 
 const Wishlist = () => {
@@ -24,7 +24,7 @@ const Wishlist = () => {
         if (status === "success") {
             setProducts({ ...data });
         }
-    }, [status]);
+    }, [data, status]);
 
     return (
         <MyAccountStyle>

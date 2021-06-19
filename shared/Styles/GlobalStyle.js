@@ -44,14 +44,16 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
   .btn{
-    background: ${(props) => props.theme.color.black};
+    background: ${props => props.theme.color.primary};
     color: ${(props) => props.theme.color.white};
     border: 0;
     padding: 10px 20px;
     display: block;
     margin: 15px auto;
-    font-size: 1.4rem;
     cursor: pointer;
+    border-radius: 3px;
+    min-width: 200px;
+    font-size: 1.6rem;
   }
 
   .row_group{

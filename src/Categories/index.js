@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
+import useCategories from "@/data/hooks/use-categories";
+import Skeleton from "react-loading-skeleton";
 import CategoriesStyle from "./Style";
 import HeadingStyle from "../../shared/Styles/HeadingStyle";
 import Grid from "../../shared/Styles/Grid";
 import CategoryCard from "../../shared/Components/CategoryCard";
-import { useEffect, useState } from "react";
-import useCategories from "../../data/hooks/use-categories";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Categories = () => {
   const [offset, setOffset] = useState(0);
@@ -17,7 +17,7 @@ const Categories = () => {
     if (isSuccess) {
       setCategories({ ...categories, ...data });
     }
-  }, [data]);
+  }, [categories, data, isSuccess]);
 
   const loadMore = () => {
     const offset = Object.keys(categories)[Object.keys(categories).length - 1];
@@ -50,7 +50,7 @@ const Categories = () => {
         <HeadingStyle>
           <h2 className="heading">
             All Categories
-            <span className="heading-underline"></span>
+            <span className="heading-underline" />
           </h2>
         </HeadingStyle>
         <Grid className="" count={2} gap={20}>

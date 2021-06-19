@@ -33,9 +33,9 @@ const AddToCart = (props) => {
       if(cartItems[productSku].qty == quantity){
         router.push("/cart");
         return false;
-      }else{
-        message = "Cart Updated Successfully";
       }
+        message = "Cart Updated Successfully";
+      
     }
 
     if (!productSku) {
@@ -58,14 +58,14 @@ const AddToCart = (props) => {
           <>
             <span className='text'>Go To Cart</span>
             <span className='plus'>
-              <i className='fa fa-external-link' aria-hidden='true'></i>
+              <i className='fa fa-external-link' aria-hidden='true' />
             </span>
           </>
         ) : (
           <>
             <span className='text'>Update Cart</span>
             <span className='plus'>
-              <i className='fa fa-plus' aria-hidden='true'></i>
+              <i className='fa fa-plus' aria-hidden='true' />
             </span>
           </>
         )
@@ -73,7 +73,7 @@ const AddToCart = (props) => {
         <>
           <span className='text'>Add to Cart</span>
           <span className='plus'>
-            <i className='fa fa-plus' aria-hidden='true'></i>
+            <i className='fa fa-plus' aria-hidden='true' />
           </span>
         </>
       )}

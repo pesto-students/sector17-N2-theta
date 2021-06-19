@@ -1,5 +1,6 @@
 import { Component } from "react";
 import ErrorStyle from "./Style";
+
 class Error extends Component {
   constructor() {
     super();
@@ -9,8 +10,9 @@ class Error extends Component {
   static getDerivedStateFromError(error) {
     return { hasError: true, error };
   }
+
   componentDidCatch(error, errorInfo) {
-    this.setState({ hasError: true, error: error, errorInfo: errorInfo });
+    this.setState({ hasError: true, error, errorInfo });
   }
 
   render() {

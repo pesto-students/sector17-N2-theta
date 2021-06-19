@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
+import { useContext } from "react";
 import { HitDiv, HitTitle } from "./Style/Hit";
 import { SearchContext } from "./reducer";
-import { useContext } from "react";
 
 const Hit = ({ hit }) => {
   const { close } = useContext(SearchContext);

@@ -2,14 +2,13 @@ import useProducts, {
   useProductsWithCount,
 } from "../../../data/hooks/use-products";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-
+import { useEffect, useContext, useState } from "react";
+// import useProducts from "../../../data/hooks/use-products";
+import GlobalContext from "../../../context/GlobalContext";
 import ProductCard from "../ProductCard";
 import Grid from "../../Styles/Grid";
 import Pagination from "../Pagination";
 
-import GlobalContext from "../../../context/GlobalContext";
-import { useContext } from "react";
 
 const CatalogProducts = (props) => {
   const router = useRouter();

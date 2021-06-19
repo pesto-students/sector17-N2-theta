@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Check Prettier standards
+# npm run check-format
+
+# Check ESLint Standards
+# npm run check-lint

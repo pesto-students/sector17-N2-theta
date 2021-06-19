@@ -1,55 +1,32 @@
-import GlobalContext from "context/GlobalContext";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import CartStyle from "./Style";
+import firebase from "../../data/firebase";
+import { getSellers, getProducts } from "../../data/firestore/sellers";
+import GlobalContext from "../../context/GlobalContext";
+import getCouponDiscount from "../../shared/Utils/getCouponDiscount";
 import CartProducts from "./Products";
-import getCouponDiscount from "shared/Utils/getCouponDiscount";
+import CartSummary from "./Summary";
+import CartStyle from "./Style";
 
-const Cart = () => {
+const Cart = (props) => {
+  const router = useRouter();
+  const { showSummary } = props;
+  const dataLimit = 20;
+  const page = router.asPath === "/checkout" ? "checkout" : "cart";
+  const [showPage, setShowPage] = useState(false);
+  const [products, setProducts] = useState({});
   const [cartItemsSku, setCartItemsSku] = useState([]);
   const [cartItemsCount, setCartItemsCount] = useState();
-  const { cartPriceDetails, setCartPriceDetails, cartItems } = useContext(GlobalContext);
-  const [couponCode, setCouponCode] = useState('');
-  const [couponError, setCouponError] = useState('');
-  
-  const handleCouponCodeChange = (e) => {
-    setCouponCode(e.target.value);
-    setCouponError('');
-  }
-
-  const applyCoupon = () => {
-    if(couponCode == ''){
-      setCouponError('Please Enter a coupon code.');
-      return;
-    }
-    if(couponCode !== 'sector17'){
-      setCouponError('Please Enter a valid coupon code.');
-      return;
-    }
-
-    localStorage.setItem('coupon', couponCode);
-    setCartPriceDetails({
-      ...cartPriceDetails,
-      coupon : couponCode,
-      total : cartPriceDetails.subTotal - cartPriceDetails.couponDiscount
-    })
-  }
-
-  const removeCouponCode = () => {
-    setCouponCode('');
-    localStorage.removeItem('coupon');
-    setCartPriceDetails({
-      ...cartPriceDetails,
-      coupon : null,
-      total : cartPriceDetails.subTotal
-    })
-  }
+  const { cartPriceDetails, setCartPriceDetails, cartItems, setCartProducts, setCartItemSellers } = useContext(GlobalContext);
 
   const preparePriceDetails = (data) => {
     let subTotal = 0;
 
     Object.keys(cartItems).map((sku) => {
-      subTotal += data[sku].price * cartItems[sku].qty;
+      if (data[sku]) {
+        subTotal += data[sku].price * cartItems[sku].qty;
+      }
     });
 
     const couponInfo = getCouponDiscount(subTotal);
@@ -57,100 +34,128 @@ const Cart = () => {
     setCartPriceDetails({
       ...cartPriceDetails,
       subTotal,
-      discount : 0,
-      coupon : couponInfo.coupon,
-      couponDiscount : couponInfo.discount,
-      total : couponInfo.coupon ? subTotal - couponInfo.discount : subTotal
-    })
+      discount: 0,
+      coupon: couponInfo.coupon,
+      couponDiscount: couponInfo.discount,
+      total: couponInfo.coupon ? subTotal - couponInfo.discount : subTotal,
+    });
+  };
+
+  const useSellersById = async (offset = 0, limit = 10, id = []) => {
+    const sellers = await getSellers({
+      offset,
+      limit,
+      orderBy: firebase.firestore.FieldPath.documentId(),
+      id,
+    });
+
+    return sellers
   }
 
-  useEffect(async () => {
-    if(cartItems){
-      setCartItemsCount(Object.keys(cartItems).length);
-      setCartItemsSku(Object.keys(cartItems).map((sku) => {
-        return parseInt(sku);
-      }))
+  const useProductsBySKU = async (offset = 0, limit = 10, sku = []) => {
+    const items = await getProducts({
+      offset,
+      limit,
+      orderBy: firebase.firestore.FieldPath.documentId(),
+      sku,
+    })
+
+    return items;
+  }
+
+  useEffect(() => {
+    async function prepareSellers(data){
+      const sellers = [];
+  
+      Object.keys(cartItems).map((sku) => {
+        if(data[sku]){
+          const {seller} = data[sku];
+          if(sellers.indexOf(seller) < 0){
+            sellers.push(seller);
+          }
+        }
+      });
+  
+      const sellerData = await useSellersById(
+        0,
+        dataLimit,
+        [...sellers]
+      )
+  
+      setCartItemSellers(sellerData);
     }
-  }, [cartItems])
+
+    async function handleCartData(skuList) {
+      const data = await useProductsBySKU(
+        0,
+        dataLimit,
+        [...skuList]
+      );
+
+      if(data){
+        setProducts({ ...data });
+        preparePriceDetails(data);
+        setShowPage(true);
+        setCartProducts(data)
+        prepareSellers(data);
+
+        if (router.asPath === '/checkout' && !data) {
+          router.push("/cart");
+        }
+      }
+    }
+
+    if(cartItems){
+      const skuList = Object.keys(cartItems).map((sku) => parseInt(sku));
+      setCartItemsCount(skuList.length);
+      setCartItemsSku(skuList);
+      handleCartData(skuList);
+    }
+  }, [cartItems]);
+
+  if(page === 'checkout' && !showSummary){
+    return null
+  }
 
   return (
-    cartItemsCount > 0 ? <CartStyle>
-      <div className="products">
-        <h1>My Cart ({cartItemsCount})</h1>
+    <div style={{ opacity: showPage || cartItemsCount === 0 ? "1" : "0" }}>
+      {cartItemsCount > 0 ? (
+        <CartStyle>
+          <div className='products'>
+            {page !== 'checkout' && <h1>My Cart ({cartItemsCount})</h1>}
 
-        <CartProducts 
-          cartItemsSku={cartItemsSku}
-          preparePriceDetails={preparePriceDetails}
-        />
+            {products && <CartProducts
+              cartItemsSku={cartItemsSku}
+              preparePriceDetails={preparePriceDetails}
+              setShowPage={setShowPage}
+              products={products}
+            />}
 
-        <div className="continue-shopping">
-          <Link href="/">
-            <a>Continue Shopping</a>
+            {page !== 'checkout' && <div className='continue-shopping'>
+              <Link href='/'>
+                <a>Continue Shopping</a>
+              </Link>
+            </div>}
+            
+          </div>
+
+          <CartSummary
+            cartPriceDetails={cartPriceDetails}
+            cartItemsCount={cartItemsCount}
+            setCartPriceDetails={setCartPriceDetails}
+          />
+        </CartStyle>
+      ) : page !== "checkout" && (
+        <CartStyle emptyCart>
+          No Items in Your Cart
+          <br />
+          <Link href='/'>
+            <a>Explore Products</a>
           </Link>
-        </div>
-      </div>
-      <div className="summary">
-        <div className="summary-inner">
-          <div className="details-heading">Price details</div>
-          {
-            cartPriceDetails && <ul className="details">
-              <li className="price">
-                <span className="label">Price ({cartItemsCount} items)</span>
-                <span className="value">{cartPriceDetails.subTotal.toFixed(2)}</span>
-              </li>
-              {/* <li className="discount">
-                <span className="label">Discount</span>
-                <span className="value">0</span>
-              </li> */}
-              <li className="coupon-discount">
-                {cartPriceDetails.coupon ? (
-                  <>
-                    <span className="label">
-                      Coupon (<span className="green">{cartPriceDetails.coupon}</span>)
-                      <button title="Remove Coupon" onClick={removeCouponCode}>x</button>
-                    </span>
-                    <span className="value">- {cartPriceDetails.couponDiscount.toFixed(2)}</span>
-                  </>
-                ) : (
-                  <>
-                    <div className="form">
-                      <div className="fields">
-                        <input type="text" value={couponCode} onChange={handleCouponCodeChange} name="" id="" placeholder="Enter Coupon Code" />
-                        <button onClick={applyCoupon} disabled={couponError !== '' || couponCode == ''}>Apply Coupon</button>
-                      </div>
-                      <div className="error">
-                        {couponError}
-                      </div>
-                    </div>
-                    
-                  </>
-                )}
-              </li>
-              <li className="delivery-charge">
-                <span className="label">Delivery Charge</span>
-                <span className="value">Free</span>
-              </li>
-              <li className="total">
-                <span className="label">Total Amount</span>
-                <span className="value">{cartPriceDetails.total.toFixed(2)}</span>
-              </li>
-              <li className="button">
-                <Link href="/checkout">
-                  <a>Place Order</a>
-                </Link>
-              </li>
-            </ul>
-          }
-        </div>
-      </div>
-    </CartStyle> : <CartStyle emptyCart={true}>
-      No Items in Your Cart
-      <br />
-      <Link href="/">
-        <a>Explore Products</a>
-      </Link>
-    </CartStyle>
-  )
-}
+        </CartStyle>
+      )}
+    </div>
+  );
+};
 
 export default Cart;

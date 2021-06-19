@@ -1,8 +1,7 @@
 import Link from "next/link";
 import FooterStyle from "./Style";
 
-const Footer = () => {
-    return (
+const Footer = () => (
         <FooterStyle>
             <div className="footer__inner">
                 <div className="app-container">
@@ -84,6 +83,5 @@ const Footer = () => {
             </div>
         </FooterStyle>
     );
-};
 
 export default Footer;
