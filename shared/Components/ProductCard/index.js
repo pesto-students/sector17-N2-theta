@@ -1,7 +1,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import Skeleton from "react-loading-skeleton";
 import { AddToWishlistButton } from "shared/Utils/AddToWishlist";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import ProductCardStyle from "./Style";
 
 const AddToCart = dynamic(() => import("shared/Utils/AddToCart"), {
@@ -18,7 +18,7 @@ const ProductCard = (props) => {
         as={`/categories/${props.category}/${props.id}`}
       >
         <a>
-          <div className="product_item">
+          <div className="product_item" role="products">
             <div className="image_wrapper">
               {image ? <img src={image} alt={title} /> : <Skeleton height={200} />}
             </div>

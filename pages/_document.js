@@ -43,6 +43,9 @@ export default class MyDocument extends Document {
                 ga('send', 'pageview');`
             }}
           />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+          <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet" />
         </Head>
         <body>
           <Main />

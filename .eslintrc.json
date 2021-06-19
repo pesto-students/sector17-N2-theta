@@ -39,6 +39,15 @@
     "react/jsx-props-no-spreading" : "off",
     "jsx-a11y/anchor-is-valid": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }], //should add ".ts" if typescript project
-    "react/display-name": 1
+    "react/display-name": 1,
+    "react/button-has-type": "off",
+    "jsx-a11y/alt-text": "off",
+    "jsx-a11y/label-has-associated-c": "off",
+    "no-shadow": "off",
+    "react/no-array-index-key": "off",
+    "import/no-unresolved": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "no-nested-ternary": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }

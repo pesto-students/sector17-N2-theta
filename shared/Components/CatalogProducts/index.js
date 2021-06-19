@@ -1,7 +1,7 @@
+import useProducts from "../../../data/hooks/use-products";
 import { useRouter } from "next/router";
 import { useEffect, useState , useContext } from "react";
 import GlobalContext from "../../../context/GlobalContext";
-import { useProducts } from "../../../data";
 import ProductCard from "../ProductCard";
 import Grid from "../../Styles/Grid";
 
@@ -58,7 +58,7 @@ const CatalogProducts = (props) => {
       <div>
         <div className="heading" />
 
-        <div className="product_list">
+        <div className="product_list" role="loading">
           <Grid count={4} gap={15}>
             <ProductCard />
             <ProductCard />

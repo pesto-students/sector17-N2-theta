@@ -10,6 +10,7 @@ import "firebase/firestore";
 import saveCartItems from "../shared/Utils/saveCartItems";
 import getWishlistItems from "../shared/Utils/getWishlistItems";
 import firebase from "../data/firebase";
+import Error from "../shared/Components/Error";
 
 Sentry.init({
   dsn: "https://ea0a55f9b7b14acc8d08568db512ab14@o844204.ingest.sentry.io/5814430",
@@ -24,7 +25,6 @@ const db = firebase.firestore();
 
 const deleteCollectionFromDb = async ({ collection, userId }) => {
   await db.collection(collection).doc(userId).delete();
-  
 };
 
 const MyApp = ({ Component, pageProps }) => {
@@ -39,6 +39,8 @@ const MyApp = ({ Component, pageProps }) => {
     couponDiscount: 0,
     total: 0,
   });
+  const [finalPriceToPay, setFinalPriceToPay] = useState();
+  const [cartProducts, setCartProducts] = useState();
 
   const [wishlistItems, setWishlistItems] = useState(null);
   const [notificationVisibility, setNotificationVisibility] = useState(false);
@@ -46,6 +48,7 @@ const MyApp = ({ Component, pageProps }) => {
   const [globalManufacturerFilter, setGlobalManufacturerFilter] = useState([]);
   const [globalPriceFilter, setGlobalPriceFilter] = useState([]);
   const [clearFilter, setClearFilter] = useState(false);
+  const [userInfo, setUserInfo] = useState()
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -101,7 +104,13 @@ const MyApp = ({ Component, pageProps }) => {
     clearFilter,
     setClearFilter,
     cartItemSellers, 
-    setCartItemSellers
+    setCartItemSellers,
+    cartProducts, 
+    setCartProducts,
+    finalPriceToPay, 
+    setFinalPriceToPay,
+    userInfo,
+    setUserInfo
   };
 
   useEffect(() => {
@@ -144,7 +153,8 @@ const MyApp = ({ Component, pageProps }) => {
   }, [notificationMessage, notificationVisibility]);
 
   return (
-    <GlobalContextProvider value={contextData}>
+    <Error>
+      <GlobalContextProvider value={contextData}>
         <QueryClientProvider client={queryClient}>
           <Root>
             {isLogin ? (
@@ -161,7 +171,8 @@ const MyApp = ({ Component, pageProps }) => {
           message={notificationMessage}
           setNotificationVisibility={setNotificationVisibility}
         />
-    </GlobalContextProvider>
+      </GlobalContextProvider>
+    </Error>
   );
 };
 
