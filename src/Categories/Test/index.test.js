@@ -1,8 +1,9 @@
-import { render, screen } from "../../../test/test-utils";
 import userEvent from "@testing-library/user-event";
+import { render, screen } from "../../../test/test-utils";
 
 import TestCommon from "../../../test/TestCommon";
 import Categories from "../index";
+
 jest.mock("next/router", () => ({
   useRouter() {
     return {
