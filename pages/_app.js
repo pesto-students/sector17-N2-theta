@@ -1,4 +1,3 @@
-import * as Sentry from "@sentry/react";
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useLoginStatus } from "../auth";
@@ -11,15 +10,6 @@ import saveCartItems from "../shared/Utils/saveCartItems";
 import getWishlistItems from "../shared/Utils/getWishlistItems";
 import firebase from "../data/firebase";
 import Error from "../shared/Components/Error";
-
-Sentry.init({
-  dsn: "https://ea0a55f9b7b14acc8d08568db512ab14@o844204.ingest.sentry.io/5814430",
-
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-});
 
 const db = firebase.firestore();
 
