@@ -121,6 +121,7 @@ const CatalogProducts = (props) => {
         <span className="category_title">
           {!props.categoryLoading && props.singleCategory.name}
         </span>
+        {' '}
         <span className="product_count">
           ({isSuccess && !!products && Object.keys(products).length}/
           {props.singleCategory.products})
