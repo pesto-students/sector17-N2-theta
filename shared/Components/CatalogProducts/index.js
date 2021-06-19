@@ -17,9 +17,8 @@ const CatalogProducts = (props) => {
   const [products, setProducts] = useState({});
   const [productsCount, setProductsCount] = useState(0);
   const [action, setAction] = useState('');
-  const [paginationState, setPaginationState] = useState([]);
 
-  const [pageCurrent, setPageCurrent] = useState(0);
+  const [pageCurrent, setPageCurrent] = useState(1);
 
   const lastPageCount = Math.round(props.singleCategory.products / 20);
 
@@ -46,14 +45,14 @@ const CatalogProducts = (props) => {
   );
 
   useEffect(() => {
+    setOffset(0);
+    setPageCurrent(1);
+  },[currentPage]);
+  useEffect(() => {
     if (!isLoading) {
       setProducts({ ...data[0] });
       setProductsCount(data[1]);
       const productKeys = Object.keys(data[0]);
-      setPaginationState([
-        [productKeys[0], productKeys[productKeys.length - 1]],
-        ...paginationState
-      ]);
     }
     if (router.query["price"] && router.query["price"] != "") {
       setPriceFilter(router.query["price"].split(","));
@@ -141,12 +140,11 @@ const CatalogProducts = (props) => {
           </div>
         )}
 
-        {Object.keys(data).length > 0 && (
+        {Object.keys(data[0]).length > 0 && Object.keys(data[0]).length <= limit && (
           <div>
             <Pagination
               count={props.singleCategory.products}
               loadMore={loadMore}
-              paginationState = {paginationState}
               lastPageCount={lastPageCount}
               handelPrevClick= {handelPrevClick}
               handelNextClick= {handelNextClick}
