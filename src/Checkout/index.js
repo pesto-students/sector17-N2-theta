@@ -22,7 +22,7 @@ const Checkout = () => {
 
   return (
     <CheckoutStyle>
-      <Address setValidAddress={setValidAddress} setPincode={setPincode} />
+      <Address setValidAddress={setValidAddress} setSummaryEnabled={setSummaryEnabled} setPincode={setPincode} />
       {cartItemSellers && (
         <ShippingMethods
           enabled={shippingEnabled}

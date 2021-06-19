@@ -2,6 +2,7 @@ import GlobalContext from "@/appContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
+import PaymentButton from "../../Checkout/PaymentButton";
 
 const CartSummary = (props) => {
   const router = useRouter();
@@ -132,10 +133,8 @@ const CartSummary = (props) => {
             </li>
 
             {router.asPath === '/checkout' ? (
-              <li className='button'>
-                <Link href='/payment'>
-                  <a>Proceed to Payment</a>
-                </Link>
+              <li className='button payment'>
+                <PaymentButton />
               </li>
             ) : (
               <li className='button'>
