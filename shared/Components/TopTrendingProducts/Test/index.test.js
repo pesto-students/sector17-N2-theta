@@ -1,6 +1,6 @@
+import { useQuery } from "react-query";
 import { render, screen } from "../../../../test/test-utils";
 
-import { useQuery } from "react-query";
 import TopTrendingProducts from "../index";
 import TestCommon from "../../../../test/TestCommon";
 

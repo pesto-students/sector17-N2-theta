@@ -1,6 +1,6 @@
-import  useProducts  from "../../../data/hooks/use-products";
 import { useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import  useProducts  from "../../../data/hooks/use-products";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
 import ProductCard from "../ProductCard";

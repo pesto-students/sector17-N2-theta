@@ -1,23 +1,22 @@
-const https = require("https");
-export const DistanceCalculate = (req, res) => {
-  const options = {
-    hostname: "https://maps.googleapis.com",
-    port: 443,
-    path: "/maps/api/distancematrix/json?origins=143001&destinations=110059&key=AIzaSyBLuKZYUJThQeaN2OuyQFXHangMdmwyjuo",
-    method: "GET",
-  };
+const { default: axios } = require("axios");
 
-  const req = https.request(options, (res) => {
-    console.log(`statusCode: ${res.statusCode}`);
+const getDistanceInKMs = async (pin1, pin2) => {
+  const apiKey = "AIzaSyBLuKZYUJThQeaN2OuyQFXHangMdmwyjuo";
 
-    res.on("data", (d) => {
-      process.stdout.write(d);
-    });
-  });
+  const response = await axios.get(
+    `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${pin1}&destinations=${pin2}&key=${apiKey}`
+  );
 
-  req.on("error", (error) => {
-    console.error(error);
-  });
+  if (
+    !response.data ||
+    response.data.status != "OK" ||
+    response.data.rows[0].elements[0].status != "OK" ||
+    !response.data.rows[0].elements[0].distance
+  ) {
+    throw Error("Invalid Response");
+  }
 
-  req.end();
+  return parseInt(response.data.rows[0].elements[0].distance.value) / 1000;
 };
+
+module.exports = { getDistanceInKMs };
