@@ -62,6 +62,7 @@
 
 
 
+
 ### Node Server 
 
 Node JS as Backend code uploaded under "server" folder
@@ -70,7 +71,7 @@ Requirment : NPM and Node setup, and Firebase cli
 
 ## Clone server
 
-## How to run the project for node server
+## How to run the backend Node server
 
 - Run `npm install` to install all required project dependencies
 - Run `npm run server` to start project on http://localhost:3001
@@ -80,6 +81,8 @@ Requirment : NPM and Node setup, and Firebase cli
 
 
 ## Stakeholders
+
+- Pardeep Sharma - [LinkedIn](https://www.linkedin.com/in/pardeep2411/) - [GitHub](https://github.com/pardeep24)
 - Raghav Narang - [LinkedIn](https://www.linkedin.com/in/raghav-narang/) - [GitHub](https://github.com/raghavnarang)
 - Ravi Yadav - [LinkedIn](https://linkedin.com/in/raviyadav01/) - [GitHub](https://github.com/yadavravi2801)
 
