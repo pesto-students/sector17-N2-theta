@@ -27,7 +27,7 @@ module.exports = async () => {
     setupFilesAfterEnv: ["./jest.setup.js"],
     testEnvironment: "jsdom",
     moduleNameMapper: {
-      "@data/*": "<rootDir>/data",
+      "@/data/*": "<rootDir>/data",
       "@components/*": "<rootDir>/shared/Components$1",
       "@shared/*": "<rootDir>/shared/Utils$1",
       "^@pages(.*)$": "<rootDir>/pages$1",

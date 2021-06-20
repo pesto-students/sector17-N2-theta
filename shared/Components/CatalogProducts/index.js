@@ -20,7 +20,7 @@ const CatalogProducts = (props) => {
 
   const [pageCurrent, setPageCurrent] = useState(1);
 
-  const lastPageCount = Math.round(props.singleCategory.products / 20);
+  const lastPageCount = Math.round(props.counts / 20);
 
   const [manufacturerFilter, setManufacturerFilter] = useState([]);
   const [priceFilter, setPriceFilter] = useState([]);

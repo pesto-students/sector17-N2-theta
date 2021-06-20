@@ -1,7 +1,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import Skeleton from "react-loading-skeleton";
-import { AddToWishlistButton } from "shared/Utils/AddToWishlist";
+import { AddToWishlistButton } from "../../Utils/AddToWishlist";
 import ProductCardStyle from "./Style";
 
 const AddToCart = dynamic(() => import("shared/Utils/AddToCart"), {
