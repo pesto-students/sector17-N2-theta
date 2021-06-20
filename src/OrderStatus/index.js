@@ -16,67 +16,73 @@ const OrderStatus = () => {
         </div>
       </div>
       <div className="row_group">
-      <div className="order">
-        <div className="row_group item">
-          <div className="product_img">
-            <img src="https://storage.googleapis.com/sector17-chandigarh.appspot.com/1032001_sa.jpg" />
-          </div>
-          <div className="product_info">
-            <div className="name">
-              Aquarius - Rush Playing Cards - Red/Black/White
+        <div className="order">
+          <div className="row_group item">
+            <div className="product_img">
+              <img src="https://storage.googleapis.com/sector17-chandigarh.appspot.com/1032001_sa.jpg" />
             </div>
-            <div className="details">
-              <div>
-                <span className="label">Sku:</span>
-                <span className="value">1003531</span>
+            <div className="product_info">
+              <div className="name">
+                Aquarius - Rush Playing Cards - Red/Black/White
               </div>
-              <div>
-                <span className="label">Manufacturer:</span>
-                <span className="value">Aquarius</span>
-              </div>
-              <div>
-                <span className="label">Model:</span>
-                <span className="value">52290</span>
+              <div className="details">
+                <div>
+                  <span className="label">Sku:</span>
+                  <span className="value">1003531</span>
+                </div>
+                <div>
+                  <span className="label">Manufacturer:</span>
+                  <span className="value">Aquarius</span>
+                </div>
+                <div>
+                  <span className="label">Model:</span>
+                  <span className="value">52290</span>
+                </div>
               </div>
             </div>
+            <div className="product_qty">Qty: 5</div>
+            <div className="product_price">Rs. 100</div>
           </div>
-          <div className="product_qty">Qty: 5</div>
-          <div className="product_price">Rs. 100</div>
+          <div className="row_group item">
+            <div className="product_img">
+              <img src="https://storage.googleapis.com/sector17-chandigarh.appspot.com/1032001_sa.jpg" />
+            </div>
+            <div className="product_info">
+              <div className="name">
+                Aquarius - Rush Playing Cards - Red/Black/White
+              </div>
+              <div className="details">
+                <div>
+                  <span className="label">Sku:</span>
+                  <span className="value">1003531</span>
+                </div>
+                <div>
+                  <span className="label">Manufacturer:</span>
+                  <span className="value">Aquarius</span>
+                </div>
+                <div>
+                  <span className="label">Model:</span>
+                  <span className="value">52290</span>
+                </div>
+              </div>
+            </div>
+            <div className="product_qty">Qty: 5</div>
+            <div className="product_price">Rs. 100</div>
+          </div>
         </div>
-        <div className="row_group item">
-          <div className="product_img">
-            <img src="https://storage.googleapis.com/sector17-chandigarh.appspot.com/1032001_sa.jpg" />
-          </div>
-          <div className="product_info">
-            <div className="name">
-              Aquarius - Rush Playing Cards - Red/Black/White
-            </div>
-            <div className="details">
-              <div>
-                <span className="label">Sku:</span>
-                <span className="value">1003531</span>
-              </div>
-              <div>
-                <span className="label">Manufacturer:</span>
-                <span className="value">Aquarius</span>
-              </div>
-              <div>
-                <span className="label">Model:</span>
-                <span className="value">52290</span>
-              </div>
-            </div>
-          </div>
-          <div className="product_qty">Qty: 5</div>
-          <div className="product_price">Rs. 100</div>
-        </div>
-      </div>
-      <div className="summry">
+        <div className="summry">
           <h2>Order Summery</h2>
-          
-          <p><strong>Subtotal: </strong> Rs. 500</p>
-          <p><strong>Discount: </strong> Rs. 100</p>
-          <p><strong>Total: </strong> Rs. 400</p>
-      </div>
+
+          <p>
+            <strong>Subtotal: </strong> Rs. 500
+          </p>
+          <p>
+            <strong>Discount: </strong> Rs. 100
+          </p>
+          <p>
+            <strong>Total: </strong> Rs. 400
+          </p>
+        </div>
       </div>
     </OrderStatusStyle>
   );

@@ -11,7 +11,7 @@ const OrderStatusStyle = styled.div`
     border: 1px solid ${props => props.theme.color.darkGrey};
     margin-left: 10px;
     p {
-      font-size: 1.5rem;
+      font-size: 2rem;
     }
   }
   .product_info {
