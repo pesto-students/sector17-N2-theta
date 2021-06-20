@@ -15,6 +15,7 @@ export const paginationQuery = async (
   /** Add Where conditions (eg.: Categories, Filters etc. ) */
   let isOrderByEqualityCondition = false;
   if (Array.isArray(where) && where.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const whereCond of where) {
       if (!Array.isArray(whereCond) || whereCond.length < 3) {
         continue;
@@ -67,8 +68,10 @@ export const paginationQueryWithCount = async (
   /** Add Where conditions (eg.: Categories, Filters etc. ) */
   let isOrderByEqualityCondition = false;
   if (Array.isArray(where) && where.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const whereCond of where) {
       if (!Array.isArray(whereCond) || whereCond.length < 3) {
+        // eslint-disable-next-line no-continue
         continue;
       }
 
@@ -93,13 +96,11 @@ export const paginationQueryWithCount = async (
       docsRef = docsRef.startAfter(offset);
     }
     if (action == "prev") {
-      console.log("I am here offset ", offset);
-      console.log("Action offset ", action);
       docsRef = docsRef.endBefore(offset);
     }
   }
 
-  const count = await docsRef.get();
+  // const count = await docsRef.get();
   docsRef = docsRef.limit(limit);
 
   docsRef = await docsRef.get();
@@ -108,7 +109,7 @@ export const paginationQueryWithCount = async (
   docsRef.forEach((doc) => {
     docs[doc.id] = doc.data();
   });
-  return [docs, count.size];
+  return [docs];
 };
 
 export const getSingleEntity = async (collection, id) => {

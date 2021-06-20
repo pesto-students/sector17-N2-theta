@@ -38,8 +38,8 @@ const MyApp = ({ Component, pageProps }) => {
   const [globalManufacturerFilter, setGlobalManufacturerFilter] = useState([]);
   const [globalPriceFilter, setGlobalPriceFilter] = useState([]);
   const [clearFilter, setClearFilter] = useState(false);
-  const [userInfo, setUserInfo] = useState()
-
+  const [userInfo, setUserInfo] = useState();
+  
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -100,7 +100,7 @@ const MyApp = ({ Component, pageProps }) => {
     finalPriceToPay, 
     setFinalPriceToPay,
     userInfo,
-    setUserInfo
+    setUserInfo,
   };
 
   useEffect(() => {

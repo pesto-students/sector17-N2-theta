@@ -50,8 +50,9 @@ useEffect(() => {
   useEffect(() => {
     if (!isLoading) {
       setProducts({ ...data[0] });
-      setProductsCount(data[1]);
+      // setProductsCount(data[1]);
       const productKeys = Object.keys(data[0]);
+      
     }
     if (router.query.price && router.query.price != "") {
       setPriceFilter(router.query.price.split(","));
@@ -69,26 +70,15 @@ useEffect(() => {
 
   const handelPrevClick = () => {
     setAction('prev');
+    const offset = Object.keys(products)[0];
     setPageCurrent(pageCurrent - 1);
-    // const offs = paginationState[pageCurrent-1][0];
-    // setOffset(parseInt(offs));
-
-    const productKeys = Object.keys(data[0]);
-    const offset = Object.keys(data[0])[0];
-    console.log(offset);
     setOffset(parseInt(offset));
-    // props.loadMore(offs);
   };
   const handelNextClick = () => {
-    const offsetn = Object.keys(data[0])[Object.keys(data[0]).length - 1];
+    const offsetn = Object.keys(products)[Object.keys(products).length - 1];
     setAction('');
-    console.log(offsetn);
     setPageCurrent(pageCurrent + 1);
     setOffset(parseInt(offsetn));
-    // const offs = paginationState[pageCurrent][1];
-    // setOffset(parseInt(offs));
-
-    // props.loadMore(offs);
   };
 
   if (isLoading) {
@@ -117,7 +107,7 @@ useEffect(() => {
       <div className="heading">
         <span className="category_title">
           {!props.categoryLoading && props.singleCategory.name}
-        </span>{' '}
+        </span>
         <span className="product_count">
           ({isSuccess && !!products && Object.keys(products).length}/
           {props.singleCategory.products})
