@@ -107,18 +107,18 @@ const Footer = () => (
                                 <a target="_blank">Ravi</a>
                             </Link>
                             ,{" "}
-                            <Link href="#">
-                                <a>Pardeep</a>
+                            <Link href="https://www.linkedin.com/in/pardeep2411/">
+                                <a target="_blank">Pardeep</a>
                             </Link>{" "}
                             and{" "}
-                            <Link href="#">
-                                <a>Raghav</a>
+                            <Link href="https://www.linkedin.com/in/raghav-narang/">
+                                <a target="_blank">Raghav</a>
                             </Link>
                         </div>
                         <div className="copyright">
                             Find source code at{" "}
-                            <Link href="#">
-                                <a>Github</a>
+                            <Link href="https://github.com/pesto-students/sector17-N2-theta">
+                                <a target="_blank">Github</a>
                             </Link>
                         </div>
                     </div>

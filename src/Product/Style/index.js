@@ -217,6 +217,25 @@ const ProductDetailStyle = styled.div`
             }
         }
     }
+    .wishlist-btn {
+        display: inline-block;
+
+        button {
+            margin-left: 10px;
+            height: 50px;
+            position: relative;
+            width: 50px;
+            font-size: 22px;
+            border-radius: 0;
+            border: 1px solid #999;
+            background: #ffffff;
+            cursor: pointer;
+
+            .fa-heart{
+                color: #FE5351;
+            }
+        }
+    }
 `;
 
 export default ProductDetailStyle;

@@ -13,6 +13,7 @@ import Breadcrumbs from "shared/Components/Breadcrumbs";
 import { useSingleCategory } from "@/data/hooks/use-categories";
 import Quantity from "shared/Components/Quantity";
 import ProductDetailStyle from "./Style";
+import { AddToWishlistButton } from "../../shared/Utils/AddToWishlist";
 
 const AddToRecentlyViewed = dynamic(
   () => import("../../shared/Utils/AddToRecentlyViewed"),
@@ -117,6 +118,7 @@ const Product = () => {
                     </span>
                     <span className="stike-through" />
                   </div>
+                
 
                   <Skeleton height={20} />
                   <Skeleton height={20} />
@@ -180,6 +182,24 @@ const Product = () => {
                       </tr>
                     </table>
                   </div>
+
+                  <HeadingStyle>
+                    <h2 className="heading">
+                      Similar Products
+                      <span className="heading-underline"></span>
+                    </h2>
+                  </HeadingStyle>
+
+                  <Grid className="" count={4} gap={20}>
+                    {!!products &&
+                      Object.keys(products).map((product, index) => (
+                        <ProductCard
+                          key={index}
+                          id={product}
+                          {...products[product]}
+                        />
+                      ))}
+                  </Grid>
                 </div>
 
                 <HeadingStyle>
@@ -256,6 +276,10 @@ const Product = () => {
                     <AddToCart productSku={product.sku} quantity={qty}>
                       Add to Cart
                     </AddToCart>
+
+                    <div className="wishlist-btn">
+                      <AddToWishlistButton productSku={product.sku} />
+                    </div>
 
                     <div className="extra_option">
                       <label>DELIVER OPTIONS</label>

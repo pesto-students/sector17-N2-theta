@@ -6,8 +6,8 @@ import HeadingStyle from "../../Styles/HeadingStyle";
 import ProductCard from "../ProductCard";
 
 const TopTrendingProducts = (props) => {
-  const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(8);
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(8);
 
   const {
     data: products = {},

@@ -62,7 +62,6 @@
 
 
 
-
 ### Node Server 
 
 Server: Node JS as Backend code uploaded under "server" folder
@@ -81,8 +80,6 @@ Requirment : NPM and Node setup, and Firebase cli
 
 
 ## Stakeholders
-
-- Pardeep Sharma - [LinkedIn](https://www.linkedin.com/in/pardeep2411/) - [GitHub](https://github.com/pardeep24)
 - Raghav Narang - [LinkedIn](https://www.linkedin.com/in/raghav-narang/) - [GitHub](https://github.com/raghavnarang)
 - Ravi Yadav - [LinkedIn](https://linkedin.com/in/raviyadav01/) - [GitHub](https://github.com/yadavravi2801)
 

@@ -40,7 +40,7 @@ const CatalogProducts = props => {
     setOffset(0);
     setPageCurrent(1);
   }, [currentPage]);
-
+  
   useEffect(() => {
     if (!isLoading) {
       setProducts({ ...data });
