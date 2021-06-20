@@ -73,9 +73,9 @@ const OrderStatus = () => {
       <div className="summry">
           <h2>Order Summery</h2>
           
-          <p><strong>Subtotal</strong> Rs. 500</p>
-          <p><strong>Discount</strong> Rs. 100</p>
-          <p><strong>Total</strong> Rs. 400</p>
+          <p><strong>Subtotal: </strong> Rs. 500</p>
+          <p><strong>Discount: </strong> Rs. 100</p>
+          <p><strong>Total: </strong> Rs. 400</p>
       </div>
       </div>
     </OrderStatusStyle>
