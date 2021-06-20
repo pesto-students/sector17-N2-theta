@@ -14,6 +14,10 @@ const addAddressCollection = async ({ collection, userId, address = {} }) =>{
 
   
 export const getAddress = async ({userId}) => {
+  if(!userId) {
+    return {};
+  }
+
   const docRef = await db.collection('address').doc(userId).get();
   return docRef.data();
 };
