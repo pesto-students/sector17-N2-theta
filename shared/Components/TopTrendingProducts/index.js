@@ -1,22 +1,23 @@
-import { useProducts } from "@/data";
 import { useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import  useProducts  from "../../../data/hooks/use-products";
 import Grid from "../../Styles/Grid";
 import HeadingStyle from "../../Styles/HeadingStyle";
 import ProductCard from "../ProductCard";
 
 const TopTrendingProducts = (props) => {
-  const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(8);
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(8);
 
   const {
     data: products = {},
     isLoading,
     isSuccess,
   } = useProducts(offset, limit, "sku", "topcat000100");
+
   if (isLoading) {
     return (
-      <div className="top-trending-products">
+      <div className="top-trending-products" role="loading">
         <HeadingStyle>
           <h2 className="heading">
             <Skeleton />
@@ -35,6 +36,7 @@ const TopTrendingProducts = (props) => {
       </div>
     );
   }
+
   return (
     <div className="top-trending-products">
       <HeadingStyle>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const AddressStyle = styled.div`
   border: 1px solid ${(props) => props.theme.color.grey};
+  
   .form_container {
     padding: 20px;
     .push-right {
@@ -34,8 +35,9 @@ const AddressStyle = styled.div`
   }
   .title {
     border-bottom: 1px solid ${(props) => props.theme.color.grey};
-    padding: 10px 30px;
-    font-size: 1.6rem;
+    padding: 10px 20px;
+    font-size: 1.8rem;
+    font-weight: 600;
   }
   .subtitle {
     padding: 10px;

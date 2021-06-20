@@ -1,4 +1,3 @@
-import * as Sentry from "@sentry/react";
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useLoginStatus } from "../auth";
@@ -10,21 +9,12 @@ import "firebase/firestore";
 import saveCartItems from "../shared/Utils/saveCartItems";
 import getWishlistItems from "../shared/Utils/getWishlistItems";
 import firebase from "../data/firebase";
-
-Sentry.init({
-  dsn: "https://ea0a55f9b7b14acc8d08568db512ab14@o844204.ingest.sentry.io/5814430",
-
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-});
+import Error from "../shared/Components/Error";
 
 const db = firebase.firestore();
 
 const deleteCollectionFromDb = async ({ collection, userId }) => {
   await db.collection(collection).doc(userId).delete();
-  
 };
 
 const MyApp = ({ Component, pageProps }) => {
@@ -39,6 +29,8 @@ const MyApp = ({ Component, pageProps }) => {
     couponDiscount: 0,
     total: 0,
   });
+  const [finalPriceToPay, setFinalPriceToPay] = useState();
+  const [cartProducts, setCartProducts] = useState();
 
   const [wishlistItems, setWishlistItems] = useState(null);
   const [notificationVisibility, setNotificationVisibility] = useState(false);
@@ -46,6 +38,7 @@ const MyApp = ({ Component, pageProps }) => {
   const [globalManufacturerFilter, setGlobalManufacturerFilter] = useState([]);
   const [globalPriceFilter, setGlobalPriceFilter] = useState([]);
   const [clearFilter, setClearFilter] = useState(false);
+  const [userInfo, setUserInfo] = useState()
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -101,8 +94,41 @@ const MyApp = ({ Component, pageProps }) => {
     clearFilter,
     setClearFilter,
     cartItemSellers, 
-    setCartItemSellers
+    setCartItemSellers,
+    cartProducts, 
+    setCartProducts,
+    finalPriceToPay, 
+    setFinalPriceToPay,
+    userInfo,
+    setUserInfo
   };
+
+  useEffect(async () => {
+    let sessionId = sessionStorage.getItem('_s17');
+
+    if(user){
+      const items = await getCartItems(user.uid);
+
+      handleCartItems(items, sessionId, user);
+      handleWishlistData(user.uid);
+
+      setCurrentUser({
+        ...user
+      })
+    }else if(!isLogin){
+        if(!sessionId){
+          sessionId = `_${Math.random().toString(36).substr(2, 9)}`;
+          sessionStorage.setItem('_s17', sessionId);
+        }
+        
+        const items = await getCartItems(sessionId);
+        setCartItems(items);
+
+        setCurrentUser({
+          uid : sessionId
+        })
+      }
+  }, [isLogin, user])
 
   useEffect(() => {
     async function handleCartData(){
@@ -144,7 +170,8 @@ const MyApp = ({ Component, pageProps }) => {
   }, [notificationMessage, notificationVisibility]);
 
   return (
-    <GlobalContextProvider value={contextData}>
+    <Error>
+      <GlobalContextProvider value={contextData}>
         <QueryClientProvider client={queryClient}>
           <Root>
             {isLogin ? (
@@ -161,7 +188,8 @@ const MyApp = ({ Component, pageProps }) => {
           message={notificationMessage}
           setNotificationVisibility={setNotificationVisibility}
         />
-    </GlobalContextProvider>
+      </GlobalContextProvider>
+    </Error>
   );
 };
 

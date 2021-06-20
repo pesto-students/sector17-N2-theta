@@ -44,7 +44,7 @@ const Navigation = () => {
             Object.keys(categories).map((category) => (
               <li key={categories[category].id}>
                 <Link
-                  href={`/categories/${categories[category].id}`}
+                  href="/categories/[category-slug]"
                   as={`/categories/${categories[category].id}`}
                 >
                   <a

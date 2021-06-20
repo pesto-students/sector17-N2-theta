@@ -1,4 +1,4 @@
-import { getSingleEntity, paginationQuery } from "./helpers";
+import { getSingleEntity, paginationQuery, paginationQueryWithCount } from "./helpers";
 
 export const getProducts = async ({
   offset = 0,
@@ -29,8 +29,40 @@ export const getProducts = async ({
     where.push(["price", "<=",parseInt(price[1])]);
     orderBy = "price";
   }
-  console.log("Where Query ",where);
   return await paginationQuery("products", orderBy, offset, limit, where);
+};
+
+export const getProductsWithCount = async ({
+  offset = 0,
+  limit = 10,
+  orderBy = "sku",
+  category = "",
+  sku = [],
+  filter = [],
+  price = [],
+  action = '',
+}) => {
+  const where = [];
+  /** Categories */
+  if (!!category) {
+    where.push(["category", "==", category]);
+  }
+
+  /** SKUs */
+  if (Array.isArray(sku) && sku.length > 0) {
+    where.push(["sku", "in", sku]);
+  }
+  /** Filter With Manufacturer */
+  if (Array.isArray(filter) && filter.length > 0) {
+    where.push(["manufacturer", "in", filter]);
+  }
+  /** Filter With Price */
+  if (Array.isArray(price) && price.length > 0) {
+    where.push(["price", ">=", parseInt(price[0])]);
+    where.push(["price", "<=",parseInt(price[1])]);
+    orderBy = "price";
+  }
+  return await paginationQueryWithCount("products", orderBy, offset, limit, where,action);
 };
 
 export const getCategories = async (offset = 0, limit = 10, orderBy = "id") => {

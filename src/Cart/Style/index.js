@@ -76,7 +76,7 @@ const CartWithItems = css`
             padding-top: 10px;
             padding-bottom: 20px;
 
-            a {
+            a, button {
               display: block;
               width: 100%;
               background: ${props => props.theme.color.primary};
@@ -85,6 +85,7 @@ const CartWithItems = css`
               color: ${props => props.theme.color.white};
               font-size: 1.6rem;
               letter-spacing: 1px;
+              line-height: 40px;
             }
           }
 

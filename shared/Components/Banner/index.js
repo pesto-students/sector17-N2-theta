@@ -21,7 +21,7 @@ const Banner = () => {
   };
   if (isLoading) {
     return (
-      <BannerStyle type="slider">
+      <BannerStyle type="slider" role="loading">
         <Slider {...settings}>
           <Skeleton height={250} />
         </Slider>
@@ -34,7 +34,7 @@ const Banner = () => {
       <Slider {...settings}>
         {!!data &&
           Object.keys(data).map((slide, index) => (
-            <div className="slide" key={index}>
+            <div className="slide" key={index}  role="banner">
               <img src={data[slide].image} alt={`banner ${index}`} />
             </div>
           ))}

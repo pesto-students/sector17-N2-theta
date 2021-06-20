@@ -1,6 +1,6 @@
-import GlobalContext from "context/GlobalContext";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import GlobalContext from "../../context/GlobalContext";
 import getCartItems from "./getCartItems";
 import saveCartItems from "./saveCartItems";
 

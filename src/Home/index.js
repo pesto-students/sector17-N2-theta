@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-
 import HomeStyle from "./Style";
 import Banner from "../../shared/Components/Banner";
 import USP from "../../shared/Components/USP";

@@ -5,7 +5,7 @@ import Input from "../Input";
 import AddressStyle from "./Style";
 import GlobalContext from "../../../context/GlobalContext";
 
-const Address = ({ setValidAddress, setPincode }) => {
+const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
   const [isEdit, setIsEdit] = useState(true);
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState({
@@ -23,7 +23,7 @@ const Address = ({ setValidAddress, setPincode }) => {
 
   const [formIsValid, setFormIsValid] = useState(false);
   const [userId, setUserId] = useState(false);
-  const { currentUser } = useContext(GlobalContext);
+  const { currentUser, setUserInfo } = useContext(GlobalContext);
   const { isLoading, data: userAddress } = useAddress(userId);
 
   const handleChange = (e) => {
@@ -51,6 +51,9 @@ const Address = ({ setValidAddress, setPincode }) => {
   useEffect(() => {
     if(typeof setPincode === 'function'){
       setPincode(address.pincode);
+    }
+    if(address){
+      setUserInfo(address);
     }
   }, [address, setPincode])
 
@@ -92,12 +95,15 @@ const Address = ({ setValidAddress, setPincode }) => {
       setFormIsValid(true);
     }
   };
+  
   const onEditAddress = () => {
     setIsEdit(true);
     if(typeof setValidAddress === 'function'){
       setValidAddress(false);
+      setSummaryEnabled(false);
     }
   };
+
   return (
     <AddressStyle>
       <div>

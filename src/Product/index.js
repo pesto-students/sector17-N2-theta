@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import { useState } from "react";
+import Head from "next/head";
 import ProductCard from "shared/Components/ProductCard";
 import Grid from "shared/Styles/Grid";
 import HeadingStyle from "shared/Styles/HeadingStyle";
@@ -12,6 +13,7 @@ import Breadcrumbs from "shared/Components/Breadcrumbs";
 import { useSingleCategory } from "@/data/hooks/use-categories";
 import Quantity from "shared/Components/Quantity";
 import ProductDetailStyle from "./Style";
+import { AddToWishlistButton } from "../../shared/Utils/AddToWishlist";
 
 const AddToRecentlyViewed = dynamic(
   () => import("../../shared/Utils/AddToRecentlyViewed"),
@@ -59,17 +61,17 @@ const Product = () => {
         const distacne =
           resData.distance.rows[0].elements[0].distance.text.split(" ");
         if (distacne[0] > 0 && distacne[0] <= 20) {
-          deliveryMessage = "1 Working Day Delivery";
+          deliveryMessage = "Delivery in 1 Working days";
         } else if (distacne[0] > 20 && distacne[0] <= 250) {
-          deliveryMessage = "2 Working Days Delivery";
+          deliveryMessage = "Delivery in 2 Working days";
         } else if (distacne[0] > 250 && distacne[0] <= 500) {
-          deliveryMessage = "3 Working Days Delivery";
+          deliveryMessage = "Delivery in 3 Working days";
         } else if (distacne[0] > 500 && distacne[0] <= 750) {
-          deliveryMessage = "4 Working Days Delivery";
+          deliveryMessage = "Delivery in 4 Working days";
         } else if (distacne[0] > 750 && distacne[0] <= 1000) {
-          deliveryMessage = "5 Working Days Delivery";
+          deliveryMessage = "Delivery in 5 Working days";
         } else {
-          deliveryMessage = "10 Working Days Delivery";
+          deliveryMessage = "Delivery in 10 Working days";
         }
         setDelivery(deliveryMessage);
       }
@@ -116,6 +118,7 @@ const Product = () => {
                     </span>
                     <span className="stike-through" />
                   </div>
+                
 
                   <Skeleton height={20} />
                   <Skeleton height={20} />
@@ -179,6 +182,24 @@ const Product = () => {
                       </tr>
                     </table>
                   </div>
+
+                  <HeadingStyle>
+                    <h2 className="heading">
+                      Similar Products
+                      <span className="heading-underline"></span>
+                    </h2>
+                  </HeadingStyle>
+
+                  <Grid className="" count={4} gap={20}>
+                    {!!products &&
+                      Object.keys(products).map((product, index) => (
+                        <ProductCard
+                          key={index}
+                          id={product}
+                          {...products[product]}
+                        />
+                      ))}
+                  </Grid>
                 </div>
 
                 <HeadingStyle>
@@ -208,6 +229,9 @@ const Product = () => {
     router && (
       <div>
         <ProductDetailStyle>
+            <Head>
+                <title>{product.name } | Sector 17</title>
+            </Head>
           {!categoryLoading && (
             <Breadcrumbs
               parent="Products"
@@ -252,6 +276,10 @@ const Product = () => {
                     <AddToCart productSku={product.sku} quantity={qty}>
                       Add to Cart
                     </AddToCart>
+
+                    <div className="wishlist-btn">
+                      <AddToWishlistButton productSku={product.sku} />
+                    </div>
 
                     <div className="extra_option">
                       <label>DELIVER OPTIONS</label>

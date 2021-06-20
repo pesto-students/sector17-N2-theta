@@ -5,9 +5,9 @@ const NotificationStyle = styled.div`
     top: ${props => props.visible ? '20px' : "-100%"};
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1;
+    z-index: 13;
     transition: all ease-in-out 0.5s;
-    background: #262626;
+    background: #FE5351;
     color: #fff;
     padding: 5px 10px 5px 20px;
     border-radius: 5px;
