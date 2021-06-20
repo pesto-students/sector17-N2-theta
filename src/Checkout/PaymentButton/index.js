@@ -1,24 +1,27 @@
+import GlobalContext from "@/appContext";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { useContext } from "react";
 
 const stripePromise = loadStripe("pk_test_FOxPmF0nPWOJClYBlZ3d688y");
 
 export default function PaymentButton({ctx}) {
-  
+  const { finalPriceToPay, cartItems, userInfo } = useContext(GlobalContext);
+
   const handleClick = async (event) => {
     // Get Stripe.js instance 
     const stripe = await stripePromise;
     const quantities = {};
 
-    Object.keys(ctx.cartItems).map((sku) => {
-      quantities[sku] = ctx.cartItems[sku].qty;
+    Object.keys(cartItems).map((sku) => {
+      quantities[sku] = cartItems[sku].qty;
     })
 
     const options = {
-      orderTotal: ctx.finalPriceToPay,
+      orderTotal: finalPriceToPay,
       quantities: {...quantities},
-      pincode: ctx.userInfo.pincode,
-      email: ctx.userInfo.email
+      pincode: userInfo.pincode,
+      email: userInfo.email
     }
 
     const coupon = localStorage.getItem('coupon');
