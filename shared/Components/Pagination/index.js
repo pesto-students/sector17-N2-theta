@@ -1,12 +1,20 @@
-import { Link } from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import PaginationStyle from "./Style";
-const Pagination = (props) => {
+import { Link } from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import PaginationStyle from './Style';
+const Pagination = props => {
   const router = useRouter();
-  
 
-  const { currentPage, lastPage, pageLimit,lastPageCount,pageCurrent, count,handelNextClick,handelPrevClick } = props;
+  const {
+    currentPage,
+    lastPage,
+    pageLimit,
+    lastPageCount,
+    pageCurrent,
+    count,
+    handelNextClick,
+    handelPrevClick
+  } = props;
   // const lastPageCount = Math.round(count / 20);
 
   // const handelPrevClick = () => {
@@ -24,22 +32,20 @@ const Pagination = (props) => {
     <PaginationStyle>
       <ul className="pagination">
         <li
-          className={`prev ${pageCurrent == 0 || pageCurrent == 1  && "disabled"}`}
+          className={`prev ${
+            pageCurrent == 0 || (pageCurrent == 1 && 'disabled')
+          }`}
           onClick={handelPrevClick}
         >
           Prev
         </li>
         <li
-          className={`paginationItem ${
-            pageCurrent <= pageCurrent && "active"
-          }`}
+          className={`paginationItem ${pageCurrent <= pageCurrent && 'active'}`}
         >
           <span>{pageCurrent}</span>
         </li>
         <li
-          className={`next ${
-            pageCurrent == lastPageCount && "disabled"
-          }`}
+          className={`next ${pageCurrent == lastPageCount && 'disabled'}`}
           onClick={handelNextClick}
         >
           Next

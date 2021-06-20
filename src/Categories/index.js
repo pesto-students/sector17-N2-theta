@@ -14,10 +14,10 @@ const Categories = () => {
   const { data, isLoading, isSuccess } = useCategories(offset, limit);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (!isLoading) {
       setCategories({ ...categories, ...data });
     }
-  }, [categories, data, isSuccess]);
+  }, [data]);
 
   const loadMore = () => {
     const offset = Object.keys(categories)[Object.keys(categories).length - 1];

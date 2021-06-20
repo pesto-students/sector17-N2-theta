@@ -1,16 +1,15 @@
 import useProducts, {
-  useProductsWithCount,
-} from "../../../data/hooks/use-products";
-import { useRouter } from "next/router";
-import { useEffect, useContext, useState } from "react";
+  useProductsWithCount
+} from '../../../data/hooks/use-products';
+import { useRouter } from 'next/router';
+import { useEffect, useContext, useState } from 'react';
 // import useProducts from "../../../data/hooks/use-products";
-import GlobalContext from "../../../context/GlobalContext";
-import ProductCard from "../ProductCard";
-import Grid from "../../Styles/Grid";
-import Pagination from "../Pagination";
+import GlobalContext from '../../../context/GlobalContext';
+import ProductCard from '../ProductCard';
+import Grid from '../../Styles/Grid';
+import Pagination from '../Pagination';
 
-
-const CatalogProducts = (props) => {
+const CatalogProducts = props => {
   const router = useRouter();
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(20);
@@ -25,7 +24,7 @@ const CatalogProducts = (props) => {
   const [manufacturerFilter, setManufacturerFilter] = useState([]);
   const [priceFilter, setPriceFilter] = useState([]);
 
-  const currentPage = router.query["category-slug"];
+  const currentPage = router.query['category-slug'];
 
   const { globalManufacturerFilter, globalPriceFilter } =
     useContext(GlobalContext);
@@ -33,11 +32,11 @@ const CatalogProducts = (props) => {
   const {
     data = {},
     isLoading,
-    isSuccess,
+    isSuccess
   } = useProductsWithCount(
     offset,
     limit,
-    "sku",
+    'sku',
     currentPage,
     globalManufacturerFilter,
     globalPriceFilter,
@@ -47,18 +46,18 @@ const CatalogProducts = (props) => {
   useEffect(() => {
     setOffset(0);
     setPageCurrent(1);
-  },[currentPage]);
+  }, [currentPage]);
   useEffect(() => {
     if (!isLoading) {
       setProducts({ ...data[0] });
       setProductsCount(data[1]);
       const productKeys = Object.keys(data[0]);
     }
-    if (router.query["price"] && router.query["price"] != "") {
-      setPriceFilter(router.query["price"].split(","));
+    if (router.query['price'] && router.query['price'] != '') {
+      setPriceFilter(router.query['price'].split(','));
     }
-    if (router.query["manufacturer"] && router.query["manufacturer"] != "") {
-      setManufacturerFilter(router.query["manufacturer"].split(","));
+    if (router.query['manufacturer'] && router.query['manufacturer'] != '') {
+      setManufacturerFilter(router.query['manufacturer'].split(','));
     }
   }, [data]);
 
@@ -68,14 +67,12 @@ const CatalogProducts = (props) => {
     // setOffset(parseInt(offset));
   };
 
-  
-
   const handelPrevClick = () => {
     setAction('prev');
     setPageCurrent(pageCurrent - 1);
     // const offs = paginationState[pageCurrent-1][0];
     // setOffset(parseInt(offs));
-    
+
     const productKeys = Object.keys(data[0]);
     const offset = Object.keys(data[0])[0];
     console.log(offset);
@@ -90,7 +87,7 @@ const CatalogProducts = (props) => {
     setOffset(parseInt(offsetn));
     // const offs = paginationState[pageCurrent][1];
     // setOffset(parseInt(offs));
-    
+
     // props.loadMore(offs);
   };
 
@@ -120,8 +117,7 @@ const CatalogProducts = (props) => {
       <div className="heading">
         <span className="category_title">
           {!props.categoryLoading && props.singleCategory.name}
-        </span>
-        {' '}
+        </span>{' '}
         <span className="product_count">
           ({isSuccess && !!products && Object.keys(products).length}/
           {props.singleCategory.products})
@@ -141,25 +137,25 @@ const CatalogProducts = (props) => {
           </div>
         )}
 
-        {Object.keys(data[0]).length > 0 && Object.keys(data[0]).length <= limit && (
-          <div>
-            <Pagination
-              count={props.singleCategory.products}
-              loadMore={loadMore}
-              lastPageCount={lastPageCount}
-              handelPrevClick= {handelPrevClick}
-              handelNextClick= {handelNextClick}
-              pageCurrent={pageCurrent}
-            />
-            
-          </div>
-        )}
+        {Object.keys(data[0]).length > 0 &&
+          Object.keys(data[0]).length <= limit && (
+            <div>
+              <Pagination
+                count={props.singleCategory.products}
+                loadMore={loadMore}
+                lastPageCount={lastPageCount}
+                handelPrevClick={handelPrevClick}
+                handelNextClick={handelNextClick}
+                pageCurrent={pageCurrent}
+              />
+            </div>
+          )}
         {!!products &&
           ((Object.keys(data).length > 0 &&
             Object.keys(data).length === limit) ||
             isLoading) && (
             <button className="btn" disabled={isLoading} onClick={loadMore}>
-              {isLoading ? "Loading..." : "Load More"}
+              {isLoading ? 'Loading...' : 'Load More'}
             </button>
           )}
       </div>
