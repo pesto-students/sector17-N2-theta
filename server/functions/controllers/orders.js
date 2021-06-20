@@ -1,6 +1,5 @@
 const { db } = require("../firebase/init");
 const { getDistanceInKMs } = require("../controllers/distanceCalculate");
-const cors = require("cors");
 
 /** Recalculate the total of order */
 /** Get total products value helper */
@@ -34,6 +33,11 @@ const getSellerDistances = async (dbSellers, customerPin) => {
     const seller = doc.data();
     const { pincode } = seller;
     const distance = await getDistanceInKMs(pincode, customerPin);
+
+    if(distance === 0) {
+      distances[seller.id] = 0;
+    }
+
     if (!!distance) {
       distances[seller.id] = distance;
     }
@@ -194,7 +198,7 @@ const validateOrder = async ({
 
 const stripe = require("stripe")("sk_test_odah4QkOQP0fKB4Z8GY70926");
 
-const whitelist = ['http://localhost:3000', 'https://sector17.netlify.app']
+const whitelist = ['http://localhost:3000', 'sector17.netlify.app']
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -205,8 +209,8 @@ const corsOptions = {
   },
 }
 
-const createOrder = (req, res, next) => {
-  return cors(corsOptions)(req, res, async () => {
+const createOrder = async (req, res, next) => {
+  
     const { orderTotal, coupon, quantities, pincode, email } = req.body;
     let order = {};
     try {
@@ -237,7 +241,6 @@ const createOrder = (req, res, next) => {
     } catch (e) {
       next(e.message);
     }
-  });
 };
 
 module.exports = { createOrder };
