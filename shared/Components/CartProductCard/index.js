@@ -41,8 +41,8 @@ const CartProductCard = (props) => {
         const updatedCartItems = await updateCart(sku, qty, currentUser);
         setCartItems(updatedCartItems);
         saveCartItems(updatedCartItems, currentUser ? currentUser.uid : null);
-        setNotificationVisibility(true);
-        setNotificationMessage("Quantity update successfully");
+        // setNotificationVisibility(true);
+        // setNotificationMessage("Quantity update successfully");
       }
     };
     updateProductQuantity();

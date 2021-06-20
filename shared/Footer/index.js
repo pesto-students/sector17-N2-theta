@@ -11,18 +11,43 @@ const Footer = () => (
                                 <div className="heading">Online Shopping</div>
                                 <ul>
                                     <li>
-                                        <Link href="#">
-                                            <a>Men</a>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/abcat0100000"
+                                        >
+                                            <a>TV & Home Theater</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#">
-                                            <a>Women</a>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/abcat0200000"
+                                        >
+                                            <a>Audio</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#">
-                                            <a>Kids</a>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/abcat0207000"
+                                        >
+                                            <a>Musical Instruments</a>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/abcat0400000"
+                                        >
+                                            <a>Cameras & Camcorders</a>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/abcat0410000"
+                                        >
+                                            <a>Digital Camera Accessories</a>
                                         </Link>
                                     </li>
                                 </ul>
@@ -31,28 +56,46 @@ const Footer = () => (
                                 <div className="heading">Useful Links</div>
                                 <ul>
                                     <li>
-                                        <Link href="#">
-                                            <a>Men</a>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/abcat0500000"
+                                        >
+                                            <a>Computers & Tablets</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#">
-                                            <a>Women</a>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/abcat0700000"
+                                        >
+                                            <a>Video Games</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#">
-                                            <a>Kids</a>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/abcat0800000"
+                                        >
+                                            <a>Cell Phones</a>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/abcat0900000"
+                                        >
+                                            <a>Appliances</a>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href="/categories/[category-slug]"
+                                            as="/categories/pcmcat252700050006"
+                                        >
+                                            <a>Toys, Games & Drones</a>
                                         </Link>
                                     </li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div className="footer__link-blocks">
-                            <div className="footer__link-block">
-                                <div className="heading">
-                                    Experience app on mobile
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -60,8 +103,8 @@ const Footer = () => (
                         <div className="copyright">© 2021 Sector17.com</div>
                         <div className="made-by">
                             Made with ❤️ by{" "}
-                            <Link href="#">
-                                <a>Ravi</a>
+                            <Link href="https://www.linkedin.com/in/raviyadav01/">
+                                <a target="_blank">Ravi</a>
                             </Link>
                             ,{" "}
                             <Link href="#">

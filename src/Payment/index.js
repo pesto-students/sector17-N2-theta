@@ -1,5 +1,3 @@
-const Payment = () => {
-  return <div>Payment</div>
-}
+const Payment = () => <div>Payment</div>
 
 export default Payment;

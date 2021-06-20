@@ -43,7 +43,7 @@ const CatalogProducts = props => {
     action
   );
 
-  useEffect(() => {
+useEffect(() => {
     setOffset(0);
     setPageCurrent(1);
   }, [currentPage]);
@@ -53,13 +53,13 @@ const CatalogProducts = props => {
       setProductsCount(data[1]);
       const productKeys = Object.keys(data[0]);
     }
-    if (router.query['price'] && router.query['price'] != '') {
-      setPriceFilter(router.query['price'].split(','));
+    if (router.query.price && router.query.price != "") {
+      setPriceFilter(router.query.price.split(","));
     }
-    if (router.query['manufacturer'] && router.query['manufacturer'] != '') {
-      setManufacturerFilter(router.query['manufacturer'].split(','));
+    if (router.query.manufacturer && router.query.manufacturer != "") {
+      setManufacturerFilter(router.query.manufacturer.split(","));
     }
-  }, [data]);
+ }, [data]);
 
   const loadMore = () => {
     // const productKeys = Object.keys(data);
@@ -94,7 +94,7 @@ const CatalogProducts = props => {
   if (isLoading) {
     return (
       <div>
-        <div className="heading"></div>
+        <div className="heading" />
 
         <div className="product_list" role="loading">
           <Grid count={4} gap={15}>

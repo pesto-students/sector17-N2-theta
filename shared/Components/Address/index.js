@@ -5,7 +5,7 @@ import Input from "../Input";
 import AddressStyle from "./Style";
 import GlobalContext from "../../../context/GlobalContext";
 
-const Address = ({ setValidAddress, setPincode }) => {
+const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
   const [isEdit, setIsEdit] = useState(true);
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState({
@@ -100,6 +100,7 @@ const Address = ({ setValidAddress, setPincode }) => {
     setIsEdit(true);
     if(typeof setValidAddress === 'function'){
       setValidAddress(false);
+      setSummaryEnabled(false);
     }
   };
 
