@@ -30,5 +30,4 @@ const Pagination = ({
     </ul>
   </PaginationStyle>
 );
-
 export default Pagination;

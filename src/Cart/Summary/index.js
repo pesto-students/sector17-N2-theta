@@ -6,7 +6,7 @@ import PaymentButton from "../../Checkout/PaymentButton";
 
 const CartSummary = (props) => {
   const router = useRouter();
-  const { finalPriceToPay } = useContext(GlobalContext)
+  const { finalPriceToPay } = useContext(GlobalContext);
   
   const {
     cartPriceDetails,
