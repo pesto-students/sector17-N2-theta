@@ -3,21 +3,35 @@ import axios from "axios";
 
 const stripePromise = loadStripe("pk_test_FOxPmF0nPWOJClYBlZ3d688y");
 
-export default function PaymentButton() {
+export default function PaymentButton({ctx}) {
+  const {cartPriceDetails, cartItems, cartProducts, userInfo, finalPriceToPay} = ctx;
+  
   const handleClick = async (event) => {
     // Get Stripe.js instance 
     const stripe = await stripePromise;
+    const quantities = {};
+
+    Object.keys(cartItems).map((sku) => {
+      quantities[sku] = cartItems[sku].qty;
+    })
+
+    const options = {
+      orderTotal: finalPriceToPay,
+      quantities: {...quantities},
+      pincode: userInfo.pincode,
+      email: userInfo.email
+    }
+
+    const coupon = localStorage.getItem('coupon');
+    if(coupon){
+      options.coupon = coupon;
+    }
 
     // Call your backend to create the Checkout Session 
     const response = await axios.post(
-      "http://localhost:3001/sector17-chandigarh/asia-south1/sector17/orders/",
+      "https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17",
       {
-        orderTotal: 250,
-        quantities: {
-          1003003: 2,
-        },
-        pincode: "143001",
-        coupon: "hello",
+        ...options
       }
     );
     

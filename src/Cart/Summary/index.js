@@ -2,11 +2,14 @@ import GlobalContext from "@/appContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
-import PaymentButton from "../../Checkout/PaymentButton";
+import dynamic from 'next/dynamic'
+
+const PaymentButton = dynamic(() => import("../../Checkout/PaymentButton"), { ssr: false });
 
 const CartSummary = (props) => {
   const router = useRouter();
-  const { finalPriceToPay } = useContext(GlobalContext)
+  const ctx = useContext(GlobalContext);
+  const { finalPriceToPay } = ctx;
   
   const {
     cartPriceDetails,
@@ -134,7 +137,7 @@ const CartSummary = (props) => {
 
             {router.asPath === '/checkout' ? (
               <li className='button payment'>
-                <PaymentButton />
+                <PaymentButton ctx={ctx}/>
               </li>
             ) : (
               <li className='button'>
