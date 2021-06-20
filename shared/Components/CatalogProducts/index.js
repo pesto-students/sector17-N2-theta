@@ -20,8 +20,8 @@ const CatalogProducts = props => {
 
   const lastPageCount = Math.round(props.counts / 20);
 
-  const [manufacturerFilter, setManufacturerFilter] = useState([]);
-  const [priceFilter, setPriceFilter] = useState([]);
+  // const [manufacturerFilter, setManufacturerFilter] = useState([]);
+  // const [priceFilter, setPriceFilter] = useState([]);
 
   const currentPage = router.query['category-slug'];
 
@@ -49,12 +49,12 @@ useEffect(() => {
     if (!isLoading) {
       setProducts({ ...data });
     }
-    if (router.query.price && router.query.price != "") {
-      setPriceFilter(router.query.price.split(","));
-    }
-    if (router.query.manufacturer && router.query.manufacturer != "") {
-      setManufacturerFilter(router.query.manufacturer.split(","));
-    }
+    // if (router.query.price && router.query.price != "") {
+    //   setPriceFilter(router.query.price.split(","));
+    // }
+    // if (router.query.manufacturer && router.query.manufacturer != "") {
+    //   setManufacturerFilter(router.query.manufacturer.split(","));
+    // }
  }, [data]);
 
   const handelPrevClick = () => {
