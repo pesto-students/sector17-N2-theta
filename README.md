@@ -64,13 +64,13 @@
 
 ### Node Server 
 
-Server: Node JS as Backend code uploaded under "server" folder
+Node JS as Backend code uploaded under "server" folder
 
 Requirment : NPM and Node setup, and Firebase cli
 
 ## Clone server
 
-## How to run the project frontend
+## How to run the project for node server
 
 - Run `npm install` to install all required project dependencies
 - Run `npm run server` to start project on http://localhost:3001
