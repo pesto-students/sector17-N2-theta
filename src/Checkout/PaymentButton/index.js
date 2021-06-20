@@ -4,7 +4,7 @@ import axios from "axios";
 const stripePromise = loadStripe("pk_test_FOxPmF0nPWOJClYBlZ3d688y");
 
 export default function PaymentButton({ctx}) {
-  const {cartPriceDetails, cartItems, cartProducts, userInfo, finalPriceToPay} = ctx;
+  const {cartItems, userInfo, finalPriceToPay} = ctx;
   
   const handleClick = async (event) => {
     // Get Stripe.js instance 
