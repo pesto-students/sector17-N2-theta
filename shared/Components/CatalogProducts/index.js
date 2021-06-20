@@ -1,6 +1,4 @@
-import useProducts, {
-  useProductsWithCount
-} from '../../../data/hooks/use-products';
+import useProducts from '../../../data/hooks/use-products';
 import { useRouter } from 'next/router';
 import { useEffect, useContext, useState } from 'react';
 // import useProducts from "../../../data/hooks/use-products";
@@ -11,12 +9,13 @@ import Pagination from '../Pagination';
 
 const CatalogProducts = props => {
   const router = useRouter();
-  const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(20);
-  const [products, setProducts] = useState({});
-  const [productsCount, setProductsCount] = useState(0);
-  const [action, setAction] = useState('');
 
+  const [pageOffsets, setPageOffsets] = useState({});
+
+  const [offset, setOffset] = useState(0);
+  const limit = 20;
+
+  const [products, setProducts] = useState({});
   const [pageCurrent, setPageCurrent] = useState(1);
 
   const lastPageCount = Math.round(props.counts / 20);
@@ -33,14 +32,13 @@ const CatalogProducts = props => {
     data = {},
     isLoading,
     isSuccess
-  } = useProductsWithCount(
+  } = useProducts(
     offset,
     limit,
     'sku',
     currentPage,
     globalManufacturerFilter,
-    globalPriceFilter,
-    action
+    globalPriceFilter
   );
 
 useEffect(() => {
@@ -49,9 +47,7 @@ useEffect(() => {
   }, [currentPage]);
   useEffect(() => {
     if (!isLoading) {
-      setProducts({ ...data[0] });
-      setProductsCount(data[1]);
-      const productKeys = Object.keys(data[0]);
+      setProducts({ ...data });
     }
     if (router.query.price && router.query.price != "") {
       setPriceFilter(router.query.price.split(","));
@@ -61,34 +57,22 @@ useEffect(() => {
     }
  }, [data]);
 
-  const loadMore = () => {
-    // const productKeys = Object.keys(data);
-    // const offset = productKeys[productKeys.length - 1];
-    // setOffset(parseInt(offset));
-  };
-
   const handelPrevClick = () => {
-    setAction('prev');
+    if(!pageOffsets[pageCurrent - 1]) {
+      setOffset(0);
+    } else {
+      setOffset(pageOffsets[pageCurrent - 1]);
+    }
     setPageCurrent(pageCurrent - 1);
-    // const offs = paginationState[pageCurrent-1][0];
-    // setOffset(parseInt(offs));
-
-    const productKeys = Object.keys(data[0]);
-    const offset = Object.keys(data[0])[0];
-    console.log(offset);
-    setOffset(parseInt(offset));
-    // props.loadMore(offs);
   };
+
   const handelNextClick = () => {
-    const offsetn = Object.keys(data[0])[Object.keys(data[0]).length - 1];
-    setAction('');
-    console.log(offsetn);
+    const prods = Object.keys(data);
+    const offsetn = prods[prods.length - 1];
+
+    setPageOffsets({...pageOffsets, [pageCurrent + 1]: parseInt(offsetn)});
     setPageCurrent(pageCurrent + 1);
     setOffset(parseInt(offsetn));
-    // const offs = paginationState[pageCurrent][1];
-    // setOffset(parseInt(offs));
-
-    // props.loadMore(offs);
   };
 
   if (isLoading) {
@@ -137,26 +121,17 @@ useEffect(() => {
           </div>
         )}
 
-        {Object.keys(data[0]).length > 0 &&
-          Object.keys(data[0]).length <= limit && (
+        {Object.keys(data).length > 0 &&
+          Object.keys(data).length <= limit && (
             <div>
               <Pagination
                 count={props.singleCategory.products}
-                loadMore={loadMore}
                 lastPageCount={lastPageCount}
                 handelPrevClick={handelPrevClick}
                 handelNextClick={handelNextClick}
                 pageCurrent={pageCurrent}
               />
             </div>
-          )}
-        {!!products &&
-          ((Object.keys(data).length > 0 &&
-            Object.keys(data).length === limit) ||
-            isLoading) && (
-            <button className="btn" disabled={isLoading} onClick={loadMore}>
-              {isLoading ? 'Loading...' : 'Load More'}
-            </button>
           )}
       </div>
     </div>
