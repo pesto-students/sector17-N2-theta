@@ -1,7 +1,6 @@
 import useProducts from '../../../data/hooks/use-products';
 import { useRouter } from 'next/router';
 import { useEffect, useContext, useState } from 'react';
-// import useProducts from "../../../data/hooks/use-products";
 import GlobalContext from '../../../context/GlobalContext';
 import ProductCard from '../ProductCard';
 import Grid from '../../Styles/Grid';
@@ -19,10 +18,6 @@ const CatalogProducts = props => {
   const [pageCurrent, setPageCurrent] = useState(1);
 
   const lastPageCount = Math.round(props.counts / 20);
-
-  // const [manufacturerFilter, setManufacturerFilter] = useState([]);
-  // const [priceFilter, setPriceFilter] = useState([]);
-
   const currentPage = router.query['category-slug'];
 
   const { globalManufacturerFilter, globalPriceFilter } =
@@ -41,24 +36,19 @@ const CatalogProducts = props => {
     globalPriceFilter
   );
 
-useEffect(() => {
+  useEffect(() => {
     setOffset(0);
     setPageCurrent(1);
   }, [currentPage]);
+
   useEffect(() => {
     if (!isLoading) {
       setProducts({ ...data });
     }
-    // if (router.query.price && router.query.price != "") {
-    //   setPriceFilter(router.query.price.split(","));
-    // }
-    // if (router.query.manufacturer && router.query.manufacturer != "") {
-    //   setManufacturerFilter(router.query.manufacturer.split(","));
-    // }
- }, [data]);
+  }, [data]);
 
   const handelPrevClick = () => {
-    if(!pageOffsets[pageCurrent - 1]) {
+    if (!pageOffsets[pageCurrent - 1]) {
       setOffset(0);
     } else {
       setOffset(pageOffsets[pageCurrent - 1]);
@@ -70,7 +60,7 @@ useEffect(() => {
     const prods = Object.keys(data);
     const offsetn = prods[prods.length - 1];
 
-    setPageOffsets({...pageOffsets, [pageCurrent + 1]: parseInt(offsetn)});
+    setPageOffsets({ ...pageOffsets, [pageCurrent + 1]: parseInt(offsetn) });
     setPageCurrent(pageCurrent + 1);
     setOffset(parseInt(offsetn));
   };
@@ -82,6 +72,10 @@ useEffect(() => {
 
         <div className="product_list" role="loading">
           <Grid count={4} gap={15}>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
             <ProductCard />
             <ProductCard />
             <ProductCard />
@@ -121,18 +115,17 @@ useEffect(() => {
           </div>
         )}
 
-        {Object.keys(data).length > 0 &&
-          Object.keys(data).length <= limit && (
-            <div>
-              <Pagination
-                count={props.singleCategory.products}
-                lastPageCount={lastPageCount}
-                handelPrevClick={handelPrevClick}
-                handelNextClick={handelNextClick}
-                pageCurrent={pageCurrent}
-              />
-            </div>
-          )}
+        {Object.keys(data).length > 0 && Object.keys(data).length <= limit && (
+          <div>
+            <Pagination
+              count={props.singleCategory.products}
+              lastPageCount={lastPageCount}
+              handelPrevClick={handelPrevClick}
+              handelNextClick={handelNextClick}
+              pageCurrent={pageCurrent}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

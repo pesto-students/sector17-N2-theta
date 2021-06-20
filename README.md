@@ -1,46 +1,88 @@
-Sector 17 | Online Shopping
-Example:
-TweetWorld
+# Sector17
 
-An application for online shopping  built with React, Next.Js, JavaScript, and CSS.
+[Sector17](https://sector17.netlify.app/) refers to the vision of the ionic sector17 market of Chandigarh. It is a simple platform for everyshopkeeper/businessperson to sell their products online. Sellers have complete freedom over pricing and discounts It also lets sellers optout of the courier services(provided by our platform), where end users can enjoy less or free delivery charges. Which is a win-win situation for User and Shopkeeper.
 
 
-Example:
-This project is currently in development. Users can select the proudct online and checkout option and price and distacne calculate according to verdor pincode.
+## Tech Stack
+
+- NextJS
+- NodeJS
+- Firebase (FirestoreDB, Authentication, Hosting, Storage)
+- Jest
 
 
-Installation and Setup Instructions
+## Third party tools
 
-Clone this repository. You will need node and npm installed globally on your machine.
+- Netlify (To deploy the build)
+- Sentry.io (For error and performance insights)
+- Algolia (For Search)
 
-Installation:
 
-npm install
+## How to run the project frontend
 
-To Run Test Suite:
+- Run `npm install` to install all required project dependencies
+- Run `npm run build` to create an optimize build of project
+- Run `npm run start` to start the project
 
-npm test
 
-To Start Server:
+## UI Design mocks
 
-npm start
+[Ui Design Figma link](https://www.figma.com/proto/vqaZjgHWYmHxOl9Gz1E6CU/Homepage?node-id=0%3A1&frame-preset-name=Desktop&scaling=scale-down&page-id=0%3A1)
 
-To Visit App:
 
-localhost:3000
+## User Flowchart
 
-Reflection
-What was the context for this project? (ie: was this a side project? was this for Turing? was this for an experiment?)
-What did you set out to build?
-Why was this project challenging and therefore a really good learning experience?
-What were some unexpected obstacles?
-What tools did you use to implement this project?
-This might seem obvious because you are IN this codebase, but to all other humans now is the time to talk about why you chose webpack instead of create react app, or D3, or vanilla JS instead of a framework etc. Brag about your choices and justify them here.
-Example:
-This was a 3 week long project built during my third module at Turing School of Software and Design. Project goals included using technologies learned up until this point and familiarizing myself with documentation for new features.
+[User flowchart Figma link](https://www.figma.com/proto/qaFqDsQnEg2wQ3NA4qWavN/FlowChart?node-id=13%3A2&scaling=scale-down-width&page-id=0%3A1)
 
-Originally I wanted to build an application that allowed users to pull data from the Twitter API based on what they were interested in, such as 'most tagged users'. I started this process by using the create-react-app boilerplate, then adding react-router-4.0 and redux.
 
-One of the main challenges I ran into was Authentication. This lead me to spend a few days on a research spike into OAuth, Auth0, and two-factor authentication using Firebase or other third parties. Due to project time constraints, I had to table authentication and focus more on data visualization from parts of the API that weren't restricted to authenticated users.
+## System Design
 
-At the end of the day, the technologies implemented in this project are React, React-Router 4.0, Redux, LoDash, D3, and a significant amount of VanillaJS, JSX, and CSS. I chose to use the create-react-app boilerplate to minimize initial setup and invest more time in diving into weird technological rabbit holes. In the next iteration I plan on handrolling a webpack.config.js file to more fully understand the build process.
+[System Design Figma link](https://www.figma.com/proto/knwI6lMdUkmkazuGlO45Rb/HLDS---Sector-17?node-id=2%3A1&scaling=contain&page-id=0%3A1)
+
+
+## Features
+
+- **Authentication** - Authentication using Facebook, Google.One user, one account
+- **Search** - Help users to search shops, products, categoriesetc
+- **Filters** - Filter products according Price, size, brandetc
+- **Cart** - Bag to put all items you are willing to purchase
+- **Guest Checkout** - No strings attached
+- **Payment Method** - Pay using different payment methods
+- **Dynamic Pricing/Shipping** - Different pricing for different users, Loyaltyprogram, Express Delivery.
+- **Services** - OrderHistory, Wishlist, Manage profile, RecentlyViewed/Searched, Trending etc.
+
+
+## Upcoming Features
+
+- Frequently bought together
+- Best deals
+- Security Scenario
+- Vendor Admin Panel
+- Product Review System
+
+
+
+
+### Node Server 
+
+Server: Node JS as Backend code uploaded under "server" folder
+
+Requirment : NPM and Node setup, and Firebase cli
+
+## Clone server
+
+## How to run the project frontend
+
+- Run `npm install` to install all required project dependencies
+- Run `npm run server` to start project on http://localhost:3001
+- Run `npm run deploy` to deploy on firebast hosting
+
+# Note: When you execute the deploy command after deployment complete the public URL for the server will display on command promte
+
+
+## Stakeholders
+
+- Pardeep Sharma - [LinkedIn](https://www.linkedin.com/in/pardeep2411/) - [GitHub](https://github.com/pardeep24)
+- Raghav Narang - [LinkedIn](https://www.linkedin.com/in/raghav-narang/) - [GitHub](https://github.com/raghavnarang)
+- Ravi Yadav - [LinkedIn](https://linkedin.com/in/raviyadav01/) - [GitHub](https://github.com/yadavravi2801)
+
