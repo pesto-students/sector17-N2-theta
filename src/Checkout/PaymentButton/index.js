@@ -4,22 +4,21 @@ import axios from "axios";
 const stripePromise = loadStripe("pk_test_FOxPmF0nPWOJClYBlZ3d688y");
 
 export default function PaymentButton({ctx}) {
-  const {cartItems, userInfo, finalPriceToPay} = ctx;
   
   const handleClick = async (event) => {
     // Get Stripe.js instance 
     const stripe = await stripePromise;
     const quantities = {};
 
-    Object.keys(cartItems).map((sku) => {
-      quantities[sku] = cartItems[sku].qty;
+    Object.keys(ctx.cartItems).map((sku) => {
+      quantities[sku] = ctx.cartItems[sku].qty;
     })
 
     const options = {
-      orderTotal: finalPriceToPay,
+      orderTotal: ctx.finalPriceToPay,
       quantities: {...quantities},
-      pincode: userInfo.pincode,
-      email: userInfo.email
+      pincode: ctx.userInfo.pincode,
+      email: ctx.userInfo.email
     }
 
     const coupon = localStorage.getItem('coupon');
