@@ -6,7 +6,7 @@ const CategoryCard = (props) => {
   const { id, image, name } = props;
 
   return <CategoryCardStyle>
-    <div className="category_item">
+    <div className="category_item" role="categories">
       {image ? (
         <Link href="/categories/[category-slug]" as={`/categories/${id}`}>
           <a>

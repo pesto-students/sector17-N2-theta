@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useCategories from "@/data/hooks/use-categories";
+import useCategories from "../../data/hooks/use-categories";
 import Skeleton from "react-loading-skeleton";
 import CategoriesStyle from "./Style";
 import HeadingStyle from "../../shared/Styles/HeadingStyle";

@@ -62,7 +62,7 @@ const Catalog = () => {
                 </div>
             )}
             <div className="products">
-                <CatalogProducts singleCategory={category} />
+                <CatalogProducts singleCategory={category} counts={category.products} />
             </div>
         </CatalogStyle>
     );
