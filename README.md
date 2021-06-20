@@ -77,6 +77,8 @@ Requirment : NPM and Node setup, and Firebase cli
 - Run `npm run server` to start project on http://localhost:3001
 - Run `npm run deploy` to deploy on firebast hosting
 
+You can set the port in firebase.json file or default will be http://localhost:3001
+
 # Note: When you execute the deploy command after deployment complete the public URL for the server will display on command promte
 
 
