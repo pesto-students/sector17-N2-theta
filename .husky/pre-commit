@@ -5,4 +5,4 @@
 # npm run check-format
 
 # Check ESLint Standards
-# npm run check-lint
+npm run check-lint

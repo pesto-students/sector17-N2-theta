@@ -81,6 +81,7 @@ const ShippingMethodsStyle = styled.div`
       font-size: 1.6rem;
       min-width: 200px;
       border-radius: 3px;
+      cursor: pointer;
     }
   }
 `;

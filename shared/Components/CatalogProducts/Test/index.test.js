@@ -1,9 +1,10 @@
+import { useQuery } from "react-query";
+import { useRouter } from "next/router";
 import { render, screen } from "../../../../test/test-utils";
 
-import { useQuery } from "react-query";
 import TestCommon from "../../../../test/TestCommon";
 import CatalogProducts from "../index";
-import { useRouter } from "next/router";
+
 jest.mock("next/router", () => ({
     useRouter() {
       return {

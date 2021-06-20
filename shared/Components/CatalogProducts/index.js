@@ -35,11 +35,11 @@ const CatalogProducts = (props) => {
 
   useEffect(() => {
     !isLoading && setProducts({ ...data });
-    if (router.query["price"] && router.query["price"] != "") {
-      setPriceFilter(router.query["price"].split(","));
+    if (router.query.price && router.query.price != "") {
+      setPriceFilter(router.query.price.split(","));
     }
-    if (router.query["manufacturer"] && router.query["manufacturer"] != "") {
-      setManufacturerFilter(router.query["manufacturer"].split(","));
+    if (router.query.manufacturer && router.query.manufacturer != "") {
+      setManufacturerFilter(router.query.manufacturer.split(","));
     }
 
   }, [data]);
@@ -53,7 +53,7 @@ const CatalogProducts = (props) => {
   if (isLoading) {
     return (
       <div>
-        <div className="heading"></div>
+        <div className="heading" />
 
         <div className="product_list" role="loading">
           <Grid count={4} gap={15}>
