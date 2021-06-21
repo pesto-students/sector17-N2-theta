@@ -31,7 +31,7 @@ export default function PaymentButton({ctx}) {
 
     // Call your backend to create the Checkout Session 
     const response = await axios.post(
-      "https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17",
+      "https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17/orders",
       {
         ...options
       }
