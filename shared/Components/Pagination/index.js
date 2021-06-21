@@ -19,7 +19,7 @@ const Pagination = ({
       <li
         className={`paginationItem ${pageCurrent <= pageCurrent && 'active'}`}
       >
-        <span>{pageCurrent}</span>
+        <span>Page {pageCurrent}</span>
       </li>
       <li
         className={`next ${pageCurrent == lastPageCount && 'disabled'}`}
