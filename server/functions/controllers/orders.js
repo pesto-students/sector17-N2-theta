@@ -1,6 +1,5 @@
 const { db } = require("../firebase/init");
 const { getDistanceInKMs } = require("../controllers/distanceCalculate");
-const cors = require("cors");
 
 /** Recalculate the total of order */
 /** Get total products value helper */
@@ -34,12 +33,30 @@ const getSellerDistances = async (dbSellers, customerPin) => {
     const seller = doc.data();
     const { pincode } = seller;
     const distance = await getDistanceInKMs(pincode, customerPin);
+
+    if(distance === 0) {
+      distances[seller.id] = 0;
+    }
+
     if (!!distance) {
       distances[seller.id] = distance;
     }
   }
 
   return distances;
+};
+
+/** Get Pincodes of Sellers */
+const getSellerPincodes = async (dbSellers) => {
+  const pincodes = {};
+
+  for (const doc of dbSellers.docs) {
+    const seller = doc.data();
+    const { pincode } = seller;
+    pincodes[seller.id] = pincode;
+  }
+
+  return pincodes;
 };
 
 /** Re-Calculates the total to validate the order */
@@ -116,16 +133,16 @@ const validateOrder = async ({
   const sellerNeighbourDiscounts = {};
   let totalNeighbourDiscount = 0;
 
+  /** Seller Pincodes */
+  const sellerPincodes = getSellerPincodes(dbSellers);
+
   /** Round to nearest 100 and add charges to totalOrderValue, OR apply express discount if within 100 KMs */
   for (const seller in sellerDistances) {
     const distance = sellerDistances[seller];
 
     /** Apply Neighbourhood discount (ie: 100) */
-    if (distance < 100) {
+    if (pincode == sellerPincodes[seller] && totalOrderValue >= 500) {
       totalOrderValue = totalOrderValue - 100;
-      if (totalOrderValue < 0) {
-        throw Error("No orders can be free, #3");
-      }
 
       /** Set Extra attributes */
       sellerNeighbourDiscounts[seller] = 100;
@@ -181,7 +198,7 @@ const validateOrder = async ({
 
 const stripe = require("stripe")("sk_test_odah4QkOQP0fKB4Z8GY70926");
 
-const whitelist = ['http://localhost:3000']
+const whitelist = ['http://localhost:3000', 'sector17.netlify.app']
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -192,14 +209,14 @@ const corsOptions = {
   },
 }
 
-const createOrder = (req, res, next) => {
-  return cors(corsOptions)(req, res, async () => {
-    const { orderTotal, coupon, quantities, pincode } = req.body;
+const createOrder = async (req, res, next) => {
+  
+    const { orderTotal, coupon, quantities, pincode, email } = req.body;
     let order = {};
     try {
       order = await validateOrder({ orderTotal, coupon, quantities, pincode });
 
-      //const doc = await db.collection('orders').add({...order, status: 'pending'});
+      const doc = await db.collection('orders').add({...order, email});
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -216,15 +233,14 @@ const createOrder = (req, res, next) => {
           },
         ],
         mode: "payment",
-        success_url: "http://localhost:3000/checkout/payment",
-        cancel_url: "http://localhost:3000/checkout/payment",
+        success_url: "https://sector17.netlify.app/order-status?status=success&id=" + doc.id,
+        cancel_url: "https://sector17.netlify.app/order-status?status=failed&id=" + doc.id,
       });
 
       res.json({ id: session.id });
     } catch (e) {
       next(e.message);
     }
-  });
 };
 
 module.exports = { createOrder };
