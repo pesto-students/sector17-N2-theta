@@ -41,9 +41,6 @@ export const paginationQuery = async (
     docsRef = docsRef.startAfter(offset);
   }
 
-  const count = await docsRef.get();
-  console.log("count before limit ", count.size);
-
   docsRef = docsRef.limit(limit);
 
   docsRef = await docsRef.get();

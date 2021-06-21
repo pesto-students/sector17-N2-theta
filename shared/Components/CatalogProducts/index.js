@@ -5,7 +5,7 @@ import GlobalContext from '../../../context/GlobalContext';
 import ProductCard from '../ProductCard';
 import Grid from '../../Styles/Grid';
 import Pagination from '../Pagination';
-
+import Breadcrumbs from '../Breadcrumbs';
 const CatalogProducts = props => {
   const router = useRouter();
 
@@ -40,7 +40,7 @@ const CatalogProducts = props => {
     setOffset(0);
     setPageCurrent(1);
   }, [currentPage]);
-  
+
   useEffect(() => {
     if (!isLoading) {
       setProducts({ ...data });
@@ -93,6 +93,13 @@ const CatalogProducts = props => {
   return (
     <div>
       <div className="heading">
+        {!props.categoryLoading && (
+          <Breadcrumbs
+            parent="Categories"
+            parentLink="/categories"
+            current={props.singleCategory.name}
+          />
+        )}
         <span className="category_title">
           {!props.categoryLoading && props.singleCategory.name}
         </span>

@@ -1,3 +1,5 @@
+import GlobalContext from "@/appContext";
+import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import ProfileSidebarStyle from "./Style";
