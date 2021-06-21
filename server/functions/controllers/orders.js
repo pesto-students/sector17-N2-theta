@@ -79,10 +79,12 @@ const validateOrder = async ({
     throw Error("Pincode is mendatory to calculate delivery charges");
   }
 
+  const prodKeys = Object.keys(quantities).map(prod => parseInt(prod));
+
   /** Get products from DB */
   const dbProducts = await db
     .collection("products")
-    .where("sku", "in", Object.keys(quantities).map(parseInt))
+    .where("sku", "in", prodKeys)
     .get();
 
   /** Calculate total products value */
@@ -120,10 +122,10 @@ const validateOrder = async ({
     .get();
 
   /** Get distances of each seller */
-  const sellerDistances = await getSellerDistances(dbSellers, pincode);
-  if (Object.keys(sellerDistances).length < 1) {
-    throw Error("Unable to calculate distances for delivery charges");
-  }
+  // const sellerDistances = await getSellerDistances(dbSellers, pincode);
+  // if (Object.keys(sellerDistances).length < 1) {
+  //   throw Error("Unable to calculate distances for delivery charges");
+  // }
 
   /** Delivery charges */
   const sellerDeliveryCharges = {};
@@ -134,35 +136,35 @@ const validateOrder = async ({
   let totalNeighbourDiscount = 0;
 
   /** Seller Pincodes */
-  const sellerPincodes = getSellerPincodes(dbSellers);
-
+  const sellerPincodes = await getSellerPincodes(dbSellers);
   /** Round to nearest 100 and add charges to totalOrderValue, OR apply express discount if within 100 KMs */
-  for (const seller in sellerDistances) {
-    const distance = sellerDistances[seller];
+  for (const seller in sellerPincodes) {
+    //const distance = sellerDistances[seller];
 
     /** Apply Neighbourhood discount (ie: 100) */
-    if (pincode == sellerPincodes[seller] && totalOrderValue >= 500) {
+    if (pincode == sellerPincodes[seller] && totalOrderValue >= 200) {
       totalOrderValue = totalOrderValue - 100;
 
       /** Set Extra attributes */
       sellerNeighbourDiscounts[seller] = 100;
       totalNeighbourDiscount += 100;
 
-      continue;
+      break;
+      //continue;
     }
 
-    const delivery = Math.round(distance / 100) * 100;
-    totalOrderValue = totalOrderValue + delivery;
+    // const delivery = Math.round(distance / 100) * 100;
+    // totalOrderValue = totalOrderValue + delivery;
 
-    /** Set extra attributes */
-    totalDelivery += delivery;
-    sellerDeliveryCharges[seller] = delivery;
+    // /** Set extra attributes */
+    // totalDelivery += delivery;
+    // sellerDeliveryCharges[seller] = delivery;
   }
 
   /** Throw error if order total difference is more than 10 */
   const valueDiff = Math.abs(totalOrderValue - orderTotal);
   if (valueDiff > 10) {
-    throw Error("Invalid Order total");
+    throw Error(`Invalid Order total`);
   }
 
   return {
@@ -174,10 +176,10 @@ const validateOrder = async ({
         price: doc.price,
       };
     }),
-    deliveryCharges: {
-      bySeller: sellerDeliveryCharges,
-      total: totalDelivery,
-    },
+    // deliveryCharges: {
+    //   bySeller: sellerDeliveryCharges,
+    //   total: totalDelivery,
+    // },
     expressDiscounts: {
       bySeller: sellerNeighbourDiscounts,
       total: totalNeighbourDiscount,
@@ -198,49 +200,37 @@ const validateOrder = async ({
 
 const stripe = require("stripe")("sk_test_odah4QkOQP0fKB4Z8GY70926");
 
-const whitelist = ['http://localhost:3000', 'sector17.netlify.app']
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-}
-
 const createOrder = async (req, res, next) => {
-  
-    const { orderTotal, coupon, quantities, pincode, email } = req.body;
-    let order = {};
-    try {
-      order = await validateOrder({ orderTotal, coupon, quantities, pincode });
+  const { orderTotal, coupon, quantities, pincode, email } = req.body;
+  let order = {};
+  try {
+    order = await validateOrder({ orderTotal, coupon, quantities, pincode });
 
-      const doc = await db.collection('orders').add({...order, email});
+    const doc = await db.collection('orders').add({...order, email});
 
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        line_items: [
-          {
-            price_data: {
-              currency: "inr",
-              product_data: {
-                name: order.products,
-              },
-              unit_amount_decimal: parseInt(order.total) * 100,
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "inr",
+            product_data: {
+              name: order.products,
             },
-            quantity: 1,
+            unit_amount_decimal: parseInt(order.total) * 100,
           },
-        ],
-        mode: "payment",
-        success_url: "https://sector17.netlify.app/order-status?status=success&id=" + doc.id,
-        cancel_url: "https://sector17.netlify.app/order-status?status=failed&id=" + doc.id,
-      });
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: "https://sector17.netlify.app/order-status?status=success&id=" + doc.id,
+      cancel_url: "https://sector17.netlify.app/order-status?status=failed&id=" + doc.id,
+    });
 
-      res.json({ id: session.id });
-    } catch (e) {
-      next(e.message);
-    }
+    res.json({ id: session.id });
+  } catch (e) {
+    next(e.message);
+  }
 };
 
 module.exports = { createOrder };
