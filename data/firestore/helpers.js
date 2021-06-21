@@ -15,6 +15,7 @@ export const paginationQuery = async (
   /** Add Where conditions (eg.: Categories, Filters etc. ) */
   let isOrderByEqualityCondition = false;
   if (Array.isArray(where) && where.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const whereCond of where) {
       if (!Array.isArray(whereCond) || whereCond.length < 3) {
         continue;

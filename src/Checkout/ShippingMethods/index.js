@@ -44,12 +44,17 @@ const ShippingMethods = props => {
   }, [cartProducts, cartItemSellers, customerPincode]);
 
   useEffect(() => {
-    if(itemsForStanderdShipping && itemsForExpressShipping && Object.keys(itemsForExpressShipping).length > 0 && cartPriceDetails.total > 500){
+    if (
+      itemsForStanderdShipping &&
+      itemsForExpressShipping &&
+      Object.keys(itemsForExpressShipping).length > 0 &&
+      cartPriceDetails.total > 500
+    ) {
       setFinalPriceToPay(cartPriceDetails.total - 100);
-    }else{
+    } else {
       setFinalPriceToPay(cartPriceDetails.total);
     }
-  }, [itemsForStanderdShipping, itemsForExpressShipping])
+  }, [itemsForStanderdShipping, itemsForExpressShipping]);
 
   return enabled ? (
     <ShippingMethodsStyle enabled={enabled}>
@@ -60,7 +65,7 @@ const ShippingMethods = props => {
             Object.keys(itemsForStanderdShipping).length > 0 && (
               <>
                 <div className="shipping-type">Standard Shipping</div>
-                <div className="products">
+                <div className="products while-checkout">
                   {Object.keys(itemsForStanderdShipping).map(product => {
                     const { id, image, name, price } =
                       itemsForStanderdShipping[product];
@@ -104,21 +109,26 @@ const ShippingMethods = props => {
                       Neibourhood Discount of Rs. 100 is applied.
                     </div>
                     <div className="price">
-                      Final Price <span className="strike">Rs. {cartPriceDetails.total.toFixed(2)}</span> <span className="strik">Rs. {(cartPriceDetails.total - 100).toFixed(2)}</span>
+                      Final Price{' '}
+                      <span className="strike">
+                        Rs. {cartPriceDetails.total.toFixed(2)}
+                      </span>{' '}
+                      <span className="strik">
+                        Rs. {(cartPriceDetails.total - 100).toFixed(2)}
+                      </span>
                     </div>
                   </div>
                 )}
               </>
             )}
         </div>
-        {
-          !summaryEnabled && 
-            <div className="button-wrapper">
-              <button type="button" onClick={() => setSummaryEnabled(true)}>
-                Continue
-              </button>
-            </div>
-        }
+        {!summaryEnabled && (
+          <div className="button-wrapper">
+            <button type="button" onClick={() => setSummaryEnabled(true)}>
+              Continue
+            </button>
+          </div>
+        )}
       </div>
     </ShippingMethodsStyle>
   ) : null;

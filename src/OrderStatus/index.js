@@ -3,10 +3,10 @@ const OrderStatus = () => {
   return (
     <OrderStatusStyle>
       <h1>Detail of Order: #1234</h1>
-      <div classNameName="row_group">
-        <div classNameName="address">
+      <div className="row_group">
+        <div className="address">
           <strong>First Last Name</strong>
-          <p>
+          <p className="" style={{ margin: 0 }}>
             Street Appartment,
             <br />
             City, State, Pincode <br />
@@ -15,7 +15,7 @@ const OrderStatus = () => {
           </p>
         </div>
       </div>
-      <div className="row_group">
+      <div className="row_group orders-row">
         <div className="order">
           <div className="row_group item">
             <div className="product_img">
@@ -74,13 +74,16 @@ const OrderStatus = () => {
           <h2>Order Summery</h2>
 
           <p>
-            <strong>Subtotal: </strong> Rs. 500
+            <strong>Subtotal: </strong> 
+            <span>Rs. 500</span>
           </p>
           <p>
-            <strong>Discount: </strong> Rs. 100
+            <strong>Discount: </strong>
+            <span>Rs. 100</span>
           </p>
           <p>
-            <strong>Total: </strong> Rs. 400
+            <strong>Total: </strong>
+            <span>Rs. 400</span>
           </p>
         </div>
       </div>
