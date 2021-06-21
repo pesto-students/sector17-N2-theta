@@ -13,7 +13,7 @@ const getDistanceInKMs = async (pin1, pin2) => {
     response.data.rows[0].elements[0].status != "OK" ||
     !response.data.rows[0].elements[0].distance
   ) {
-    throw Error("Invalid Response");
+    return false;
   }
 
   return parseInt(response.data.rows[0].elements[0].distance.value) / 1000;
