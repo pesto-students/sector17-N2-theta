@@ -1,6 +1,6 @@
 import InputStyle from "./Style";
-const Input = (props) => {
-  return (
+
+const Input = (props) => (
     <InputStyle>
         <input
           type={props.type}
@@ -13,6 +13,5 @@ const Input = (props) => {
         />
     </InputStyle>
   );
-};
 
 export default Input;

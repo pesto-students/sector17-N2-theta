@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-
 import HomeStyle from "./Style";
 import Banner from "../../shared/Components/Banner";
 import USP from "../../shared/Components/USP";
@@ -10,9 +9,7 @@ const RecentlyViewed = dynamic(() => import("../../shared/Components/RecentlyVie
   ssr: false
 });
 
-const Home = () => {
-
-  return (
+const Home = () => (
     <HomeStyle>
       <Banner />
       <div className="home__inner">
@@ -23,6 +20,5 @@ const Home = () => {
       </div>
     </HomeStyle>
   );
-};
 
 export default Home;

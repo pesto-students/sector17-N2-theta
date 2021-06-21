@@ -15,6 +15,7 @@ export const paginationQuery = async (
   /** Add Where conditions (eg.: Categories, Filters etc. ) */
   let isOrderByEqualityCondition = false;
   if (Array.isArray(where) && where.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const whereCond of where) {
       if (!Array.isArray(whereCond) || whereCond.length < 3) {
         continue;
@@ -39,6 +40,7 @@ export const paginationQuery = async (
   if (offset !== 0) {
     docsRef = docsRef.startAfter(offset);
   }
+
   docsRef = docsRef.limit(limit);
 
   docsRef = await docsRef.get();
@@ -50,13 +52,70 @@ export const paginationQuery = async (
   return docs;
 };
 
+export const paginationQueryWithCount = async (
+  collection,
+  orderBy,
+  offset = 0,
+  limit = 10,
+  where = [],
+  action = ""
+) => {
+  const ref = db.collection(collection);
+  let docsRef = ref;
+  /** Add Where conditions (eg.: Categories, Filters etc. ) */
+  let isOrderByEqualityCondition = false;
+  if (Array.isArray(where) && where.length > 0) {
+    for (const whereCond of where) {
+      if (!Array.isArray(whereCond) || whereCond.length < 3) {
+        continue;
+      }
+
+      if (whereCond[0] === orderBy && whereCond[1] === "==") {
+        isOrderByEqualityCondition = true;
+      }
+
+      docsRef = docsRef.where(whereCond[0], whereCond[1], whereCond[2]);
+    }
+  }
+
+  /** If there is orderby quality where condition, then don't add orderby.
+   * For Example, if there is SKU === 111002, then don't add SKU into orderBy
+   */
+  if (!isOrderByEqualityCondition) {
+    docsRef = docsRef.orderBy(orderBy);
+  }
+
+  /** Add offset (eg: Last document of current set to get next set ) */
+  if (offset !== 0) {
+    if (action == "") {
+      docsRef = docsRef.startAfter(offset);
+    }
+    if (action == "prev") {
+      console.log("I am here offset ", offset);
+      console.log("Action offset ", action);
+      docsRef = docsRef.endBefore(offset);
+    }
+  }
+
+  const count = await docsRef.get();
+  docsRef = docsRef.limit(limit);
+
+  docsRef = await docsRef.get();
+
+  const docs = {};
+  docsRef.forEach((doc) => {
+    docs[doc.id] = doc.data();
+  });
+  return [docs, count.size];
+};
+
 export const getSingleEntity = async (collection, id) => {
   const docRef = await db.collection(collection).doc(id).get();
   return docRef.data();
 };
 
 export const getSlidersEntity = async () => {
-  const ref = db.collection('slider');
+  const ref = db.collection("slider");
   let docsRef = ref;
 
   docsRef = await docsRef.get();
@@ -66,4 +125,3 @@ export const getSlidersEntity = async () => {
   });
   return docs;
 };
-

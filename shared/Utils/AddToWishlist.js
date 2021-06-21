@@ -1,14 +1,11 @@
-import GlobalContext from "context/GlobalContext";
 import { useContext } from "react";
+import GlobalContext from "../../context/GlobalContext";
 import getWishlistItems from "./getWishlistItems";
 import saveWishlistItems from "./saveWishlistItems";
 
 const handleWishlistItems = async (productSku, currentUser) => {
   let action = '';
   let currentWishlistItems = await getWishlistItems(currentUser.uid);
-
-  console.log('currentWishlistItems currentWishlistItems currentWishlistItems');
-  console.log(currentWishlistItems);
 
   if(currentWishlistItems == null){
     currentWishlistItems = [productSku];
@@ -36,6 +33,7 @@ const AddToWishlistButton = (props) => {
 
   const {
     currentUser,
+    isLogin,
     wishlistItems,
     setWishlistItems,
     setNotificationMessage,
@@ -44,6 +42,12 @@ const AddToWishlistButton = (props) => {
 
   const handleClick = async () => {
     let message = "";
+
+    if(!isLogin){
+      setNotificationVisibility(true);
+      setNotificationMessage("Login / Register to create a wishlist");
+      return false;
+    }
 
     const wishlist = await handleWishlistItems(productSku, currentUser);
     
@@ -62,12 +66,12 @@ const AddToWishlistButton = (props) => {
     <button className='add-to-wishlist' onClick={handleClick}>
       {
         wishlistItems == null ? (
-          <i className='fa fa-heart-o' aria-hidden='true'></i>
+          <i className='fa fa-heart-o' aria-hidden='true' />
         ) : (
           wishlistItems && wishlistItems.indexOf(productSku) >= 0 ? (
-            <i className='fa fa-heart' aria-hidden='true'></i>
+            <i className='fa fa-heart' aria-hidden='true' />
           ) : (
-            <i className='fa fa-heart-o' aria-hidden='true'></i>
+            <i className='fa fa-heart-o' aria-hidden='true' />
           )
         )
       }

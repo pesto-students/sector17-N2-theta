@@ -1,18 +1,41 @@
-import GlobalContext from "@/appContext";
-import { useRouter } from "next/router";
-import { useContext } from "react";
-import Address from "shared/Components/Address";
+import { useContext, useEffect, useState } from "react";
+import GlobalContext from "../../context/GlobalContext";
+import Address from "../../shared/Components/Address";
+import Cart from "../Cart";
+import ShippingMethods from "./ShippingMethods";
+import CheckoutStyle from "./Style";
 
 const Checkout = () => {
-  const router = useRouter();
-  const { cartPriceDetails, isLogin, currentUser } = useContext(GlobalContext);
+  const { cartProducts, cartItemSellers } = useContext(GlobalContext);
+  const [validAddress, setValidAddress] = useState(false);
+  const [pincode, setPincode] = useState();
+  const [shippingEnabled, setShippingEnabled] = useState(false);
+  const [summaryEnabled, setSummaryEnabled] = useState(false);
 
-  if (cartPriceDetails && cartPriceDetails.total == 0) {
-    // router.push("/cart");
-  }
+  useEffect(() => {
+    if (validAddress) {
+      setShippingEnabled(true);
+    } else {
+      setShippingEnabled(false);
+    }
+  }, [validAddress]);
 
   return (
-    <div>{isLogin && <Address user={currentUser} />}</div>
+    <CheckoutStyle>
+      <Address setValidAddress={setValidAddress} setSummaryEnabled={setSummaryEnabled} setPincode={setPincode} />
+      {cartItemSellers && (
+        <ShippingMethods
+          enabled={shippingEnabled}
+          pincode={pincode}
+          cartItemSellers={cartItemSellers}
+          cartProducts={cartProducts}
+          summaryEnabled={summaryEnabled}
+          setSummaryEnabled={setSummaryEnabled}
+        />
+      )}
+      
+      <Cart showSummary={summaryEnabled}/>
+    </CheckoutStyle>
   );
 };
 

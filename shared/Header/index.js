@@ -1,11 +1,11 @@
 import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import HeaderStyle from './Style'
 import MiniCart from '../Components/MiniCart'
 import Navigation from '../Components/Navigation'
 import Search from '../Components/Search'
-import { useRouter } from 'next/router'
 
 const User = dynamic(() => import("../Components/User"), {
     ssr: false,

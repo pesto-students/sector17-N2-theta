@@ -1,8 +1,9 @@
 const https = require("https");
-export default (req, res) => {
+
+const handler = async (req, res) => {
   if (req.method === "POST") {
-    const data = req.body;
-    const { origin, destination } = data;
+    const bodyData = req.body;
+    const { origin, destination } = bodyData;
     https
       .get(
         `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin}&destinations=${destination}&key=AIzaSyBLuKZYUJThQeaN2OuyQFXHangMdmwyjuo`,
@@ -22,3 +23,5 @@ export default (req, res) => {
       });
   }
 };
+
+export default handler;

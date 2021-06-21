@@ -1,23 +1,20 @@
+import { useEffect, useState } from "react";
+import useCategories from "../../data/hooks/use-categories";
+import Skeleton from "react-loading-skeleton";
 import CategoriesStyle from "./Style";
 import HeadingStyle from "../../shared/Styles/HeadingStyle";
 import Grid from "../../shared/Styles/Grid";
 import CategoryCard from "../../shared/Components/CategoryCard";
-import { useEffect, useState } from "react";
-import useCategories from "@/data/hooks/use-categories";
 
 const Categories = () => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(10);
   const [categories, setCategories] = useState({});
 
-  const {
-    data,
-    isLoading,
-    isSuccess,
-  } = useCategories(offset, limit);
+  const { data, isLoading, isSuccess } = useCategories(offset, limit);
 
   useEffect(() => {
-    if(isSuccess){
+    if (!isLoading) {
       setCategories({ ...categories, ...data });
     }
   }, [data]);
@@ -26,6 +23,26 @@ const Categories = () => {
     const offset = Object.keys(categories)[Object.keys(categories).length - 1];
     setOffset(categories[offset].id);
   };
+  if (isLoading) {
+    return (
+      <CategoriesStyle>
+        <div role="loading">
+          <HeadingStyle>
+            <h2 className="heading">
+              <Skeleton />
+            </h2>
+          </HeadingStyle>
+          <Grid className="" count={2} gap={20}>
+            <CategoryCard />
+            <CategoryCard />
+          </Grid>
+          <div className="view-all">
+            <Skeleton height={40} width={100} />
+          </div>
+        </div>
+      </CategoriesStyle>
+    );
+  }
 
   return (
     <CategoriesStyle>
@@ -33,7 +50,7 @@ const Categories = () => {
         <HeadingStyle>
           <h2 className="heading">
             All Categories
-            <span className="heading-underline"></span>
+            <span className="heading-underline" />
           </h2>
         </HeadingStyle>
         <Grid className="" count={2} gap={20}>
