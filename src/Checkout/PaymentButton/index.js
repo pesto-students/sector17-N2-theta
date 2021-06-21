@@ -18,7 +18,7 @@ export default function PaymentButton({ctx}) {
     })
 
     const options = {
-      orderTotal: finalPriceToPay,
+      orderTotal: finalPriceToPay.toFixed(2),
       quantities: {...quantities},
       pincode: userInfo.pincode,
       email: userInfo.email
