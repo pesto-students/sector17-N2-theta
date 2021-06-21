@@ -79,10 +79,12 @@ const validateOrder = async ({
     throw Error("Pincode is mendatory to calculate delivery charges");
   }
 
+  const prodKeys = Object.keys(quantities).map(prod => parseInt(prod));
+
   /** Get products from DB */
   const dbProducts = await db
     .collection("products")
-    .where("sku", "in", Object.keys(quantities).map(parseInt))
+    .where("sku", "in", prodKeys)
     .get();
 
   /** Calculate total products value */
