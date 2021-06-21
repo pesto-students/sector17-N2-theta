@@ -19,9 +19,10 @@ const getOrdersHistory = async ({ emailId }) => {
 
 // Get Order status from Order id
 export const getOrderStatus = async ({ orderId }) => {
-  if (!userId) {
+  if (!orderId) {
     return {};
   }
+  console.log("Order id ",orderId);
 
   const docRef = await db.collection('orders').doc(orderId).get();
   return docRef.data();
