@@ -138,7 +138,7 @@ const validateOrder = async ({
 
   /** Round to nearest 100 and add charges to totalOrderValue, OR apply express discount if within 100 KMs */
   for (const seller in sellerDistances) {
-    const distance = sellerDistances[seller];
+    //const distance = sellerDistances[seller];
 
     /** Apply Neighbourhood discount (ie: 100) */
     if (pincode == sellerPincodes[seller] && totalOrderValue >= 500) {
@@ -151,18 +151,18 @@ const validateOrder = async ({
       continue;
     }
 
-    const delivery = Math.round(distance / 100) * 100;
-    totalOrderValue = totalOrderValue + delivery;
+    // const delivery = Math.round(distance / 100) * 100;
+    // totalOrderValue = totalOrderValue + delivery;
 
-    /** Set extra attributes */
-    totalDelivery += delivery;
-    sellerDeliveryCharges[seller] = delivery;
+    // /** Set extra attributes */
+    // totalDelivery += delivery;
+    // sellerDeliveryCharges[seller] = delivery;
   }
 
   /** Throw error if order total difference is more than 10 */
   const valueDiff = Math.abs(totalOrderValue - orderTotal);
   if (valueDiff > 10) {
-    throw Error("Invalid Order total");
+    throw Error(`Invalid Order total. Given Order Total: ${orderTotal}, Re-Calculated Total: ${totalOrderValue}`);
   }
 
   return {
