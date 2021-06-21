@@ -8,7 +8,16 @@ import ProfileSidebar from 'shared/Components/ProfileSidebar';
 import OrderHistoryStyle from './Style';
 
 const Order = () => {
+    const [userId, setUserId] = useState("");
   const { user, isLogin, wishlistItems } = useContext(GlobalContext);
+  const { data, isLoading, isError } = useOrderStatus(router.query['id']);  
+  
+  useEffect(() => {
+    if (user) {
+      setUserId(user.uid);
+    }
+  }, [user]);
+
   return (
     <OrderHistoryStyle>
       <div className="row_group my-account-wrapper">
