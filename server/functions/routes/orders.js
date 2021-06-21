@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
 
 const {createOrder} = require("../controllers/orders");
 
-const whitelist = ['http://localhost:3000']
+const whitelist = ['http://localhost:3000', 'https://sector17.netlify.app']
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -16,7 +15,6 @@ const corsOptions = {
 }
 
 router.post("/", createOrder);
-router.options('/', cors());
 //router.get("/", getOrders);
 
 module.exports = router;

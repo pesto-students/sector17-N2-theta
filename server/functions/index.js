@@ -13,11 +13,14 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+const cors = require("cors");
+
 var productsRouter = require("./routes/products");
 var ordersRouter = require("./routes/orders");
 
 var app = express();
 
+app.use(cors({ origin: true }));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
