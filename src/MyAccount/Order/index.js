@@ -11,7 +11,7 @@ import { useOrderHistory } from '@/data/hooks/use-orders';
 const Order = () => {
   const [userId, setUserId] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const { user, isLogin, wishlistItems } = useContext(GlobalContext);
+  const { currentUser: user, isLogin, wishlistItems } = useContext(GlobalContext);
   const { data, isLoading, isError } = useOrderHistory(userEmail);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Order = () => {
                 <tbody>
                   <tr>
                     <td>#123</td>
-                    <td>20/06/2021 {console.log(data)}</td>
+                    <td>20/06/2021</td>
                   </tr>
                 </tbody>
               </table>

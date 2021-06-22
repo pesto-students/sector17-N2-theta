@@ -201,12 +201,12 @@ const validateOrder = async ({
 const stripe = require("stripe")("sk_test_odah4QkOQP0fKB4Z8GY70926");
 
 const createOrder = async (req, res, next) => {
-  const { orderTotal, coupon, quantities, pincode, email } = req.body;
+  const { orderTotal, coupon, quantities, pincode, uid, email } = req.body;
   let order = {};
   try {
     order = await validateOrder({ orderTotal, coupon, quantities, pincode });
 
-    const doc = await db.collection('orders').add({...order, email});
+    const doc = await db.collection('orders').add({...order, uid, email});
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],

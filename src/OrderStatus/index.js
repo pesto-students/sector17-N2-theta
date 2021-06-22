@@ -24,6 +24,7 @@ const OrderStatus = () => {
   });
   
   const { data, isLoading, isError } = useOrderStatus(router.query['id']);  
+  console.log(data);
   // const { data: shippingAddress, isLoading: addresLoading } = useOrderStatus(orderedEmail);  
 
   useEffect(() => {
