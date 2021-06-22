@@ -1,42 +1,30 @@
-import addCollectionToDb from '@/data/firestore/cart';
-import GlobalContext from '@/appContext';
-import { useContext, useState, useEffect } from 'react';
+import addCollectionToDb from "@/data/firestore/cart";
 
-const getRecentlyViewedIProduct = productSku => {
-  let viewedProducts = localStorage.getItem('recentViewed');
+const getRecentlyViewedIProduct = (productSku) => {
+  let viewedProducts = localStorage.getItem("recentViewed");
   viewedProducts = viewedProducts
-    ? JSON.parse(viewedProducts).filter(product => product !== productSku)
+    ? JSON.parse(viewedProducts).filter((product) => product !== productSku)
     : [];
 
   return viewedProducts;
 };
 
-const AddToRecentlyViewed = ({ productSku }) => {
-  const [loggedUserId, setLoggedUserId] = useState("");
-  const { user, isLogin, wishlistItems } = useContext(GlobalContext);
-
-  useEffect(() => {
-    if (user) {
-      setLoggedUserId(user.uid);
-    }
-  }, [user]);
-
-  if (productSku) {
+const AddToRecentlyViewed = ({productSku}) => {
+  if(productSku){
     const prevViewedProduct = getRecentlyViewedIProduct(productSku);
-    prevViewedProduct.push(productSku);
+          prevViewedProduct.push(productSku);
+          
+    const currentViewedProducts = JSON.stringify(prevViewedProduct)
+    localStorage.setItem("recentViewed", currentViewedProducts);
 
-    const currentViewedProducts = JSON.stringify(prevViewedProduct);
-    localStorage.setItem('recentViewed', currentViewedProducts);
-    if (loggedUserId) {
-      addCollectionToDb({
-        collection: 'recentViewed',
-        userId: loggedUserId,
-        data: JSON.stringify(currentViewedProducts)
-      });
-    }
+    addCollectionToDb({ 
+      collection : 'recentViewed', 
+      userId : 'X1tDHanwBCb1I8e7iEgdFAVBZdX2', 
+      data : JSON.stringify(currentViewedProducts)
+    })
   }
 
-  return <></>;
+  return <></>
 };
 
 export default AddToRecentlyViewed;

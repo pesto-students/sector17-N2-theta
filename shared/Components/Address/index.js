@@ -96,12 +96,6 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
     }
   };
   
-  
-  const validatePincode = event => {
-    if (!/[0-9]/.test(event.key)) {
-      event.preventDefault();
-    }
-  };
   const onEditAddress = () => {
     setIsEdit(true);
     if(typeof setValidAddress === 'function'){
@@ -202,8 +196,7 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
                       maxLength={6}
                       id="pincode"
                       placeholder="Pincode"
-                      required="yes"                      
-                      onKeyPress={validatePincode}
+                      required="yes"
                       onChange={handleChange}
                       value={address.pincode}
                     />
