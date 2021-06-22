@@ -1,7 +1,7 @@
 import GlobalContext from "@/appContext";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const stripePromise = loadStripe("pk_test_FOxPmF0nPWOJClYBlZ3d688y");
 
@@ -14,6 +14,13 @@ export default function PaymentButton({ctx}) {
     // Get Stripe.js instance 
     setLoading(true);
     setError(false);
+
+    if(finalPriceToPay <= 50){
+      setError(`Add items worth Rs.${50 - finalPriceToPay} to place order.`);
+      setLoading(false);
+      return;
+    }
+
     const stripe = await stripePromise;
     const quantities = {};
 
@@ -60,18 +67,31 @@ export default function PaymentButton({ctx}) {
     setLoading(false);
   };
 
+
+  useEffect(() => {
+    if(finalPriceToPay && finalPriceToPay <= 50){
+      setError(`Add items worth Rs. ${50 - finalPriceToPay} to place order.`);
+    }
+  }, [])
+
   return (
-    <>
-    {loading ? (
-      <button role="link" disabled={loading} style={{background: '#999'}}>
-         <i className="fa fa-spin fa-spinner"/> Authenticating
+    <div style={{width: '100%'}}>
+    {loading || error ? (
+      <button role="link" disabled style={{background: '#999'}}>
+         {loading ? (
+          <>
+            <i className="fa fa-spin fa-spinner"/> Authenticating
+          </>
+        ) : (
+          'Proceed to Payment'
+        )}
       </button>
     ) : (
       <button role="link" disabled={loading} onClick={handleClick}>
         Proceed to Payment
       </button>
     )}
-    {error && <div style={{textAlign:'center', fontSize:'12px'}}>{ error }</div>}
-    </>
+    {error && <div style={{textAlign:'center', fontSize:'12px', color: '#ff0000'}}>{ error }</div>}
+    </div>
   );
 }

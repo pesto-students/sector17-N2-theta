@@ -267,6 +267,7 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode, disable = fal
                       id="email"
                       placeholder="Email"
                       required="yes"
+                      pattern="/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/"
                       onChange={handleChange}
                       value={address.email}
                     />

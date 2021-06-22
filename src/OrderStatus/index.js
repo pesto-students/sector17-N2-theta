@@ -6,11 +6,11 @@ import GlobalContext from '@/appContext';
 import { useContext, useEffect, useState } from 'react';
 import Address from 'shared/Components/Address';
 import Link from "next/link";
-import { useProductsForOrder } from '@/data/hooks/use-products';
-import useProductsBySKU from '@/data/hooks/use-products-by-sku';
+import saveCartItems from 'shared/Utils/saveCartItems';
 
 const OrderStatus = () => {
   const router = useRouter();
+  const { currentUser } = useContext(GlobalContext);
   const orderId = router.query['id'];
   const [order, setOrder] = useState({});
   const [subtotal, setSubtotal] = useState([]);
@@ -40,6 +40,10 @@ const OrderStatus = () => {
       setSubtotal(
         subtotalArray && subtotalArray.reduce((acc, val) => acc + val, 0)
       );
+
+      if(currentUser) {
+        saveCartItems({}, currentUser.uid);
+      }
     }
   }, [order]);
 
@@ -113,7 +117,10 @@ const OrderStatus = () => {
           <div className="row_group orders-row">
             <div className="order">
               <div className="address">
-                <Address disable={true} />
+                {
+                  // eslint-disable-next-line react/jsx-boolean-value
+                  <Address disable={true} />
+                }
               </div>
               <h1>Thank you for your order! <Link href="/">Continue Shopping</Link></h1>
             </div>
