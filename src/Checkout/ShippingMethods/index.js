@@ -48,7 +48,7 @@ const ShippingMethods = props => {
       itemsForStanderdShipping &&
       itemsForExpressShipping &&
       Object.keys(itemsForExpressShipping).length > 0 &&
-      cartPriceDetails.total > 500
+      cartPriceDetails.total > 200
     ) {
       setFinalPriceToPay(cartPriceDetails.total - 100);
     } else {
@@ -103,7 +103,7 @@ const ShippingMethods = props => {
                     );
                   })}
                 </div>
-                {cartPriceDetails && cartPriceDetails.total > 500 && (
+                {cartPriceDetails && cartPriceDetails.total > 200 && (
                   <div className="s-discount">
                     <div className="green">
                       Neibourhood Discount of Rs. 100 is applied.
