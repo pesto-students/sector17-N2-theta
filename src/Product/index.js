@@ -321,11 +321,10 @@ const Product = () => {
                       </table>
                     </div>
                   </div>
-
                   <SimilarProducts category={product.category} />
                 </div>
 
-                <AddToRecentlyViewed productSku={product.sku} />
+                <SimilarProducts category={product.category} />
               </div>
             </>
           )}
