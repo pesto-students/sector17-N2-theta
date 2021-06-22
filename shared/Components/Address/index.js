@@ -246,8 +246,7 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode, disable = fal
                       maxLength={6}
                       id="pincode"
                       placeholder="Pincode"
-                      required="yes"                      
-                      onKeyPress={validatePincode}
+                      required="yes"
                       onChange={handleChange}
                       value={address.pincode}
                     />
