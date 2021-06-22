@@ -1,9 +1,6 @@
 import GlobalContext from '@/appContext';
 import { useContext, useState, useEffect } from 'react';
-import Link from 'next/link';
 import SocialLogin from 'shared/Components/SocialLogin';
-import Grid from 'shared/Styles/Grid';
-import ProductCard from 'shared/Components/ProductCard';
 import ProfileSidebar from 'shared/Components/ProfileSidebar';
 import OrderHistoryStyle from './Style';
 import { useOrderHistory } from '@/data/hooks/use-orders';
