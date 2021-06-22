@@ -3,7 +3,7 @@ import styled from "styled-components";
 const InputStyle = styled.div`
     flex-wrap: wrap;
     flex: 1;
-    width: 45%;
+    width: 100%;
     padding: 10px;
     @media screen and (max-width: 767px) {
         width: 100%;

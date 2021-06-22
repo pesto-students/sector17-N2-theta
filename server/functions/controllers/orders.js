@@ -1,5 +1,6 @@
 const { db } = require("../firebase/init");
 const { getDistanceInKMs } = require("../controllers/distanceCalculate");
+const { sendOrderSuccessEmail } = require("./email");
 
 /** Recalculate the total of order */
 /** Get total products value helper */
@@ -233,4 +234,21 @@ const createOrder = async (req, res, next) => {
   }
 };
 
-module.exports = { createOrder };
+const orderStatus = async (req,res,next) => {
+  const { id, status } = req.query;
+
+  const doc = await db.collection('orders').doc(id).get();
+  const {email} = doc.data();
+
+  if(!id || !status || !email) {
+    await db.collection('orders').doc(id).update({status: 'failed'});
+    res.redirect(`https://sector17.netlify.app/order-status?status=failed&id=${id}`);
+    return;
+  }
+
+  await db.collection('orders').doc(id).update({status});
+  await sendOrderSuccessEmail({email, orderId:id});
+  res.redirect(`https://sector17.netlify.app/order-status?status=success&id=${id}`);
+}
+
+module.exports = { createOrder, orderStatus };

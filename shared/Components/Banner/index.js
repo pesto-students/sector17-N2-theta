@@ -1,10 +1,10 @@
-// SLICK SLIDER
-import Slider from "react-slick";
-import Skeleton from "react-loading-skeleton";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import useSlider from "../../../data/hooks/use-slider";
-import BannerStyle from "./Style";
+import Slider from 'react-slick';
+import Skeleton from 'react-loading-skeleton';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import useSlider from '../../../data/hooks/use-slider';
+import BannerStyle from './Style';
+import Link from 'next/link';
 
 const Banner = () => {
   const { data, isLoading } = useSlider();
@@ -15,9 +15,9 @@ const Banner = () => {
     infinite: true,
     speed: 500,
     fade: true,
-    cssEase: "linear",
+    cssEase: 'linear',
     slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToScroll: 1
   };
   if (isLoading) {
     return (
@@ -34,8 +34,10 @@ const Banner = () => {
       <Slider {...settings}>
         {!!data &&
           Object.keys(data).map((slide, index) => (
-            <div className="slide" key={index}  role="banner">
-              <img src={data[slide].image} alt={`banner ${index}`} />
+            <div className="slide" key={index} role="banner">
+              <Link href="/categories" as="/categories">
+                <img src={data[slide].image} alt={`banner ${index}`} />
+              </Link>
             </div>
           ))}
       </Slider>

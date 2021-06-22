@@ -5,7 +5,7 @@ import Input from "../Input";
 import AddressStyle from "./Style";
 import GlobalContext from "../../../context/GlobalContext";
 
-const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
+const Address = ({ setValidAddress, setSummaryEnabled, setPincode, disable = false }) => {
   const [isEdit, setIsEdit] = useState(true);
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState({
@@ -96,6 +96,12 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
     }
   };
   
+  const validatePincode = event => {
+    if (!/[0-9]/.test(event.key)) {
+      event.preventDefault();
+    }
+  };
+
   const onEditAddress = () => {
     setIsEdit(true);
     if(typeof setValidAddress === 'function'){
@@ -117,47 +123,73 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
               <div>
                 <form onSubmit={onClickSaveHandeler}>
                   <div className="row_group">
-                    <Input
-                      type="text"
-                      name="firstName"
-                      id="firstName"
-                      placeholder="First Name"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.firstName}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="firstName">First Name</label></div>
+                      <div className="field">
+                        <Input
+                          type="text"
+                          name="firstName"
+                          id="firstName"
+                          placeholder="First Name"
+                          required="yes"
+                          onChange={handleChange}
+                          value={address.firstName}
+                        />
+                      </div>
+                    </div>
 
-                    <Input
-                      type="text"
-                      name="lastName"
-                      id="lastName"
-                      placeholder="Last Name"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.lastName}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="lastName">Last Name</label></div>
+                      <div className="field">
+                        <Input
+                          type="text"
+                          name="lastName"
+                          id="lastName"
+                          placeholder="Last Name"
+                          required="yes"
+                          onChange={handleChange}
+                          value={address.lastName}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="row_group">
-                    <Input
-                      type="text"
-                      name="street"
-                      id="street"
-                      placeholder="Street Address"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.street}
-                    />
 
-                    <Input
-                      type="text"
-                      name="appartment"
-                      id="appartment"
-                      placeholder="Appartment, Floor (Optional)"
-                      onChange={handleChange}
-                      value={address.appartment}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="street">Street Address</label></div>
+                      <div className="field">
+                        <Input
+                          type="text"
+                          name="street"
+                          id="street"
+                          placeholder="Street Address"
+                          required="yes"
+                          onChange={handleChange}
+                          value={address.street}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-control">
+                      <div><label forhtml="appartment">Appartment, Floor (Optional)</label></div>
+                      <div className="field">
+                        <Input
+                          type="text"
+                          name="appartment"
+                          id="appartment"
+                          placeholder="Appartment, Floor (Optional)"
+                          onChange={handleChange}
+                          value={address.appartment}
+                        />
+                      </div>
+                    </div>
+
                   </div>
                   <div className="row_group">
+
+                  <div className="form-control">
+                      <div><label forhtml="city">City</label></div>
+                      <div className="field">
                     <Input
                       type="text"
                       name="city"
@@ -167,7 +199,13 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
                       onChange={handleChange}
                       value={address.city}
                     />
+                    </div>
+                  </div>
 
+
+                    <div className="form-control">
+                      <div><label forhtml="state">State</label></div>
+                      <div className="field">
                     <Input
                       type="text"
                       name="state"
@@ -177,8 +215,15 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
                       onChange={handleChange}
                       value={address.state}
                     />
+                    </div>
+                  </div>
+
                   </div>
                   <div className="row_group">
+
+                  <div className="form-control">
+                      <div><label forhtml="country">Country</label></div>
+                      <div className="field">
                     <Input
                       type="text"
                       name="country"
@@ -188,7 +233,12 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
                       onChange={handleChange}
                       value={address.country}
                     />
+                    </div>
+                  </div>
 
+                  <div className="form-control">
+                      <div><label forhtml="pincode">Pincode</label></div>
+                      <div className="field">
                     <Input
                       type="number"
                       name="pincode"
@@ -200,30 +250,45 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
                       onChange={handleChange}
                       value={address.pincode}
                     />
+                    </div>
                   </div>
-                  <h3 className="subtitle">Contact Information</h3>
+
+                  </div>
+                  <h3 className="subtitle" style={{padding: 0}}>Contact Information</h3>
                   <div className="row_group">
+
+                  <div className="form-control">
+                      <div><label forhtml="email">Email</label></div>
+                      <div className="field">
                     <Input
                       type="email"
                       name="email"
                       id="email"
                       placeholder="Email"
                       required="yes"
+                      pattern="/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/"
                       onChange={handleChange}
                       value={address.email}
                     />
+                    </div>
+                  </div>
 
-                    <Input
-                      type="number"
-                      name="phone"
-                      minLength={10}
-                      maxLength={10}
-                      id="phone"
-                      placeholder="Phone Number"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.phone}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="phone">Phone Number</label></div>
+                      <div className="field">
+                        <Input
+                          type="number"
+                          name="phone"
+                          minLength={10}
+                          maxLength={10}
+                          id="phone"
+                          placeholder="Phone Number"
+                          required="yes"
+                          onChange={handleChange}
+                          value={address.phone}
+                        />
+                        </div>
+                      </div>
                   </div>
 
                   <div className="row_group">
@@ -241,7 +306,7 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
               </div>
             ) : (
               <div>
-                <div className="shipping_address">
+                {address.firstName && <div className="shipping_address">
                   <div className="address">
                     <strong>{`${address.firstName  } ${  address.lastName}`}</strong>
                     <p>
@@ -253,10 +318,10 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
                     </p>
                   </div>
 
-                  <button type="button" className="action" onClick={onEditAddress}>
+                  {!disable && <button type="button" className="action" onClick={onEditAddress}>
                     Edit
-                  </button>
-                </div>
+                  </button>}
+                </div>}
               </div>
             )}
         </div>

@@ -6,6 +6,7 @@ const BannerStyle = styled.div`
   .slide {
     img {
       width: 100%;
+      cursor:pointer;
     }
   }
   button.slick-arrow {
