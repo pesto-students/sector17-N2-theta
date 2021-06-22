@@ -1,12 +1,11 @@
-import GlobalContext from '@/appContext';
-import { useContext, useState, useEffect } from 'react';
-import Link from 'next/link';
-import SocialLogin from 'shared/Components/SocialLogin';
-import Grid from 'shared/Styles/Grid';
-import ProductCard from 'shared/Components/ProductCard';
-import ProfileSidebar from 'shared/Components/ProfileSidebar';
-import OrderHistoryStyle from './Style';
-import { useOrderHistory } from '@/data/hooks/use-orders';
+import GlobalContext from "@/appContext";
+import { useContext, useState, useEffect } from "react";
+import Link from "next/link";
+import SocialLogin from "shared/Components/SocialLogin";
+import Grid from "shared/Styles/Grid";
+import ProductCard from "shared/Components/ProductCard";
+import ProfileSidebar from "shared/Components/ProfileSidebar";
+import OrderHistoryStyle from "./Style";
 
 const Order = () => {
   const [userId, setUserId] = useState('');
@@ -28,8 +27,8 @@ const Order = () => {
         <div className="dashboard">
           {isLogin ? (
             <div>
-              <h2>Orders History</h2>
-              <table>
+            <h2>Order History</h2>
+            <table>
                 <thead>
                   <tr>
                     <th>Order Id #</th>
@@ -46,17 +45,15 @@ const Order = () => {
                       </tr>
                     ))}
                 </tbody>
-              </table>
+            </table>
             </div>
-          ) : (
+        ) : (
             <ul>
-              <SocialLogin />
+                <SocialLogin />
             </ul>
-          )}
-        </div>
-      </div>
-    </OrderHistoryStyle>
-  );
-};
+        )}
+    </div>
+</div></OrderHistoryStyle>);
+}
 
 export default Order;

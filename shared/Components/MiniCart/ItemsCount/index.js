@@ -12,11 +12,13 @@ const ItemsCount = () => {
     }
   }, [cartItems])
 
-  useEffect(() => {
-    const itemsInCart = getCartItems(currentUser ? currentUser.uid : null);
-    setCartItems(itemsInCart);
-    setCount(Object.keys(itemsInCart).length)
-  }, [currentUser, setCartItems])
+  useEffect(async () => {
+    if(currentUser){
+      const itemsInCart = await getCartItems(currentUser.uid);
+      setCartItems(itemsInCart);
+      setCount(Object.keys(itemsInCart).length)
+    }
+  }, [currentUser])
 
   return (
     count > 0 && <span className='count'>{count}</span>

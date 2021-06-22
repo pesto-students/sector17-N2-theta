@@ -1,15 +1,26 @@
 import GlobalContext from "@/appContext";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const stripePromise = loadStripe("pk_test_FOxPmF0nPWOJClYBlZ3d688y");
 
 export default function PaymentButton({ctx}) {
-  const { finalPriceToPay, cartItems, userInfo, currentUser } = useContext(GlobalContext);
+  const { finalPriceToPay, cartItems, userInfo } = useContext(GlobalContext);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleClick = async (event) => {
     // Get Stripe.js instance 
+    setLoading(true);
+    setError(false);
+
+    if(finalPriceToPay <= 50){
+      setError(`Add items worth Rs.${50 - finalPriceToPay} to place order.`);
+      setLoading(false);
+      return;
+    }
+
     const stripe = await stripePromise;
     const quantities = {};
 
@@ -21,8 +32,7 @@ export default function PaymentButton({ctx}) {
       orderTotal: finalPriceToPay.toFixed(2),
       quantities: {...quantities},
       pincode: userInfo.pincode,
-      email: userInfo.email,
-      uid: currentUser.uid
+      email: userInfo.email
     }
 
     const coupon = localStorage.getItem('coupon');
@@ -36,7 +46,7 @@ export default function PaymentButton({ctx}) {
       {
         ...options
       }
-    );
+    )
     
     const session = response.data;
 
@@ -45,18 +55,42 @@ export default function PaymentButton({ctx}) {
       sessionId: session.id,
     });
 
-    console.log(result);
-
     if (result.error) {
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
       // using `result.error.message`.
+      console.log(result.error.message);
+      setError(result.error.message);
     }
+
+    setLoading(false);
   };
 
+
+  useEffect(() => {
+    if(finalPriceToPay && finalPriceToPay <= 50){
+      setError(`Add items worth Rs. ${50 - finalPriceToPay} to place order.`);
+    }
+  }, [])
+
   return (
-    <button role="link" onClick={handleClick}>
-      Proceed to Payment
-    </button>
+    <div style={{width: '100%'}}>
+    {loading || error ? (
+      <button role="link" disabled style={{background: '#999'}}>
+         {loading ? (
+          <>
+            <i className="fa fa-spin fa-spinner"/> Authenticating
+          </>
+        ) : (
+          'Proceed to Payment'
+        )}
+      </button>
+    ) : (
+      <button role="link" disabled={loading} onClick={handleClick}>
+        Proceed to Payment
+      </button>
+    )}
+    {error && <div style={{textAlign:'center', fontSize:'12px', color: '#ff0000'}}>{ error }</div>}
+    </div>
   );
 }

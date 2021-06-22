@@ -68,19 +68,19 @@ const CartSummary = (props) => {
                   <span className='label'>
                     Coupon (
                     <span className='green'>{cartPriceDetails.coupon}</span>)
-                    <button
+                    {router.asPath !== '/checkout' && <button
                       type='button'
                       title='Remove Coupon'
                       onClick={removeCouponCode}>
                       x
-                    </button>
+                    </button>}
                   </span>
                   <span className='value'>
                     - Rs. {cartPriceDetails.couponDiscount.toFixed(2)}
                   </span>
                 </>
               ) : (
-                <>
+                router.asPath !== '/checkout' && <>
                   <div className='form'>
                     <div className='fields'>
                       <input
@@ -111,19 +111,17 @@ const CartSummary = (props) => {
                     Nebougherhood Discount
                   </span>
                   <span className='value'>
-                    - Rs. {cartPriceDetails.total - finalPriceToPay}
+                    - Rs. {(cartPriceDetails.total - finalPriceToPay).toFixed(2)}
                   </span>
               </li>
             }
 
-
-            
             <li className='delivery-charge'>
               <span className='label'>Delivery Charge</span>
               <span className='value'>Free</span>
             </li>
             
-            <li className='total'>
+            <li className='total'>  
               <span className='label'>Total Amount</span>
               {
                 router.asPath === '/checkout' && finalPriceToPay ? 

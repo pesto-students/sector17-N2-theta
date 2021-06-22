@@ -1,5 +1,6 @@
 const { db } = require("../firebase/init");
 const { getDistanceInKMs } = require("../controllers/distanceCalculate");
+const { sendOrderSuccessEmail } = require("./email");
 
 /** Recalculate the total of order */
 /** Get total products value helper */
@@ -201,12 +202,12 @@ const validateOrder = async ({
 const stripe = require("stripe")("sk_test_odah4QkOQP0fKB4Z8GY70926");
 
 const createOrder = async (req, res, next) => {
-  const { orderTotal, coupon, quantities, pincode, uid, email } = req.body;
+  const { orderTotal, coupon, quantities, pincode, email } = req.body;
   let order = {};
   try {
     order = await validateOrder({ orderTotal, coupon, quantities, pincode });
 
-    const doc = await db.collection('orders').add({...order, uid, email, status: 'pending'});
+    const doc = await db.collection('orders').add({...order, email});
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -223,8 +224,8 @@ const createOrder = async (req, res, next) => {
         },
       ],
       mode: "payment",
-      success_url: "https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17/orders/status?status=success&id=" + doc.id,
-      cancel_url: "https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17/orders/status?status=failed&id=" + doc.id,
+      success_url: "https://sector17.netlify.app/order-status?status=success&id=" + doc.id,
+      cancel_url: "https://sector17.netlify.app/order-status?status=failed&id=" + doc.id,
     });
 
     res.json({ id: session.id });
@@ -235,14 +236,19 @@ const createOrder = async (req, res, next) => {
 
 const orderStatus = async (req,res,next) => {
   const { id, status } = req.query;
-  if(!id || !status) {
-    res.redirect("https://sector17.netlify.app/order-status?status=failed&id=" + id);
+
+  const doc = await db.collection('orders').doc(id).get();
+  const {email} = doc.data();
+
+  if(!id || !status || !email) {
+    await db.collection('orders').doc(id).update({status: 'failed'});
+    res.redirect(`https://sector17.netlify.app/order-status?status=failed&id=${id}`);
     return;
   }
 
-  //const doc = await db.collection('orders').doc(id).get();
   await db.collection('orders').doc(id).update({status});
-  res.redirect("https://sector17.netlify.app/order-status?status=success&id=" + id);
+  await sendOrderSuccessEmail({email, orderId:id});
+  res.redirect(`https://sector17.netlify.app/order-status?status=success&id=${id}`);
 }
 
 module.exports = { createOrder, orderStatus };
