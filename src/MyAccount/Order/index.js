@@ -6,15 +6,18 @@ import Grid from 'shared/Styles/Grid';
 import ProductCard from 'shared/Components/ProductCard';
 import ProfileSidebar from 'shared/Components/ProfileSidebar';
 import OrderHistoryStyle from './Style';
+import { useOrderHistory } from '@/data/hooks/use-orders';
 
 const Order = () => {
-    const [userId, setUserId] = useState("");
+    const [userId, setUserId] = useState('');
+    const [userEmail, setUserEmail] = useState('');
   const { user, isLogin, wishlistItems } = useContext(GlobalContext);
-  const { data, isLoading, isError } = useOrderStatus(router.query['id']);  
-  
+  const { data, isLoading, isError } = useOrderHistory(userEmail);
+
   useEffect(() => {
     if (user) {
       setUserId(user.uid);
+      setUserEmail(user.email);
     }
   }, [user]);
 
@@ -24,6 +27,7 @@ const Order = () => {
         <ProfileSidebar />
         <div className="dashboard">
           {isLogin ? (
+              
             <div>
               <h2>Orders History</h2>
               <table>
@@ -34,9 +38,10 @@ const Order = () => {
                   </tr>
                 </thead>
                 <tbody>
+                    
                   <tr>
                     <td>#123</td>
-                    <td>20/06/2021</td>
+                    <td>20/06/2021 {console.log(data)}</td>
                   </tr>
                 </tbody>
               </table>
