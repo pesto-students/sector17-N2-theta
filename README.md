@@ -2,13 +2,11 @@
 
 [Sector17](https://sector17.netlify.app/) refers to the vision of the ionic sector17 market of Chandigarh. It is a simple platform for everyshopkeeper/businessperson to sell their products online. Sellers have complete freedom over pricing and discounts It also lets sellers optout of the courier services(provided by our platform), where end users can enjoy less or free delivery charges. Which is a win-win situation for User and Shopkeeper.
 
+## Stakeholders
 
-## Tech Stack
-
-- NextJS
-- NodeJS
-- Firebase (FirestoreDB, Authentication, Hosting, Storage)
-- Jest
+- Pardeep Sharma - [LinkedIn](https://www.linkedin.com/in/pardeep2411/) - [GitHub](https://github.com/pardeep24)
+- Raghav Narang - [LinkedIn](https://www.linkedin.com/in/raghav-narang/) - [GitHub](https://github.com/raghavnarang)
+- Ravi Yadav - [LinkedIn](https://linkedin.com/in/raviyadav01/) - [GitHub](https://github.com/yadavravi2801)
 
 
 ## Third party tools
@@ -63,9 +61,9 @@
 
 
 
-### Node Server 
+### Node Server
 
-Node JS as Backend code uploaded under "server" folder
+Node JS as Backend code uploaded under "server" folder. It utilizes the Firebase Functions feature from Firebase suite of tools.
 
 Requirment : NPM and Node setup, and Firebase cli
 
@@ -79,12 +77,13 @@ Requirment : NPM and Node setup, and Firebase cli
 
 You can set the port in firebase.json file or default will be http://localhost:3001
 
-# Note: When you execute the deploy command after deployment complete the public URL for the server will display on command promte
+**Note: When you execute the deploy command, public URL for the server will be visible in CLI**
 
 
-## Stakeholders
+## Tech Stack
 
-- Pardeep Sharma - [LinkedIn](https://www.linkedin.com/in/pardeep2411/) - [GitHub](https://github.com/pardeep24)
-- Raghav Narang - [LinkedIn](https://www.linkedin.com/in/raghav-narang/) - [GitHub](https://github.com/raghavnarang)
-- Ravi Yadav - [LinkedIn](https://linkedin.com/in/raviyadav01/) - [GitHub](https://github.com/yadavravi2801)
+- NextJS
+- NodeJS
+- Firebase (FirestoreDB, Authentication, Hosting, Storage)
+- Jest
 
