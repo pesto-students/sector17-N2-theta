@@ -5,8 +5,9 @@ import Skeleton from 'react-loading-skeleton';
 import GlobalContext from '@/appContext';
 import { useContext, useEffect, useState } from 'react';
 import Address from 'shared/Components/Address';
+import Link from "next/link";
 import { useProductsForOrder } from '@/data/hooks/use-products';
-import  useProductsBySKU  from '@/data/hooks/use-products-by-sku';
+import useProductsBySKU from '@/data/hooks/use-products-by-sku';
 
 const OrderStatus = () => {
   const router = useRouter();
@@ -17,26 +18,30 @@ const OrderStatus = () => {
   const [products, setProducts] = useState([]);
 
   const { data, isLoading, isError } = useOrderStatus(orderId);
-  const { data: productsList, isLoading: isProductLoading } = useProductsBySKU(0,20,products);
+  // const { data: productsList, isLoading: isProductLoading } = useProductsBySKU(0,20,products);
 
   useEffect(() => {
     if (!isLoading) {
       setOrder({ ...data });
     }
-    if(!isProductLoading){
-      console.log(products, " Product id");
-    }
+    // if(!isProductLoading){
+    //   console.log(products, " Product id");
+    // }
   }, [data]);
 
   useEffect(() => {
     if (order) {
       const productArray = order.lineItems;
-      const productArrayPro = productArray && productArray.map(element => element.id); 
+      const productArrayPro =
+        productArray && productArray.map(element => element.id);
       setProducts([productArrayPro]);
-      const subtotalArray = productArray && productArray.map(element => element.price); 
-      setSubtotal(subtotalArray && subtotalArray.reduce((acc,val)=> acc+val,0));
+      const subtotalArray =
+        productArray && productArray.map(element => element.price);
+      setSubtotal(
+        subtotalArray && subtotalArray.reduce((acc, val) => acc + val, 0)
+      );
     }
-  }, [order,productsList]);
+  }, [order]);
 
   if (isLoading) {
     return (
@@ -104,49 +109,13 @@ const OrderStatus = () => {
       {order ? (
         <div>
           <h1>Order: #{router.query['id']}</h1>
-          <div className="row_group">
-            <div className="address">
-              <Address />
-            </div>
-          </div>
+          <div className="row_group"></div>
           <div className="row_group orders-row">
             <div className="order">
-              <div>
-                {order.lineItems &&
-                  Object.keys(order.lineItems).length > 0 &&
-                  Object.keys(order.lineItems).map((item, index) => (
-                    <div key={index}>
-                      <div className="row_group item">
-                        <div className="product_img">
-                          <img src="https://storage.googleapis.com/sector17-chandigarh.appspot.com/1032001_sa.jpg" />
-                        </div>
-                        <div className="product_info">
-                          <div className="name">Product</div>
-                          <div className="details">
-                            <div>
-                              <span className="label">Sku:</span>
-                              <span className="value">1003531</span>
-                            </div>
-                            <div>
-                              <span className="label">Manufacturer:</span>
-                              <span className="value">Aquarius</span>
-                            </div>
-                            <div>
-                              <span className="label">Model:</span>
-                              <span className="value">52290</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product_qty">
-                          Qty: {order.lineItems[item].qty}
-                        </div>
-                        <div className="product_price">
-                          Rs. {order.lineItems[item].price}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+              <div className="address">
+                <Address />
               </div>
+              <h1>Thank you for your order! <Link href="/">Continue Shopping</Link></h1>
             </div>
             <div className="summry">
               <h2>Order Summery</h2>
@@ -156,7 +125,7 @@ const OrderStatus = () => {
                 <span>Rs. {subtotal}</span>
               </p>
 
-              {(order && order.couponDiscount) && order.couponDiscount.coupon && (
+              {order && order.couponDiscount && order.couponDiscount.coupon && (
                 <p>
                   <strong>Discount: </strong>
                   <span>Rs. {order.couponDiscount.discount}</span>
