@@ -131,33 +131,6 @@ const MyApp = ({ Component, pageProps }) => {
   }, [isLogin, user])
 
   useEffect(() => {
-    async function handleCartData(){
-      let sessionId = sessionStorage.getItem("_s17");
-      if (user) {
-        const items = await getCartItems(user.uid);
-
-        handleCartItems(items, sessionId, user);
-        handleWishlistData(user.uid);
-        setCurrentUser({
-          ...user,
-        });
-      } else if (!isLogin) {
-        if (!sessionId) {
-          sessionId = `_${  Math.random().toString(36).substr(2, 9)}`;
-          sessionStorage.setItem("_s17", sessionId);
-        }
-
-        const items = await getCartItems(sessionId);
-        setCartItems(items);
-        setCurrentUser({
-          uid: sessionId,
-        });
-      }
-    }
-    handleCartData();
-  }, [isLogin, user]);
-
-  useEffect(() => {
     if (notificationMessage !== "") {
       const timer1 = setTimeout(() => setNotificationVisibility(false), 3000);
       const timer2 = setTimeout(() => setNotificationMessage(""), 5000);
