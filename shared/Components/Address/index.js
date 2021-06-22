@@ -5,7 +5,7 @@ import Input from "../Input";
 import AddressStyle from "./Style";
 import GlobalContext from "../../../context/GlobalContext";
 
-const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
+const Address = ({ setValidAddress, setSummaryEnabled, setPincode, disable = false }) => {
   const [isEdit, setIsEdit] = useState(true);
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState({
@@ -96,12 +96,12 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
     }
   };
   
-  
   const validatePincode = event => {
     if (!/[0-9]/.test(event.key)) {
       event.preventDefault();
     }
   };
+
   const onEditAddress = () => {
     setIsEdit(true);
     if(typeof setValidAddress === 'function'){
@@ -318,9 +318,9 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
                     </p>
                   </div>
 
-                  <button type="button" className="action" onClick={onEditAddress}>
+                  {!disable && <button type="button" className="action" onClick={onEditAddress}>
                     Edit
-                  </button>
+                  </button>}
                 </div>}
               </div>
             )}

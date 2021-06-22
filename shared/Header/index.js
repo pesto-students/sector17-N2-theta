@@ -29,7 +29,7 @@ const Header = () => {
           <div className="app-container">
               <div className="header__wrapper">
                   <div className="logo">
-                      <Link href="/">
+                      <Link href="/" as="/">
                           <a>Sector17</a>
                       </Link>
                   </div>

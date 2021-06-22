@@ -12,6 +12,12 @@ const OrderStatusStyle = styled.div`
     flex: initial;
     margin-bottom: 15px;
     width: 100%;
+    h1 {
+      padding-left: 20px;
+      a {
+        color: ${props => props.theme.color.primary};
+      }
+    }
     @media screen and (min-width: 768px) {
       width: calc(100% - (250px + 15px)) !important;
     }

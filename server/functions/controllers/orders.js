@@ -206,7 +206,7 @@ const createOrder = async (req, res, next) => {
   try {
     order = await validateOrder({ orderTotal, coupon, quantities, pincode });
 
-    const doc = await db.collection('orders').add({...order, uid, email});
+    const doc = await db.collection('orders').add({...order, uid, email, status: 'pending'});
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -223,8 +223,8 @@ const createOrder = async (req, res, next) => {
         },
       ],
       mode: "payment",
-      success_url: "https://sector17.netlify.app/order-status?status=success&id=" + doc.id,
-      cancel_url: "https://sector17.netlify.app/order-status?status=failed&id=" + doc.id,
+      success_url: "https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17/orders/status?status=success&id=" + doc.id,
+      cancel_url: "https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17/orders/status?status=failed&id=" + doc.id,
     });
 
     res.json({ id: session.id });
@@ -233,4 +233,16 @@ const createOrder = async (req, res, next) => {
   }
 };
 
-module.exports = { createOrder };
+const orderStatus = async (req,res,next) => {
+  const { id, status } = req.query;
+  if(!id || !status) {
+    res.redirect("https://sector17.netlify.app/order-status?status=failed&id=" + id);
+    return;
+  }
+
+  //const doc = await db.collection('orders').doc(id).get();
+  await db.collection('orders').doc(id).update({status});
+  res.redirect("https://sector17.netlify.app/order-status?status=success&id=" + id);
+}
+
+module.exports = { createOrder, orderStatus };
