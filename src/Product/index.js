@@ -1,17 +1,17 @@
 import useProducts, { useSingleProduct } from '@/data/hooks/use-products';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton';
 
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import ProductCard from 'shared/Components/ProductCard';
 import Grid from 'shared/Styles/Grid';
 import HeadingStyle from 'shared/Styles/HeadingStyle';
 import AddToCart from 'shared/Utils/AddToCart';
 import Breadcrumbs from 'shared/Components/Breadcrumbs';
 import { useSingleCategory } from '@/data/hooks/use-categories';
 import Quantity from 'shared/Components/Quantity';
+import SimilarProducts from '../../shared/Components/SimilarProducts';
 import ProductDetailStyle from './Style';
 import { AddToWishlistButton } from '../../shared/Utils/AddToWishlist';
 import { useSingleSeller } from '@/data/hooks/use-sellers-by-id';
@@ -43,8 +43,6 @@ const Product = () => {
   const { data: category = {}, isLoading: categoryLoading } = useSingleCategory(
     product.category
   );
-  // Similer Products
-  const { data: products = {} } = useProducts(0, 4, 'sku', product.category);
 
   useEffect(() => {
     if (!isLoading) {
@@ -54,12 +52,12 @@ const Product = () => {
       setSellerPincode(seller.pincode);
     }
   }, [product, seller]);
-  
+
   const validatePincode = event => {
     if (!/[0-9]/.test(event.key)) {
       event.preventDefault();
     }
-    if(event.target.value.length>=6){
+    if (event.target.value.length >= 6) {
       event.preventDefault();
     }
   };
@@ -198,38 +196,8 @@ const Product = () => {
                         </tr>
                       </tbody>
                     </table>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <th>SKU</th>
-                          <td>
-                            <Skeleton count={1} />
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>Type</th>
-                          <td>
-                            <Skeleton count={1} />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
                   </div>
                 </div>
-
-                <HeadingStyle>
-                  <h2 className="heading">
-                    Similar Products
-                    <span className="heading-underline" />
-                  </h2>
-                </HeadingStyle>
-
-                <Grid className="" count={4} gap={20}>
-                  <ProductCard />
-                  <ProductCard />
-                  <ProductCard />
-                  <ProductCard />
-                </Grid>
               </div>
 
               <Skeleton count={1} />
@@ -354,23 +322,7 @@ const Product = () => {
                     </div>
                   </div>
 
-                  <HeadingStyle>
-                    <h2 className="heading">
-                      Similar Products
-                      <span className="heading-underline" />
-                    </h2>
-                  </HeadingStyle>
-
-                  <Grid className="" count={4} gap={20}>
-                    {!!products &&
-                      Object.keys(products).map((product, index) => (
-                        <ProductCard
-                          key={index}
-                          id={product}
-                          {...products[product]}
-                        />
-                      ))}
-                  </Grid>
+                  <SimilarProducts category={product.category} />
                 </div>
 
                 <AddToRecentlyViewed productSku={product.sku} />

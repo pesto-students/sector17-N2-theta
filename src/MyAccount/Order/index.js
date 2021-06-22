@@ -9,8 +9,8 @@ import OrderHistoryStyle from './Style';
 import { useOrderHistory } from '@/data/hooks/use-orders';
 
 const Order = () => {
-    const [userId, setUserId] = useState('');
-    const [userEmail, setUserEmail] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const { user, isLogin, wishlistItems } = useContext(GlobalContext);
   const { data, isLoading, isError } = useOrderHistory(userEmail);
 
@@ -27,7 +27,6 @@ const Order = () => {
         <ProfileSidebar />
         <div className="dashboard">
           {isLogin ? (
-              
             <div>
               <h2>Orders History</h2>
               <table>
@@ -38,7 +37,6 @@ const Order = () => {
                   </tr>
                 </thead>
                 <tbody>
-                    
                   <tr>
                     <td>#123</td>
                     <td>20/06/2021 {console.log(data)}</td>
