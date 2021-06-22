@@ -11,15 +11,16 @@ import { useOrderHistory } from '@/data/hooks/use-orders';
 const Order = () => {
   const [userId, setUserId] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const { currentUser: user, isLogin, wishlistItems } = useContext(GlobalContext);
+  const { currentUser: user, isLogin } = useContext(GlobalContext);
   const { data, isLoading, isError } = useOrderHistory(userEmail);
 
   useEffect(() => {
     if (user) {
       setUserId(user.uid);
       setUserEmail(user.email);
+      console.log(userEmail);
     }
-  }, [user]);
+  }, [user,data]);
 
   return (
     <OrderHistoryStyle>
