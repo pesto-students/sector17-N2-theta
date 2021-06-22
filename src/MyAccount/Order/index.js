@@ -18,7 +18,6 @@ const Order = () => {
     if (user) {
       setUserId(user.uid);
       setUserEmail(user.email);
-      console.log(userEmail);
     }
   }, [user,data]);
 
