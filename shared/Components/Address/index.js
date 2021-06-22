@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import addAddressCollection from "../../../data/firestore/address";
 import useAddress from "../../../data/hooks/use-address";
 import Input from "../Input";
@@ -6,38 +7,32 @@ import AddressStyle from "./Style";
 import GlobalContext from "../../../context/GlobalContext";
 
 const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({mode: 'onBlur'});
+
   const [isEdit, setIsEdit] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [address, setAddress] = useState({
-    firstName: '',
-    lastName: '',
-    street: '',
-    appartment: '',
-    city: '',
-    state: '',
-    country: '',
-    pincode: '',
-    email: '',
-    phone: '',
-  });
+  const [address, setAddress] = useState();
 
   const [formIsValid, setFormIsValid] = useState(false);
   const [userId, setUserId] = useState(false);
   const { currentUser, setUserInfo } = useContext(GlobalContext);
   const { isLoading, data: userAddress } = useAddress(userId);
 
-  const handleChange = (e) => {
-    setAddress({
-      ...address,
-      [e.target.name] : e.target.value
-    })
-  }
+  const onSubmit = data => {
+    setLoading(true);
+    setAddress({ 
+      ...data,
+      appartment: !data.appartment ? '' : data.appartment
+    });
+    setFormIsValid(true);
+  };
 
   useEffect(() => {
     if (!isLoading && !!userAddress) {
       setAddress({
         ...userAddress.address
       })
+
       setIsEdit(false);
       if(typeof setValidAddress === 'function'){
         setValidAddress(true);
@@ -49,10 +44,11 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
   }, [userAddress, currentUser, isLoading, setValidAddress]);
 
   useEffect(() => {
-    if(typeof setPincode === 'function'){
-      setPincode(address.pincode);
-    }
     if(address){
+      if(typeof setPincode === 'function'){
+        setPincode(address.pincode);
+      }
+
       setUserInfo(address);
     }
   }, [address, setPincode])
@@ -78,24 +74,6 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
     };
   }, [formIsValid]);
 
-  const onClickSaveHandeler = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    if (
-      address.firstName !== "" &&
-      address.lastName !== "" &&
-      address.street !== "" &&
-      address.city !== "" &&
-      address.state !== "" &&
-      address.country !== "" &&
-      address.pincode !== "" &&
-      address.email !== "" &&
-      address.phone !== ""
-    ) {
-      setFormIsValid(true);
-    }
-  };
-  
   
   const validatePincode = event => {
     if (!/[0-9]/.test(event.key)) {
@@ -108,6 +86,14 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
       setValidAddress(false);
       setSummaryEnabled(false);
     }
+
+    // const currValues = [];
+    // Object.keys(address).map((key) => {
+    //   const value = address[key];
+    //   currValues.push({[key] : value})
+    // })
+
+    // setValue(currValues)
   };
 
   return (
@@ -118,119 +104,175 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
             <div>Shipping Address</div>
           </div>
         </div>
+
         <div className="form_container">
           {isEdit ? (
               <div>
-                <form onSubmit={onClickSaveHandeler}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="row_group">
-                    <Input
-                      type="text"
-                      name="firstName"
-                      id="firstName"
-                      placeholder="First Name"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.firstName}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="firstName">First Name</label></div>
+                      <div className={`field ${errors && errors.firstName && 'error'}`}>
+                        <Input
+                          type="text"
+                          id="firstName"
+                          placeholder="First Name"
+                          value={address && address.firstName}
+                          {...register('firstName', { required: true, maxLength: 50 })}
+                        />
+                      </div>
+                      {errors && errors.firstName && <div className="error">
+                        First name is required.  
+                      </div>}
+                    </div>
 
-                    <Input
-                      type="text"
-                      name="lastName"
-                      id="lastName"
-                      placeholder="Last Name"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.lastName}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="lastName">Last Name</label></div>
+                      <div className={`field ${errors && errors.lastName && 'error'}`}>
+                        <Input
+                          type="text"
+                          id="lastName"
+                          placeholder="Last Name"
+                          value={address && address.lastName}
+                          {...register('lastName', { required: true, maxLength: 50 })}
+                        />
+                      </div>
+                      {errors && errors.lastName && <div className="error">
+                        Last Name is required.  
+                      </div>}
+                    </div>
                   </div>
                   <div className="row_group">
-                    <Input
-                      type="text"
-                      name="street"
-                      id="street"
-                      placeholder="Street Address"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.street}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="street">Street Address</label></div>
+                      <div className={`field ${errors && errors.street && 'error'}`}>
+                        <Input
+                          type="text"
+                          id="street"
+                          placeholder="Street Address"
+                          value={address && address.street}
+                          {...register('street', { required: true, maxLength: 50 })}
+                        />
+                      </div>
+                      {errors && errors.street && <div className="error">
+                      Street Address is required.  
+                      </div>}
+                    </div>
 
-                    <Input
-                      type="text"
-                      name="appartment"
-                      id="appartment"
-                      placeholder="Appartment, Floor (Optional)"
-                      onChange={handleChange}
-                      value={address.appartment}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="appartment">Appartment, Floor (Optional)</label></div>
+                      <div className={`field ${errors && errors.appartment && 'error'}`}>
+                        <Input
+                          type="text"
+                          id="appartment"
+                          placeholder="Appartment, Floor (Optional)"
+                          value={address && address.appartment}
+                          {...register('appartment', { maxLength: 50 })}
+                        />
+                      </div>
+                      {errors && errors.appartment && <div className="error">
+                        Max length should be equal to 50.
+                      </div>}
+                    </div>
                   </div>
                   <div className="row_group">
-                    <Input
-                      type="text"
-                      name="city"
-                      id="city"
-                      placeholder="City"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.city}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="city">City</label></div>
+                      <div className={`field ${errors && errors.city && 'error'}`}>
+                        <Input
+                          type="text"
+                          id="city"
+                          placeholder="City"
+                          value={address && address.city}
+                          {...register('city', { required: true, maxLength: 50 })}
+                        />
+                      </div>
+                      {errors && errors.city && <div className="error">
+                        City is required.
+                      </div>}
+                    </div>
 
-                    <Input
-                      type="text"
-                      name="state"
-                      id="state"
-                      placeholder="State"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.state}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="state">State</label></div>
+                      <div className={`field ${errors && errors.state && 'error'}`}>
+                        <Input
+                          type="text"
+                          id="state"
+                          placeholder="State"
+                          value={address && address.state}
+                          {...register('state', { required: true, maxLength: 50 })}
+                        />
+                      </div>
+                      {errors && errors.state && <div className="error">
+                      State is required.
+                      </div>}
+                    </div>
                   </div>
                   <div className="row_group">
-                    <Input
-                      type="text"
-                      name="country"
-                      id="country"
-                      placeholder="Country"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.country}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="country">Country</label></div>
+                      <div className={`field ${errors && errors.country && 'error'}`}>
+                        <Input
+                          type="text"
+                          id="country"
+                          placeholder="Country"
+                          value={address && address.country}
+                          {...register('country', { required: true, maxLength: 50 })}
+                        />
+                      </div>
+                      {errors && errors.country && <div className="error">
+                      Country is required.
+                      </div>}
+                    </div>
 
-                    <Input
-                      type="number"
-                      name="pincode"
-                      minLength={6}
-                      maxLength={6}
-                      id="pincode"
-                      placeholder="Pincode"
-                      required="yes"                      
-                      onKeyPress={validatePincode}
-                      onChange={handleChange}
-                      value={address.pincode}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="pincode">Pincode</label></div>
+                      <div className={`field ${errors && errors.pincode && 'error'}`}>
+                        <Input
+                          type="number"
+                          id="pincode"
+                          placeholder="Pincode"
+                          {...register('pincode', { required: true, maxLength: 6, minLength: 6 })}
+                        />
+                      </div>
+                      {errors && errors.pincode && <div className="error">
+                        Pincode is required.
+                      </div>}
+                    </div>
                   </div>
                   <h3 className="subtitle">Contact Information</h3>
                   <div className="row_group">
-                    <Input
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="Email"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.email}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="email">Email</label></div>
+                      <div className={`field ${errors && errors.email && 'error'}`}>
+                        <Input
+                          type="email"
+                          id="email"
+                          placeholder="Email"
+                          value={address && address.email}
+                          {...register('email', { required: true, pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/ })}
+                        />
+                      </div>
+                      {errors && errors.email && <div className="error">
+                        Email is required.
+                      </div>}
+                    </div>
 
-                    <Input
-                      type="number"
-                      name="phone"
-                      minLength={10}
-                      maxLength={10}
-                      id="phone"
-                      placeholder="Phone Number"
-                      required="yes"
-                      onChange={handleChange}
-                      value={address.phone}
-                    />
+                    <div className="form-control">
+                      <div><label forhtml="phone">Phone Number</label></div>
+                      <div className={`field ${errors && errors.phone && 'error'}`}>
+                        <Input
+                          type="number"
+                          id="phone"
+                          placeholder="Phone Number"
+                          value={address && address.phone}
+                          {...register('phone', { required: true, maxLength: 10, minLength: 10 })}
+                        />
+                      </div>
+                      {errors && errors.phone && <div className="error">
+                      Phone Number is required.
+                      </div>}
+                    </div>
                   </div>
 
                   <div className="row_group">
@@ -243,12 +285,12 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
                       <i className="fa fa-spinner" />
                     </span>
                   )}
-                  {!loading && <button className="btn push-right" type="submit">Save</button>}
+                  {!loading && <input className="btn push-right" type="submit" value="Save" />}
                 </form>
               </div>
             ) : (
               <div>
-                <div className="shipping_address">
+                {address.firstName && <div className="shipping_address">
                   <div className="address">
                     <strong>{`${address.firstName  } ${  address.lastName}`}</strong>
                     <p>
@@ -259,11 +301,10 @@ const Address = ({ setValidAddress, setSummaryEnabled, setPincode }) => {
                       {address.country}
                     </p>
                   </div>
-
                   <button type="button" className="action" onClick={onEditAddress}>
                     Edit
                   </button>
-                </div>
+                </div>}
               </div>
             )}
         </div>

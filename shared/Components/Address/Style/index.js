@@ -5,9 +5,41 @@ const AddressStyle = styled.div`
   
   .form_container {
     padding: 20px;
+
+    .row_group {
+      gap: 20px;
+
+      label {
+        font-size: 1.2rem;
+      }
+
+      .field {
+        &:not(.error){
+          &>div{
+            padding: 0 0 5px;
+          }
+        }
+        &.error{
+          &>div{
+            padding: 0;
+          
+            input {
+              border-color: #ff0000;
+            }
+          }
+        }
+      }
+
+      .error{
+        color: #ff0000;
+        font-size: 1.2rem;
+      }
+    }
+
     .push-right {
       margin: 0 0 0 auto;
     }
+
     .shipping_address {
       border: 1px solid ${(props) => props.theme.color.grey};
       background: ${(props) => props.theme.color.lightGrey};
@@ -33,6 +65,7 @@ const AddressStyle = styled.div`
       cursor: pointer;
     }
   }
+
   .title {
     border-bottom: 1px solid ${(props) => props.theme.color.grey};
     padding: 10px 20px;
