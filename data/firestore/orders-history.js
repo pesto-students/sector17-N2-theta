@@ -14,8 +14,7 @@ const getOrdersHistory = async ({ emailId }) => {
     .where('email', '==', emailId)
     .get();
 
-  console.log(docRef.docs.payload.data(), ' iin history');
-  const orders = docRef.docs.map(doc => doc.data());
+    const orders = docRef.docs.map(doc=> ({...doc.data(), id: doc.id}));
   return orders;
 };
 
