@@ -19,7 +19,6 @@ const handler = async (req, res) => {
       )
       .on("error", (err) => {
         res.status(200).json({ distance: JSON.parse(err.message) });
-        // console.log("Error: " + err.message);
       });
   }
 };

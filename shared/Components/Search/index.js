@@ -58,7 +58,7 @@ const Search = () => {
                             onChange={(e) => setSearch(e.currentTarget.value)}
                         />
                     </SearchBoxWrapper>
-                    {isOpen && !!search && search.length > 2 && (
+                    {isOpen && !!search && search.length > 1 && (
                         <div className="header__dropmenu">
                             <Hits hitComponent={Hit} />
                         </div>
