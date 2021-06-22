@@ -6,7 +6,7 @@ import { useContext } from "react";
 const stripePromise = loadStripe("pk_test_FOxPmF0nPWOJClYBlZ3d688y");
 
 export default function PaymentButton({ctx}) {
-  const { finalPriceToPay, cartItems, userInfo, currentUser } = useContext(GlobalContext);
+  const { finalPriceToPay, cartItems, userInfo } = useContext(GlobalContext);
 
   const handleClick = async (event) => {
     // Get Stripe.js instance 
@@ -21,8 +21,7 @@ export default function PaymentButton({ctx}) {
       orderTotal: finalPriceToPay.toFixed(2),
       quantities: {...quantities},
       pincode: userInfo.pincode,
-      email: userInfo.email,
-      uid: currentUser.uid
+      email: userInfo.email
     }
 
     const coupon = localStorage.getItem('coupon');
