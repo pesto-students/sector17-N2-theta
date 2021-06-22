@@ -8,6 +8,9 @@
 - Raghav Narang - [LinkedIn](https://www.linkedin.com/in/raghav-narang/) - [GitHub](https://github.com/raghavnarang)
 - Ravi Yadav - [LinkedIn](https://linkedin.com/in/raviyadav01/) - [GitHub](https://github.com/yadavravi2801)
 
+## Performance Screenshort
+![alt text](https://storage.googleapis.com/sector17-chandigarh.appspot.com/readme/performance.jpg)
+
 
 ## Third party tools
 
