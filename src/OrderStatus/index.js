@@ -113,7 +113,7 @@ const OrderStatus = () => {
           <div className="row_group orders-row">
             <div className="order">
               <div className="address">
-                <Address />
+                <Address disable={true} />
               </div>
               <h1>Thank you for your order! <Link href="/">Continue Shopping</Link></h1>
             </div>

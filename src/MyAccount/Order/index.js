@@ -18,9 +18,8 @@ const Order = () => {
     if (user) {
       setUserId(user.uid);
       setUserEmail(user.email);
-      console.log(userEmail);
     }
-  }, [user,data]);
+  }, [user, data]);
 
   return (
     <OrderHistoryStyle>
@@ -34,14 +33,18 @@ const Order = () => {
                 <thead>
                   <tr>
                     <th>Order Id #</th>
-                    <th>Order Date</th>
+                    <th>Order Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>#123</td>
-                    <td>20/06/2021</td>
-                  </tr>
+                  {data &&
+                    Object.keys(data).length > 0 &&
+                    Object.keys(data).map((order, index) => (
+                      <tr key={order}>
+                        <td>{data[order].id}</td>
+                        <td>{data[order].status}</td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
