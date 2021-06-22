@@ -321,7 +321,7 @@ const Product = () => {
                       </table>
                     </div>
                   </div>
-
+                  <SimilarProducts category={product.category} />
                 </div>
 
                 <SimilarProducts category={product.category} />
