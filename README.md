@@ -8,6 +8,18 @@
 - Raghav Narang - [LinkedIn](https://www.linkedin.com/in/raghav-narang/) - [GitHub](https://github.com/raghavnarang)
 - Ravi Yadav - [LinkedIn](https://linkedin.com/in/raviyadav01/) - [GitHub](https://github.com/yadavravi2801)
 
+
+# Clone the project on local
+git clone https://github.com/pesto-students/sector17-N2-theta.git
+
+
+## How to run the project frontend
+
+- Run `npm install` to install all required project dependencies
+- Run `npm run build` to create an optimize build of project
+- Run `npm run start` to start the project
+
+
 ## Performance Screenshort
 ![alt text](https://storage.googleapis.com/sector17-chandigarh.appspot.com/readme/performance.jpg)
 
@@ -17,13 +29,6 @@
 - Netlify (To deploy the build)
 - Sentry.io (For error and performance insights)
 - Algolia (For Search)
-
-
-## How to run the project frontend
-
-- Run `npm install` to install all required project dependencies
-- Run `npm run build` to create an optimize build of project
-- Run `npm run start` to start the project
 
 
 ## UI Design mocks
