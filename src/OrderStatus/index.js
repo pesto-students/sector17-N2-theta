@@ -1,13 +1,11 @@
+/* eslint-disable react/jsx-boolean-value */
 import useOrderStatus from '@/data/hooks/use-orders';
 import { useRouter } from 'next/router';
 import OrderStatusStyle from './Style';
 import Skeleton from 'react-loading-skeleton';
-import GlobalContext from '@/appContext';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Address from 'shared/Components/Address';
 import Link from "next/link";
-import { useProductsForOrder } from '@/data/hooks/use-products';
-import useProductsBySKU from '@/data/hooks/use-products-by-sku';
 
 const OrderStatus = () => {
   const router = useRouter();
@@ -18,15 +16,10 @@ const OrderStatus = () => {
   const [products, setProducts] = useState([]);
 
   const { data, isLoading, isError } = useOrderStatus(orderId);
-  // const { data: productsList, isLoading: isProductLoading } = useProductsBySKU(0,20,products);
-
   useEffect(() => {
     if (!isLoading) {
       setOrder({ ...data });
     }
-    // if(!isProductLoading){
-    //   console.log(products, " Product id");
-    // }
   }, [data]);
 
   useEffect(() => {
@@ -113,7 +106,7 @@ const OrderStatus = () => {
           <div className="row_group orders-row">
             <div className="order">
               <div className="address">
-                <Address disable={true} />
+                <Address disable={ true } />
               </div>
               <h1>Thank you for your order! <Link href="/">Continue Shopping</Link></h1>
             </div>
