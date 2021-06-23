@@ -1,4 +1,4 @@
-import useProducts, { useSingleProduct } from '@/data/hooks/use-products';
+import { useSingleProduct } from '@/data/hooks/use-products';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
@@ -171,36 +171,10 @@ const Product = () => {
               </Grid>
 
               <div className="">
-                <HeadingStyle>
-                  <h2 className="heading">
-                    Product Description
-                    <span className="heading-underline" />
-                  </h2>
-                </HeadingStyle>
                 <div className="description">
                   <Skeleton count={5} />
-                  <div>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <th>Manufacturer</th>
-                          <td>
-                            <Skeleton count={1} />
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>Model</th>
-                          <td>
-                            <Skeleton count={1} />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
                 </div>
               </div>
-
-              <Skeleton count={1} />
             </div>
           </ProductDetailStyle>
         </div>
