@@ -30,6 +30,8 @@ const Product = () => {
   const [pincode, setPincode] = useState();
   const [sellderId, setSellerId] = useState();
   const [sellderPincode, setSellerPincode] = useState();
+  const [pincodeValidate, setPincodeValidate] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const {
     data: product = {},
@@ -51,20 +53,26 @@ const Product = () => {
     if (!isSellerLoading) {
       setSellerPincode(seller.pincode);
     }
+    if (localStorage.getItem('pincode') !== '') {
+      setPincode(localStorage.getItem('pincode'));
+      setPincodeValidate('valid');
+    }
   }, [product, seller]);
 
   const validatePincode = event => {
     if (!/[0-9]/.test(event.key)) {
       event.preventDefault();
+      setPincodeValidate('error');
     }
     if (event.target.value.length >= 6) {
       event.preventDefault();
     }
+    setPincodeValidate('valid');
   };
 
   const onPincodeHandler = async event => {
+    setLoading(true);
     event.preventDefault();
-
     const originPincode = sellderPincode;
     const destinationPincode = pincode;
     const data = { origin: originPincode, destination: destinationPincode };
@@ -75,13 +83,14 @@ const Product = () => {
     });
     const resData = await response.json();
     if (resData.distance.status === 'OK') {
-      console.log(resData);
       if (resData.distance.rows[0].elements[0].status === 'ZERO_RESULTS') {
         setDelivery('Pincode is Invalid');
+        setLoading(false);
         throw new Error('Pincode is Invalid');
       }
       if (resData.distance.rows[0].elements[0].status === 'NOT_FOUND') {
         setDelivery('Pincode is Invalid');
+        setLoading(false);
         throw new Error('Pincode is Invalid');
       } else {
         localStorage.setItem('pincode', destinationPincode);
@@ -102,6 +111,7 @@ const Product = () => {
           deliveryMessage = 'Delivery in 10 Working days';
         }
         setDelivery(deliveryMessage);
+        setLoading(false);
       }
     } else {
       setDelivery('Something is wrong with your selection');
@@ -246,8 +256,20 @@ const Product = () => {
                           placeholder="Enter a PIN code"
                           onKeyPress={validatePincode}
                           onChange={event => setPincode(event.target.value)}
+                          value={pincode}
                         />
-                        <button onClick={onPincodeHandler}>CHECK</button>
+                        <button
+                          onClick={onPincodeHandler}
+                          className={pincodeValidate}
+                        >
+                          {loading ? (
+                            <>
+                              <i className="fa fa-spin fa-spinner" /> Validating
+                            </>
+                          ) : (
+                            'CHECK'
+                          )}
+                        </button>
                       </div>
 
                       <span>
