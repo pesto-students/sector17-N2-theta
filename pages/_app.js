@@ -142,7 +142,7 @@ const MyApp = ({ Component, pageProps }) => {
         uid : sessionId
       });
     }
-  }, [isLogin])
+  }, [isLogin, router])
 
   useEffect(() => {
     if (notificationMessage !== "") {
