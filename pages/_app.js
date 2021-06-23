@@ -112,6 +112,7 @@ const MyApp = ({ Component, pageProps }) => {
     
     if(isLogin){
       if(router.asPath.indexOf('/order-status') >= 0 && router.query.status === 'success'){
+        localStorage.removeItem('cartItems');
         await db.collection('carts').doc(user.uid).delete();
       }
 
@@ -130,6 +131,7 @@ const MyApp = ({ Component, pageProps }) => {
         localStorage.setItem('_s17', sessionId);
       }
       if(router.asPath.indexOf('/order-status') >= 0 && router.query.status === 'success'){
+        localStorage.removeItem('cartItems');
         await db.collection('carts').doc(sessionId).delete();
       }
       
