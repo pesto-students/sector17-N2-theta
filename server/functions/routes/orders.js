@@ -15,7 +15,7 @@ const corsOptions = {
 }
 
 router.post("/", createOrder);
-router.post("/status", orderStatus);
+router.get("/status", orderStatus);
 //router.get("/", getOrders);
 
 module.exports = router;
