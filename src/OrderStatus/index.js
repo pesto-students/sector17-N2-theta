@@ -6,7 +6,6 @@ import Skeleton from 'react-loading-skeleton';
 import { useContext, useEffect, useState } from 'react';
 import Address from 'shared/Components/Address';
 import Link from "next/link";
-import saveCartItems from 'shared/Utils/saveCartItems';
 import GlobalContext from '@/appContext';
 
 const OrderStatus = () => {
@@ -16,9 +15,9 @@ const OrderStatus = () => {
   const [subtotal, setSubtotal] = useState([]);
   const [discount, setDiscount] = useState();
   const [products, setProducts] = useState([]);
-  const { currentUser } = useContext(GlobalContext);
 
   const { data, isLoading, isError } = useOrderStatus(orderId);
+
   useEffect(() => {
     if (!isLoading) {
       setOrder({ ...data });
@@ -37,7 +36,6 @@ const OrderStatus = () => {
         subtotalArray && subtotalArray.reduce((acc, val) => acc + val, 0)
       );
 
-      saveCartItems({}, currentUser.uid);
     }
   }, [order]);
 
