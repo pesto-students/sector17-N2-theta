@@ -181,6 +181,9 @@ const ProductDetailStyle = styled.div`
                     cursor: pointer;
                     top: 12px;
                 }
+                .valid{
+                    color: ${(props) => props.theme.color.primary}!important;
+                }
             }
         }
     }

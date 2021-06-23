@@ -10,6 +10,7 @@ import saveCartItems from "../shared/Utils/saveCartItems";
 import getWishlistItems from "../shared/Utils/getWishlistItems";
 import firebase from "../data/firebase";
 import Error from "../shared/Components/Error";
+import { useRouter } from "next/router";
 
 const db = firebase.firestore();
 
@@ -18,6 +19,7 @@ const deleteCollectionFromDb = async ({ collection, userId }) => {
 };
 
 const MyApp = ({ Component, pageProps }) => {
+  const router = useRouter();
   const { isLogin, user } = useLoginStatus();
   const [currentUser, setCurrentUser] = useState(user);
   const [cartItems, setCartItems] = useState();
@@ -58,7 +60,9 @@ const MyApp = ({ Component, pageProps }) => {
       setCartItems(tempCartItems);
       saveCartItems(tempCartItems, uid);
 
-      sessionStorage.removeItem("_s17");
+      console.log('sdsdfsdfsdfsdf')
+
+      localStorage.removeItem("_s17");
 
       deleteCollectionFromDb({
         collection: "carts",
@@ -104,9 +108,14 @@ const MyApp = ({ Component, pageProps }) => {
   };
 
   useEffect(async () => {
-    let sessionId = sessionStorage.getItem('_s17');
+    let sessionId = localStorage.getItem('_s17');
+    
+    if(isLogin){
+      if(router.asPath.indexOf('/order-status') >= 0 && router.query.status === 'success'){
+        localStorage.removeItem('cartItems');
+        await db.collection('carts').doc(user.uid).delete();
+      }
 
-    if(user){
       const items = await getCartItems(user.uid);
 
       handleCartItems(items, sessionId, user);
@@ -115,20 +124,25 @@ const MyApp = ({ Component, pageProps }) => {
       setCurrentUser({
         ...user
       })
-    }else if(!isLogin){
-        if(!sessionId){
-          sessionId = `_${Math.random().toString(36).substr(2, 9)}`;
-          sessionStorage.setItem('_s17', sessionId);
-        }
-        
-        const items = await getCartItems(sessionId);
-        setCartItems(items);
 
-        setCurrentUser({
-          uid : sessionId
-        })
+    } else {
+      if(!sessionId){
+        sessionId = `_${Math.random().toString(36).substr(2, 9)}`;
+        localStorage.setItem('_s17', sessionId);
       }
-  }, [isLogin, user])
+      if(router.asPath.indexOf('/order-status') >= 0 && router.query.status === 'success'){
+        localStorage.removeItem('cartItems');
+        await db.collection('carts').doc(sessionId).delete();
+      }
+      
+      const items = await getCartItems(sessionId);
+      setCartItems(items);
+
+      setCurrentUser({
+        uid : sessionId
+      });
+    }
+  }, [isLogin, router])
 
   useEffect(() => {
     if (notificationMessage !== "") {
