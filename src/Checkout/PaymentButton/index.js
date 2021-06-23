@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from "react";
 const stripePromise = loadStripe("pk_test_FOxPmF0nPWOJClYBlZ3d688y");
 
 export default function PaymentButton({ctx}) {
-  const { finalPriceToPay, cartItems, userInfo } = useContext(GlobalContext);
+  const { finalPriceToPay, cartItems, userInfo, currentUser } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -32,7 +32,8 @@ export default function PaymentButton({ctx}) {
       orderTotal: finalPriceToPay.toFixed(2),
       quantities: {...quantities},
       pincode: userInfo.pincode,
-      email: userInfo.email
+      email: userInfo.email,
+      uid: currentUser.uid
     }
 
     const coupon = localStorage.getItem('coupon');

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {createOrder} = require("../controllers/orders");
+const {createOrder, orderStatus} = require("../controllers/orders");
 
 const whitelist = ['http://localhost:3000', 'https://sector17.netlify.app']
 const corsOptions = {
@@ -15,6 +15,7 @@ const corsOptions = {
 }
 
 router.post("/", createOrder);
+router.get("/status", orderStatus);
 //router.get("/", getOrders);
 
 module.exports = router;

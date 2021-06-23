@@ -12,10 +12,10 @@ const getSuccessMailMessage = ({email, orderId}) => {
 };
 
 const sendOrderSuccessEmail = async ({email, orderId}) => {
-    sgMail.setApiKey('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');
+    sgMail.setApiKey('[SendGrid Key Here]');
     const msg = {
         to: email,
-        from: 'raghavvnarang@gmail.com',
+        from: 'sharmapardeep971@gmail.com',
         subject: 'Sector17: Your order has been placed',
         html: getSuccessMailMessage({email, orderId}),
     }

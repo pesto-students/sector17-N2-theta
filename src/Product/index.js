@@ -1,24 +1,25 @@
-import useProducts, { useSingleProduct } from "@/data/hooks/use-products";
-import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import useProducts, { useSingleProduct } from '@/data/hooks/use-products';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import Skeleton from 'react-loading-skeleton';
 
-import { useState } from "react";
-import Head from "next/head";
-import ProductCard from "shared/Components/ProductCard";
-import Grid from "shared/Styles/Grid";
-import HeadingStyle from "shared/Styles/HeadingStyle";
-import AddToCart from "shared/Utils/AddToCart";
-import Breadcrumbs from "shared/Components/Breadcrumbs";
-import { useSingleCategory } from "@/data/hooks/use-categories";
-import Quantity from "shared/Components/Quantity";
-import ProductDetailStyle from "./Style";
-import { AddToWishlistButton } from "../../shared/Utils/AddToWishlist";
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import Grid from 'shared/Styles/Grid';
+import HeadingStyle from 'shared/Styles/HeadingStyle';
+import AddToCart from 'shared/Utils/AddToCart';
+import Breadcrumbs from 'shared/Components/Breadcrumbs';
+import { useSingleCategory } from '@/data/hooks/use-categories';
+import Quantity from 'shared/Components/Quantity';
+import SimilarProducts from '../../shared/Components/SimilarProducts';
+import ProductDetailStyle from './Style';
+import { AddToWishlistButton } from '../../shared/Utils/AddToWishlist';
+import { useSingleSeller } from '@/data/hooks/use-sellers-by-id';
 
 const AddToRecentlyViewed = dynamic(
-  () => import("../../shared/Utils/AddToRecentlyViewed"),
+  () => import('../../shared/Utils/AddToRecentlyViewed'),
   {
-    ssr: false,
+    ssr: false
   }
 );
 
@@ -27,57 +28,84 @@ const Product = () => {
   const [qty, setQty] = useState(1);
   const [delivery, setDelivery] = useState();
   const [pincode, setPincode] = useState();
+  const [sellderId, setSellerId] = useState();
+  const [sellderPincode, setSellerPincode] = useState();
 
   const {
     data: product = {},
     isLoading,
-    isSuccess,
-  } = useSingleProduct(router.query["product-slug"]);
+    isSuccess
+  } = useSingleProduct(router.query['product-slug']);
+
+  const { data: seller, isLoading: isSellerLoading } =
+    useSingleSeller(sellderId);
 
   const { data: category = {}, isLoading: categoryLoading } = useSingleCategory(
     product.category
   );
-  // Similer Products
-  const { data: products = {} } = useProducts(0, 4, "sku", product.category);
 
-  const onPincodeHandler = async (event) => {
+  useEffect(() => {
+    if (!isLoading) {
+      setSellerId(product.seller);
+    }
+    if (!isSellerLoading) {
+      setSellerPincode(seller.pincode);
+    }
+  }, [product, seller]);
+
+  const validatePincode = event => {
+    if (!/[0-9]/.test(event.key)) {
+      event.preventDefault();
+    }
+    if (event.target.value.length >= 6) {
+      event.preventDefault();
+    }
+  };
+
+  const onPincodeHandler = async event => {
     event.preventDefault();
-    const originPincode = 143001;
+
+    const originPincode = sellderPincode;
     const destinationPincode = pincode;
     const data = { origin: originPincode, destination: destinationPincode };
     const response = await fetch(`/api/pincode-distance`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' }
     });
     const resData = await response.json();
-    if (resData.distance.status === "OK") {
-      if (resData.distance.rows[0].elements[0].status === "NOT_FOUND") {
-        setDelivery("Pincode is Invalid");
-        throw new Error("Pincode is Invalid");
+    if (resData.distance.status === 'OK') {
+      console.log(resData);
+      if (resData.distance.rows[0].elements[0].status === 'ZERO_RESULTS') {
+        setDelivery('Pincode is Invalid');
+        throw new Error('Pincode is Invalid');
+      }
+      if (resData.distance.rows[0].elements[0].status === 'NOT_FOUND') {
+        setDelivery('Pincode is Invalid');
+        throw new Error('Pincode is Invalid');
       } else {
-        localStorage.setItem("pincode", destinationPincode);
-        let deliveryMessage = "";
+        localStorage.setItem('pincode', destinationPincode);
+        let deliveryMessage = '';
         const distacne =
-          resData.distance.rows[0].elements[0].distance.text.split(" ");
+          resData.distance.rows[0].elements[0].distance.text.split(' ');
         if (distacne[0] > 0 && distacne[0] <= 20) {
-          deliveryMessage = "Delivery in 1 Working days";
+          deliveryMessage = 'Delivery in 1 Working days';
         } else if (distacne[0] > 20 && distacne[0] <= 250) {
-          deliveryMessage = "Delivery in 2 Working days";
+          deliveryMessage = 'Delivery in 2 Working days';
         } else if (distacne[0] > 250 && distacne[0] <= 500) {
-          deliveryMessage = "Delivery in 3 Working days";
+          deliveryMessage = 'Delivery in 3 Working days';
         } else if (distacne[0] > 500 && distacne[0] <= 750) {
-          deliveryMessage = "Delivery in 4 Working days";
+          deliveryMessage = 'Delivery in 4 Working days';
         } else if (distacne[0] > 750 && distacne[0] <= 1000) {
-          deliveryMessage = "Delivery in 5 Working days";
+          deliveryMessage = 'Delivery in 5 Working days';
         } else {
-          deliveryMessage = "Delivery in 10 Working days";
+          deliveryMessage = 'Delivery in 10 Working days';
         }
         setDelivery(deliveryMessage);
       }
     } else {
-      setDelivery("Something is wrong with selection");
-      throw new Error("Something is wrong with selection");
+      setDelivery('Something is wrong with your selection');
+      throw new Error('Something is wrong with your selection');
     }
   };
 
@@ -93,7 +121,7 @@ const Product = () => {
                   <div className="product_thumbnail">
                     <ul>
                       <li>
-                        <Skeleton height={50} width={50}/>
+                        <Skeleton height={50} width={50} />
                       </li>
                       <li>
                         <Skeleton height={50} width={50} />
@@ -118,7 +146,6 @@ const Product = () => {
                     </span>
                     <span className="stike-through" />
                   </div>
-                
 
                   <Skeleton height={20} />
                   <Skeleton height={20} />
@@ -129,7 +156,7 @@ const Product = () => {
                       <input
                         type="text"
                         placeholder="Enter a PIN code"
-                        onChange={(event) => setPincode(event.target.value)}
+                        onChange={event => setPincode(event.target.value)}
                       />
                       <button onClick={onPincodeHandler}>CHECK</button>
                     </div>
@@ -154,67 +181,23 @@ const Product = () => {
                   <Skeleton count={5} />
                   <div>
                     <table>
-                      <tr>
-                        <th>Manufacturer</th>
-                        <td>
-                          <Skeleton count={1} />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>Model</th>
-                        <td>
-                          <Skeleton count={1} />
-                        </td>
-                      </tr>
-                    </table>
-                    <table>
-                      <tr>
-                        <th>SKU</th>
-                        <td>
-                          <Skeleton count={1} />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>Type</th>
-                        <td>
-                          <Skeleton count={1} />
-                        </td>
-                      </tr>
+                      <tbody>
+                        <tr>
+                          <th>Manufacturer</th>
+                          <td>
+                            <Skeleton count={1} />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Model</th>
+                          <td>
+                            <Skeleton count={1} />
+                          </td>
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
-
-                  <HeadingStyle>
-                    <h2 className="heading">
-                      Similar Products
-                      <span className="heading-underline"></span>
-                    </h2>
-                  </HeadingStyle>
-
-                  <Grid className="" count={4} gap={20}>
-                    {!!products &&
-                      Object.keys(products).map((product, index) => (
-                        <ProductCard
-                          key={index}
-                          id={product}
-                          {...products[product]}
-                        />
-                      ))}
-                  </Grid>
                 </div>
-
-                <HeadingStyle>
-                  <h2 className="heading">
-                    Similar Products
-                    <span className="heading-underline" />
-                  </h2>
-                </HeadingStyle>
-
-                <Grid className="" count={4} gap={20}>
-                  <ProductCard />
-                  <ProductCard />
-                  <ProductCard />
-                  <ProductCard />
-                </Grid>
               </div>
 
               <Skeleton count={1} />
@@ -229,9 +212,9 @@ const Product = () => {
     router && (
       <div>
         <ProductDetailStyle>
-            <Head>
-                <title>{product.name } | Sector 17</title>
-            </Head>
+          <Head>
+            <title>{product.name} | Sector 17</title>
+          </Head>
           {!categoryLoading && (
             <Breadcrumbs
               parent="Products"
@@ -260,7 +243,7 @@ const Product = () => {
                       <i className="fa fa-star" />
                       <i className="fa fa-star" />
                       <i className="fa fa-star" />
-                      <span className="count">149 Reviews</span>
+                      <span className="count"></span>
                     </div>
                     <div className="price">
                       <span className="main-price">Rs.{product.price}</span>
@@ -287,7 +270,8 @@ const Product = () => {
                         <input
                           type="text"
                           placeholder="Enter a PIN code"
-                          onChange={(event) => setPincode(event.target.value)}
+                          onKeyPress={validatePincode}
+                          onChange={event => setPincode(event.target.value)}
                         />
                         <button onClick={onPincodeHandler}>CHECK</button>
                       </div>
@@ -312,48 +296,34 @@ const Product = () => {
                     {product.description}
                     <div>
                       <table>
-                        <tr>
-                          <th>Manufacturer</th>
-                          <td>{product.manufacturer}</td>
-                        </tr>
-                        <tr>
-                          <th>Model</th>
-                          <td>{product.model}</td>
-                        </tr>
+                        <tbody>
+                          <tr>
+                            <th>Manufacturer</th>
+                            <td>{product.manufacturer}</td>
+                          </tr>
+                          <tr>
+                            <th>Model</th>
+                            <td>{product.model}</td>
+                          </tr>
+                        </tbody>
                       </table>
                       <table>
-                        <tr>
-                          <th>SKU</th>
-                          <td>{product.sku}</td>
-                        </tr>
-                        <tr>
-                          <th>Type</th>
-                          <td>{product.type}</td>
-                        </tr>
+                        <tbody>
+                          <tr>
+                            <th>SKU</th>
+                            <td>{product.sku}</td>
+                          </tr>
+                          <tr>
+                            <th>Type</th>
+                            <td>{product.type}</td>
+                          </tr>
+                        </tbody>
                       </table>
                     </div>
                   </div>
-
-                  <HeadingStyle>
-                    <h2 className="heading">
-                      Similar Products
-                      <span className="heading-underline" />
-                    </h2>
-                  </HeadingStyle>
-
-                  <Grid className="" count={4} gap={20}>
-                    {!!products &&
-                      Object.keys(products).map((product, index) => (
-                        <ProductCard
-                          key={index}
-                          id={product}
-                          {...products[product]}
-                        />
-                      ))}
-                  </Grid>
                 </div>
 
-                <AddToRecentlyViewed productSku={product.sku} />
+                <SimilarProducts category={product.category} />
               </div>
             </>
           )}
