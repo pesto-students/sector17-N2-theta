@@ -8,7 +8,7 @@ const uiConfig = {
   signInOptions: [
     fbAuth.EmailAuthProvider.PROVIDER_ID,
     fbAuth.GoogleAuthProvider.PROVIDER_ID,
-    fbAuth.FacebookAuthProvider.PROVIDER_ID,
+    //fbAuth.FacebookAuthProvider.PROVIDER_ID,
   ],
   callbacks: {
     signInSuccessWithAuthResult: () => false,
