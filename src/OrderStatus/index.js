@@ -3,9 +3,11 @@ import useOrderStatus from '@/data/hooks/use-orders';
 import { useRouter } from 'next/router';
 import OrderStatusStyle from './Style';
 import Skeleton from 'react-loading-skeleton';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Address from 'shared/Components/Address';
 import Link from "next/link";
+import saveCartItems from 'shared/Utils/saveCartItems';
+import GlobalContext from '@/appContext';
 
 const OrderStatus = () => {
   const router = useRouter();
@@ -14,6 +16,7 @@ const OrderStatus = () => {
   const [subtotal, setSubtotal] = useState([]);
   const [discount, setDiscount] = useState();
   const [products, setProducts] = useState([]);
+  const { currentUser } = useContext(GlobalContext);
 
   const { data, isLoading, isError } = useOrderStatus(orderId);
   useEffect(() => {
@@ -33,6 +36,8 @@ const OrderStatus = () => {
       setSubtotal(
         subtotalArray && subtotalArray.reduce((acc, val) => acc + val, 0)
       );
+
+      saveCartItems({}, currentUser.uid);
     }
   }, [order]);
 
