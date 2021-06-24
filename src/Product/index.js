@@ -49,7 +49,7 @@ const Product = () => {
   );
 
   useEffect(() => {
-    
+
   }, [currentProduct]);
 
   useEffect(() => {
@@ -153,7 +153,6 @@ const Product = () => {
 
   if (isLoading) {
     return (
-      router && (
         <div>
           <ProductDetailStyle>
             <Skeleton />
@@ -216,7 +215,6 @@ const Product = () => {
             </div>
           </ProductDetailStyle>
         </div>
-      )
     );
   }
 
