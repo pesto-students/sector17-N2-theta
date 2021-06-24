@@ -26,7 +26,7 @@ const AddToRecentlyViewed = dynamic(
 const Product = () => {
   const router = useRouter();
   const pincodeCheckRef = useRef(null);
-  const currentProduct = router.query['product-slug'];
+  const currentProduct = router && router.query['product-slug'];
   const [qty, setQty] = useState(1);
   const [delivery, setDelivery] = useState();
   const [pincode, setPincode] = useState();
@@ -42,18 +42,18 @@ const Product = () => {
 
   const { data: seller, isLoading: isSellerLoading } =
     useSingleSeller(sellderId);
-
   const { data: category = {}, isLoading: categoryLoading } = useSingleCategory(
     product.category
   );
 
-
   useEffect(() => {
     if (!isLoading) {
-      setSellerId(product.seller);
+      const sellerId = product && product.seller;
+      setSellerId(sellerId);
     }
     if (!isSellerLoading) {
-      setSellerPincode(seller.pincode);
+      const sPincode = seller && seller.pincode;
+      setSellerPincode(sPincode);
     }
   }, [product, seller]);
 
