@@ -9,7 +9,7 @@ const FailedStatus = () => {
           <div className="order">
             <div className="address">
               <h1 className="failed">Oh no, Your Payment failed</h1>
-              <h3>There are something worng please try again...</h3>
+              <h3>Something went wrong, please try again</h3>
             </div>
             <span className="button">
               <Link href="/checkout">Try Again</Link>

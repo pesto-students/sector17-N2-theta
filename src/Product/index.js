@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import Grid from 'shared/Styles/Grid';
 import HeadingStyle from 'shared/Styles/HeadingStyle';
@@ -25,6 +25,8 @@ const AddToRecentlyViewed = dynamic(
 
 const Product = () => {
   const router = useRouter();
+  const pincodeCheckRef = useRef(null);
+  const currentProduct = router.query['product-slug'];
   const [qty, setQty] = useState(1);
   const [delivery, setDelivery] = useState();
   const [pincode, setPincode] = useState();
@@ -37,7 +39,7 @@ const Product = () => {
     data: product = {},
     isLoading,
     isSuccess
-  } = useSingleProduct(router.query['product-slug']);
+  } = useSingleProduct(currentProduct);
 
   const { data: seller, isLoading: isSellerLoading } =
     useSingleSeller(sellderId);
@@ -47,17 +49,96 @@ const Product = () => {
   );
 
   useEffect(() => {
+    
+  }, [currentProduct]);
+
+  useEffect(() => {
     if (!isLoading) {
       setSellerId(product.seller);
     }
     if (!isSellerLoading) {
       setSellerPincode(seller.pincode);
     }
-    if (localStorage.getItem('pincode') !== '') {
-      setPincode(localStorage.getItem('pincode'));
-      setPincodeValidate('valid');
-    }
   }, [product, seller]);
+
+  const getApi = async data => {
+    if (data) {
+      const response = await fetch(`/api/pincode-distance`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      return response;
+    }
+  };
+
+  const onPincodeHandler = event => {
+    event.preventDefault();
+    setLoading(true);
+    if (pincode === '') {
+      setDelivery('Please enter Pincode');
+      throw new Error('Please enter Pincode');
+    }
+    const originPincode = sellderPincode;
+    const destinationPincode = pincode ?? '';
+    const data = { origin: originPincode, destination: destinationPincode };
+
+    getApi(data)
+      .then(res => {
+        return res.json();
+      })
+      .then(resData => {
+        if (resData.distance.status === 'OK') {
+          if (resData.distance.rows[0].elements[0].status === 'ZERO_RESULTS') {
+            setDelivery('Pincode is Invalid');
+            setLoading(false);
+            throw new Error('Pincode is Invalid');
+          }
+          if (resData.distance.rows[0].elements[0].status === 'NOT_FOUND') {
+            setDelivery('Pincode is Invalid');
+            setLoading(false);
+            throw new Error('Pincode is Invalid');
+          } else {
+            localStorage.setItem('pincode', destinationPincode);
+            let deliveryMessage = '';
+            const distacne =
+              resData.distance.rows[0].elements[0].distance.text.split(' ');
+            if (distacne[0] > 0 && distacne[0] <= 20) {
+              deliveryMessage = 'Delivery in 1 Working days';
+            } else if (distacne[0] > 20 && distacne[0] <= 250) {
+              deliveryMessage = 'Delivery in 2 Working days';
+            } else if (distacne[0] > 250 && distacne[0] <= 500) {
+              deliveryMessage = 'Delivery in 3 Working days';
+            } else if (distacne[0] > 500 && distacne[0] <= 750) {
+              deliveryMessage = 'Delivery in 4 Working days';
+            } else if (distacne[0] > 750 && distacne[0] <= 1000) {
+              deliveryMessage = 'Delivery in 5 Working days';
+            } else {
+              deliveryMessage = 'Delivery in 10 Working days';
+            }
+            setDelivery(deliveryMessage);
+            setLoading(false);
+          }
+        } else {
+          setDelivery('Something is wrong with your selection');
+          throw new Error('Something is wrong with your selection');
+        }
+      })
+      .catch(err => {
+        console.log('apt err ', err);
+      });
+  };
+  useEffect(() => {
+    const pincodeFromLocalStorage = localStorage.getItem('pincode');
+    if (pincodeFromLocalStorage && pincodeFromLocalStorage !== '') {
+      setPincode(pincodeFromLocalStorage);
+      setPincodeValidate('valid');
+      setTimeout(() => {
+        pincodeCheckRef.current.click();
+      }, 1000);
+    }
+  }, [pincodeValidate]);
 
   const validatePincode = event => {
     if (!/[0-9]/.test(event.key)) {
@@ -68,55 +149,6 @@ const Product = () => {
       event.preventDefault();
     }
     setPincodeValidate('valid');
-  };
-
-  const onPincodeHandler = async event => {
-    setLoading(true);
-    event.preventDefault();
-    const originPincode = sellderPincode;
-    const destinationPincode = pincode;
-    const data = { origin: originPincode, destination: destinationPincode };
-    const response = await fetch(`/api/pincode-distance`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json' }
-    });
-    const resData = await response.json();
-    if (resData.distance.status === 'OK') {
-      if (resData.distance.rows[0].elements[0].status === 'ZERO_RESULTS') {
-        setDelivery('Pincode is Invalid');
-        setLoading(false);
-        throw new Error('Pincode is Invalid');
-      }
-      if (resData.distance.rows[0].elements[0].status === 'NOT_FOUND') {
-        setDelivery('Pincode is Invalid');
-        setLoading(false);
-        throw new Error('Pincode is Invalid');
-      } else {
-        localStorage.setItem('pincode', destinationPincode);
-        let deliveryMessage = '';
-        const distacne =
-          resData.distance.rows[0].elements[0].distance.text.split(' ');
-        if (distacne[0] > 0 && distacne[0] <= 20) {
-          deliveryMessage = 'Delivery in 1 Working days';
-        } else if (distacne[0] > 20 && distacne[0] <= 250) {
-          deliveryMessage = 'Delivery in 2 Working days';
-        } else if (distacne[0] > 250 && distacne[0] <= 500) {
-          deliveryMessage = 'Delivery in 3 Working days';
-        } else if (distacne[0] > 500 && distacne[0] <= 750) {
-          deliveryMessage = 'Delivery in 4 Working days';
-        } else if (distacne[0] > 750 && distacne[0] <= 1000) {
-          deliveryMessage = 'Delivery in 5 Working days';
-        } else {
-          deliveryMessage = 'Delivery in 10 Working days';
-        }
-        setDelivery(deliveryMessage);
-        setLoading(false);
-      }
-    } else {
-      setDelivery('Something is wrong with your selection');
-      throw new Error('Something is wrong with your selection');
-    }
   };
 
   if (isLoading) {
@@ -163,12 +195,8 @@ const Product = () => {
                   <div className="extra_option">
                     <label>DELIVER OPTIONS</label>
                     <div className="pincode_input">
-                      <input
-                        type="text"
-                        placeholder="Enter a PIN code"
-                        onChange={event => setPincode(event.target.value)}
-                      />
-                      <button onClick={onPincodeHandler}>CHECK</button>
+                      <input type="text" placeholder="Enter a PIN code" />
+                      <button>CHECK</button>
                     </div>
 
                     <span>
@@ -250,27 +278,31 @@ const Product = () => {
 
                     <div className="extra_option">
                       <label>DELIVER OPTIONS</label>
-                      <div className="pincode_input">
-                        <input
-                          type="text"
-                          placeholder="Enter a PIN code"
-                          onKeyPress={validatePincode}
-                          onChange={event => setPincode(event.target.value)}
-                          value={pincode}
-                        />
-                        <button
-                          onClick={onPincodeHandler}
-                          className={pincodeValidate}
-                        >
-                          {loading ? (
-                            <>
-                              <i className="fa fa-spin fa-spinner" /> Validating
-                            </>
-                          ) : (
-                            'CHECK'
-                          )}
-                        </button>
-                      </div>
+                      <form onSubmit={onPincodeHandler}>
+                        <div className="pincode_input">
+                          <input
+                            type="text"
+                            placeholder="Enter a PIN code"
+                            onKeyPress={validatePincode}
+                            onChange={event => setPincode(event.target.value)}
+                            defaultValue={pincode}
+                          />
+                          <button
+                            type="submit"
+                            ref={pincodeCheckRef}
+                            className={pincodeValidate}
+                          >
+                            {loading ? (
+                              <>
+                                <i className="fa fa-spin fa-spinner" />{' '}
+                                Validating
+                              </>
+                            ) : (
+                              'CHECK'
+                            )}
+                          </button>
+                        </div>
+                      </form>
 
                       <span>
                         Please enter PIN code to check delivery time & Pay on

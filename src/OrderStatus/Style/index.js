@@ -6,9 +6,11 @@ const OrderStatusStyle = styled.div`
     flex-wrap: wrap;
     flex: initial;
   }
-  .success {
+  .title{
     text-align: center;
     text-transform: uppercase;
+  }
+  .success {
     color: ${props => props.theme.color.green};
   }
   .subtitle {

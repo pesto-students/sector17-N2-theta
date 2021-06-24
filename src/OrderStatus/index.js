@@ -104,10 +104,10 @@ const OrderStatus = () => {
     <OrderStatusStyle>
       {order ? (
         <div>
-          <h1 className={router.query['status']}>
-            Order Status: {router.query['status'] == 'success' && 'Success'}
+          <h1 className="title">
+            Order Status: <span  className={router.query['status']}>{router.query['status'] == 'success' && 'Success'}</span>
           </h1>
-          <h2 className="subtitle success">
+          <h2 className="subtitle">
             Your Order has been scucessfully placed!
           </h2>
 
