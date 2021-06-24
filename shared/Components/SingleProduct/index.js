@@ -94,12 +94,10 @@ const SingleProduct = () => {
           if (resData.distance.rows[0].elements[0].status === 'ZERO_RESULTS') {
             setDelivery('Pincode is Invalid');
             setLoading(false);
-            throw new Error('Pincode is Invalid');
           }
           if (resData.distance.rows[0].elements[0].status === 'NOT_FOUND') {
             setDelivery('Pincode is Invalid');
             setLoading(false);
-            throw new Error('Pincode is Invalid');
           } else {
             localStorage.setItem('pincode', destinationPincode);
             let deliveryMessage = '';
@@ -137,7 +135,7 @@ const SingleProduct = () => {
       setPincode(pincodeFromLocalStorage);
       setPincodeValidate('valid');
       setTimeout(() => {
-        pincodeCheckRef.current.click();
+        pincodeCheckRef && pincodeCheckRef.current && pincodeCheckRef.current.click();
       }, 1000);
     }
   }, [sellderPincode]);
@@ -163,14 +161,7 @@ const SingleProduct = () => {
               <Grid count={2} gap={20}>
                 <div className="product_gallery">
                   <div className="product_thumbnail">
-                    <ul>
-                      <li>
-                        <Skeleton height={50} width={50} />
-                      </li>
-                      <li>
-                        <Skeleton height={50} width={50} />
-                      </li>
-                    </ul>
+                    
                   </div>
                   <div className="product_full">
                     <Skeleton height={350} width={350} />
