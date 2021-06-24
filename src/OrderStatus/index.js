@@ -134,19 +134,19 @@ const OrderStatus = () => {
 
               <p>
                 <strong>Subtotal: </strong>
-                <span>Rs. {subtotal}</span>
+                <span>Rs. {parseFloat(subtotal).toFixed(2)}</span>
               </p>
 
               {order && order.couponDiscount && order.couponDiscount.coupon && (
                 <p>
                   <strong>Discount: </strong>
-                  <span>Rs. {order.couponDiscount.discount}</span>
+                  <span>Rs. {parseFloat(order.couponDiscount.discount).toFixed(2)}</span>
                 </p>
               )}
               {order.total != '' && (
                 <p>
                   <strong>Total: </strong>
-                  <span>Rs. {order.total}</span>
+                  <span>Rs. {parseFloat(order.total).toFixed(2)}</span>
                 </p>
               )}
             </div>

@@ -1,4 +1,4 @@
-import useProducts, { useSingleProduct } from '@/data/hooks/use-products';
+import { useSingleProduct } from '@/data/hooks/use-products';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
@@ -15,7 +15,6 @@ import SimilarProducts from '../SimilarProducts';
 import SingleProductStyle from './Style';
 import { AddToWishlistButton } from '../../Utils/AddToWishlist';
 import { useSingleSeller } from '@/data/hooks/use-sellers-by-id';
-import ProductCard from '../ProductCard';
 
 const AddToRecentlyViewed = dynamic(
   () => import('../../Utils/AddToRecentlyViewed'),
@@ -48,7 +47,6 @@ const SingleProduct = () => {
     product.category
   );
 
-  const { data: products = {}, isLoading: similerLoading } = useProducts(0, 4, 'sku', product.category);
   useEffect(() => {
     if (!isLoading) {
       const sellerId = product && product.seller;
@@ -133,7 +131,8 @@ const SingleProduct = () => {
       });
   };
   useEffect(() => {
-    const pincodeFromLocalStorage = localStorage.getItem('pincode');    
+    const pincodeFromLocalStorage = localStorage.getItem('pincode');
+    
     if (pincodeFromLocalStorage && pincodeFromLocalStorage !== '' && sellderPincode !='') {
       setPincode(pincodeFromLocalStorage);
       setPincodeValidate('valid');
@@ -353,22 +352,8 @@ const SingleProduct = () => {
                     </div>
                   </div>
                 </div>
-                <div>
-      <HeadingStyle>
-        <h2 className="heading">
-          Similar Products
-          <span className="heading-underline" />
-        </h2>
-      </HeadingStyle>
 
-      <Grid className="" count={4} gap={20}>
-        {!!products &&
-          Object.keys(products).map((product, index) => (
-            <ProductCard key={index} id={product} {...products[product]} />
-          ))}
-      </Grid>
-    </div>
-                {/* <SimilarProducts category={product.category} /> */}
+                <SimilarProducts category={product.category} />
               </div>
             </>
           )}
