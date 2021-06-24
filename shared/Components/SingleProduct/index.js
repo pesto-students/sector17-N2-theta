@@ -152,74 +152,74 @@ const SingleProduct = () => {
     setPincodeValidate('valid');
   };
 
-//   if (isLoading) {
-//     return (
-//       router && (
-//         <div>
-//           <SingleProductStyle>
-//             <Skeleton />
-//             <div className="product_view_container">
-//               <Grid count={2} gap={20}>
-//                 <div className="product_gallery">
-//                   <div className="product_thumbnail">
-//                     <ul>
-//                       <li>
-//                         <Skeleton height={50} width={50} />
-//                       </li>
-//                       <li>
-//                         <Skeleton height={50} width={50} />
-//                       </li>
-//                     </ul>
-//                   </div>
-//                   <div className="product_full">
-//                     <Skeleton height={350} width={350} />
-//                   </div>
-//                 </div>
-//                 <div className="product_info">
-//                   <h1 className="product_title">
-//                     <Skeleton />
-//                   </h1>
+  if (isLoading) {
+    return (
+      router && (
+        <div>
+          <SingleProductStyle>
+            <Skeleton />
+            <div className="product_view_container">
+              <Grid count={2} gap={20}>
+                <div className="product_gallery">
+                  <div className="product_thumbnail">
+                    <ul>
+                      <li>
+                        <Skeleton height={50} width={50} />
+                      </li>
+                      <li>
+                        <Skeleton height={50} width={50} />
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="product_full">
+                    <Skeleton height={350} width={350} />
+                  </div>
+                </div>
+                <div className="product_info">
+                  <h1 className="product_title">
+                    <Skeleton />
+                  </h1>
 
-//                   <div className="review">
-//                     <Skeleton />
-//                   </div>
-//                   <div className="price">
-//                     <span className="main-price">
-//                       <Skeleton height={50} />
-//                     </span>
-//                     <span className="stike-through" />
-//                   </div>
+                  <div className="review">
+                    <Skeleton />
+                  </div>
+                  <div className="price">
+                    <span className="main-price">
+                      <Skeleton height={50} />
+                    </span>
+                    <span className="stike-through" />
+                  </div>
 
-//                   <Skeleton height={20} />
-//                   <Skeleton height={20} />
+                  <Skeleton height={20} />
+                  <Skeleton height={20} />
 
-//                   <div className="extra_option">
-//                     <label>DELIVER OPTIONS</label>
-//                     <div className="pincode_input">
-//                       <input type="text" placeholder="Enter a PIN code" />
-//                       <button>CHECK</button>
-//                     </div>
+                  <div className="extra_option">
+                    <label>DELIVER OPTIONS</label>
+                    <div className="pincode_input">
+                      <input type="text" placeholder="Enter a PIN code" />
+                      <button>CHECK</button>
+                    </div>
 
-//                     <span>
-//                       Please enter PIN code to check delivery time & Pay on
-//                       Delivery Availability
-//                     </span>
-//                     {delivery}
-//                   </div>
-//                 </div>
-//               </Grid>
+                    <span>
+                      Please enter PIN code to check delivery time & Pay on
+                      Delivery Availability
+                    </span>
+                    {delivery}
+                  </div>
+                </div>
+              </Grid>
 
-//               <div className="">
-//                 <div className="description">
-//                   <Skeleton count={5} />
-//                 </div>
-//               </div>
-//             </div>
-//           </SingleProductStyle>
-//         </div>
-//       )
-//     );
-//   }
+              <div className="">
+                <div className="description">
+                  <Skeleton count={5} />
+                </div>
+              </div>
+            </div>
+          </SingleProductStyle>
+        </div>
+      )
+    );
+  }
 
   return (
     router && (
