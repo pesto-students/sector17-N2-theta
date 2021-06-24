@@ -17,7 +17,7 @@ const RecentlyViewed = () => {
   const { data, status, isLoading, isError } = useProductsBySKU(
     0,
     dataLimit,
-    [...recentlyViewedItems.reverse()]
+    [...recentlyViewedItems.reverse().slice(0,4)]
   );
   
   useEffect(() => {
