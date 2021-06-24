@@ -246,7 +246,12 @@ const orderStatus = async (req, res, next) => {
   const doc = await db.collection('orders').doc(id).get();
   const { email } = doc.data();
 
-  if (!id || !status || !email) {
+  if (!id) {
+    res.redirect(`https://sector17.netlify.app/order-status?status=failed`);
+    return;
+  }
+
+  if (!id || !status || !email || status === 'failed') {
     await db.collection('orders').doc(id).update({ status: 'failed' });
     res.redirect(
       `https://sector17.netlify.app/order-status?status=failed&id=${id}`
