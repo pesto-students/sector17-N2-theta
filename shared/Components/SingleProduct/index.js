@@ -131,15 +131,15 @@ const SingleProduct = () => {
       });
   };
   useEffect(() => {
-    const pincodeFromLocalStorage = localStorage.getItem('pincode');
-    if (pincodeFromLocalStorage && pincodeFromLocalStorage !== '') {
+    const pincodeFromLocalStorage = localStorage.getItem('pincode');    
+    if (pincodeFromLocalStorage && pincodeFromLocalStorage !== '' && sellderPincode !='') {
       setPincode(pincodeFromLocalStorage);
       setPincodeValidate('valid');
       setTimeout(() => {
         pincodeCheckRef.current.click();
       }, 1000);
     }
-  }, [pincodeValidate]);
+  }, [sellderPincode]);
 
   const validatePincode = event => {
     if (!/[0-9]/.test(event.key)) {
