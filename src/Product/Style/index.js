@@ -191,6 +191,7 @@ const ProductDetailStyle = styled.div`
         background: ${(props) => props.theme.color.lightGrey};
         padding: 30px;
         text-align: center;
+        margin-top:30px;
         div {
             display: flex;
             flex-wrap: wrap;
