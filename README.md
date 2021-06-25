@@ -17,7 +17,7 @@
 - Run `git clone https://github.com/pesto-students/sector17-N2-theta.git`
 
 
-### Fisrt Run Express server
+### First Run Express server
 
 *Node JS as Backend code uploaded under "server" folder. It utilizes the Firebase Functions feature from Firebase suite of tools.*
 
