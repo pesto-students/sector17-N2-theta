@@ -21,7 +21,7 @@
 
 *Node JS as Backend code uploaded under "server" folder. It utilizes the Firebase Functions feature from Firebase suite of tools.*
 
-**Requirment:** NPM v6.14.11, Node v14.15.4 and [Firebase cli](https://firebase.google.com/docs/cli#install_the_firebase_cli)
+**Requirment:** NPM v6.14.11, Node v14.15.4 and [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli)
 
 - Go to path `cd sector17-N2-theta/server/functions`
 - Run `npm install` to install all required project dependencies
@@ -79,7 +79,7 @@ You can set the port in firebase.json file or default will be http://localhost:3
 - **Cart** - Bag to put all items you are willing to purchase
 - **Guest Checkout** - No strings attached
 - **Payment Method** - Pay using different payment methods
-- **Dynamic Pricing/Shipping** - Different pricing for different users, Loyaltyprogram, Express Delivery.
+- **Dynamic Pricing/Shipping** - Different pricing for different users, Loyalty Program, Express Delivery.
 - **Services** - OrderHistory, Wishlist, Manage profile, RecentlyViewed/Searched, Trending etc.
 
 
