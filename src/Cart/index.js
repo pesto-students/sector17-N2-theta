@@ -98,10 +98,6 @@ const Cart = (props) => {
         setShowPage(true);
         setCartProducts(data)
         prepareSellers(data);
-
-        if (router.asPath === '/checkout' && !data) {
-          router.push("/cart");
-        }
       }
     }
 
@@ -110,6 +106,8 @@ const Cart = (props) => {
       setCartItemsCount(skuList.length);
       setCartItemsSku(skuList);
       handleCartData(skuList);
+    }else if (router.asPath === '/checkout') {
+      router.push("/cart");
     }
   }, [cartItems]);
 
@@ -117,7 +115,7 @@ const Cart = (props) => {
     return null
   }
 
-  return (
+  return cartItems ? (
     <div style={{ opacity: showPage || cartItemsCount === 0 ? "1" : "0" }}>
       {cartItemsCount > 0 ? (
         <CartStyle>
@@ -155,7 +153,7 @@ const Cart = (props) => {
         </CartStyle>
       )}
     </div>
-  );
+  ) : null;
 };
 
 export default Cart;
