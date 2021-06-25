@@ -32,7 +32,7 @@ const OrderStatus = () => {
         productArray && productArray.map(element => element.id);
       setProducts([productArrayPro]);
       const subtotalArray =
-        productArray && productArray.map(element => element.price);
+        productArray && productArray.map(element => element.price * element.qty);
       setSubtotal(
         subtotalArray && subtotalArray.reduce((acc, val) => acc + val, 0)
       );
