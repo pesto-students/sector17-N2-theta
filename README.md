@@ -2,22 +2,45 @@
 
 [Sector17](https://sector17.netlify.app/) refers to the vision of the ionic sector17 market of Chandigarh. It is a simple platform for everyshopkeeper/businessperson to sell their products online. Sellers have complete freedom over pricing and discounts It also lets sellers optout of the courier services(provided by our platform), where end users can enjoy less or free delivery charges. Which is a win-win situation for User and Shopkeeper.
 
-## Stakeholders
+## Environments
+
+
+
+
+## Stakeholders 
+
+**Please feel free to contact on Slack in case of any setup related issue or post in** [#n2-theta](https://join.slack.com/share/zt-sa486201-IYsy2Ms6fvqvauMmtmmbnQ)
 
 - Pardeep Sharma - [LinkedIn](https://www.linkedin.com/in/pardeep2411/) - [GitHub](https://github.com/pardeep24)
 - Raghav Narang - [LinkedIn](https://www.linkedin.com/in/raghav-narang/) - [GitHub](https://github.com/raghavnarang)
 - Ravi Yadav - [LinkedIn](https://linkedin.com/in/raviyadav01/) - [GitHub](https://github.com/yadavravi2801)
 
 
-# Clone the project on local
-git clone https://github.com/pesto-students/sector17-N2-theta.git
+## How to run the project
+
+- Run `git clone https://github.com/pesto-students/sector17-N2-theta.git`
 
 
-## How to run the project frontend
+### For Running Express server
 
+**Node JS as Backend code uploaded under "server" folder. It utilizes the Firebase Functions feature from Firebase suite of tools.**
+**Requirment:** NPM and Node setup, and [Firebase cli](https://firebase.google.com/docs/cli#install_the_firebase_cli)
+
+- Go to path `/sector17-N2-theta/server`
 - Run `npm install` to install all required project dependencies
-- Run `npm run build` to create an optimize build of project
-- Run `npm run start` to start the project
+- Run `npm run server` to start project on http://localhost:3001
+- Run `npm run deploy` to deploy on firebase cloud functions
+
+You can set the port in firebase.json file or default will be http://localhost:3001
+
+**Note: When you execute the deploy command, public URL for the server will be visible in CLI**
+
+
+### For Running frontend code
+- Go to path `/sector17-N2-theta`
+- Run `npm install` to install all required project dependencies
+- Run `npm run dev` to the project in dev mode
+- Open the `https://localhost:3000` to run the project 
 
 
 ## Performance Screenshort
@@ -65,27 +88,6 @@ git clone https://github.com/pesto-students/sector17-N2-theta.git
 - Security Scenario
 - Vendor Admin Panel
 - Product Review System
-
-
-
-
-### Node Server
-
-Node JS as Backend code uploaded under "server" folder. It utilizes the Firebase Functions feature from Firebase suite of tools.
-
-Requirment : NPM and Node setup, and Firebase cli
-
-## Clone server
-
-## How to run the backend Node server
-
-- Run `npm install` to install all required project dependencies
-- Run `npm run server` to start project on http://localhost:3001
-- Run `npm run deploy` to deploy on firebast hosting
-
-You can set the port in firebase.json file or default will be http://localhost:3001
-
-**Note: When you execute the deploy command, public URL for the server will be visible in CLI**
 
 
 ## Tech Stack
