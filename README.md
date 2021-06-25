@@ -25,7 +25,7 @@
 
 - Go to path `cd sector17-N2-theta/server`
 - Run `npm install` to install all required project dependencies
-- Run `npm run server` to start project on http://localhost:3001
+- Run `npm run serve` to start project on http://localhost:3001
 
 You can set the port in firebase.json file or default will be http://localhost:3001
 
@@ -55,12 +55,12 @@ You can set the port in firebase.json file or default will be http://localhost:3
 
 ## UI Design mocks
 
-[Ui Design Figma link](https://www.figma.com/proto/vqaZjgHWYmHxOl9Gz1E6CU/Homepage?node-id=0%3A1&frame-preset-name=Desktop&scaling=scale-down&page-id=0%3A1)
+[UI Design Figma link](https://www.figma.com/proto/vqaZjgHWYmHxOl9Gz1E6CU/Homepage?node-id=0%3A1&frame-preset-name=Desktop&scaling=scale-down&page-id=0%3A1)
 
 
 ## User Flowchart
 
-[User flowchart Figma link](https://www.figma.com/proto/qaFqDsQnEg2wQ3NA4qWavN/FlowChart?node-id=13%3A2&scaling=scale-down-width&page-id=0%3A1)
+[User Flowchart Figma link](https://www.figma.com/proto/qaFqDsQnEg2wQ3NA4qWavN/FlowChart?node-id=13%3A2&scaling=scale-down-width&page-id=0%3A1)
 
 
 ## System Design
@@ -73,9 +73,9 @@ You can set the port in firebase.json file or default will be http://localhost:3
 
 ## Features
 
-- **Authentication** - Authentication using Facebook, Google.One user, one account
-- **Search** - Help users to search shops, products, categoriesetc
-- **Filters** - Filter products according Price, size, brandetc
+- **Authentication** - Authentication using Facebook, Google One user, one account
+- **Search** - Help users to search shops, products, categories etc.
+- **Filters** - Filter products according Price, size, brand etc.
 - **Cart** - Bag to put all items you are willing to purchase
 - **Guest Checkout** - No strings attached
 - **Payment Method** - Pay using different payment methods
