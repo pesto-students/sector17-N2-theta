@@ -8,7 +8,6 @@ const OrderStatusStyle = styled.div`
   }
   .title{
     text-align: center;
-    text-transform: uppercase;
   }
   .success {
     color: ${props => props.theme.color.green};
@@ -33,14 +32,16 @@ const OrderStatusStyle = styled.div`
       }
     }
   }
-  h3 {
-    flex: 1;
+  .orderid{ flex: 1;
     border: 1px solid #ddd;
     padding: 10px;
-    &:last-child {
+    }
+  .estimate{ flex: 1;
+    border: 1px solid #ddd;
+    padding: 10px;
       text-align: right;
     }
-  }
+  
   .order {
     border: 1px solid #ddd;
     flex: initial;
