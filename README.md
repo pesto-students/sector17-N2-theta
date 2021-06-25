@@ -33,7 +33,7 @@ You can set the port in firebase.json file or default will be http://localhost:3
 
 
 ### For Running frontend code
-- Go to path `cd sector17-N2-theta`
+- Go to main project folder `cd sector17-N2-theta`
 - Run `npm install` to install all required project dependencies
 - Run `npm run dev` to the project in dev mode
 - Open the `https://localhost:3000` to run the project 
