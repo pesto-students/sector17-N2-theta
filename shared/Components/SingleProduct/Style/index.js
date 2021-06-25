@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ProductDetailStyle = styled.div`
+const SingleProductStyle = styled.div`
     .breadcrumbs {
         list-style: none;
         margin: 20px 0px !important;
@@ -242,4 +242,4 @@ const ProductDetailStyle = styled.div`
     }
 `;
 
-export default ProductDetailStyle;
+export default SingleProductStyle;

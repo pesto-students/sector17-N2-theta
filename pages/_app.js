@@ -60,8 +60,6 @@ const MyApp = ({ Component, pageProps }) => {
       setCartItems(tempCartItems);
       saveCartItems(tempCartItems, uid);
 
-      console.log('sdsdfsdfsdfsdf')
-
       localStorage.removeItem("_s17");
 
       deleteCollectionFromDb({

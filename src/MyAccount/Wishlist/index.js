@@ -10,14 +10,14 @@ import WishlistStyle from "./Style";
 import MyAccountStyle from "../Style";
 
 const Wishlist = () => {
-    const [dataLimit, setDataLimit] = useState(16);
+    const [dataLimit, setDataLimit] = useState(9);
     const { user, isLogin, wishlistItems } = useContext(GlobalContext);
     const [products, setProducts] = useState();
 
     const { data, status, isLoading, isError } = useProductsBySKU(
         0,
         dataLimit,
-        wishlistItems ? [...wishlistItems] : []
+        Array.isArray(wishlistItems) ? [...wishlistItems.slice(0,9)] : []
     );
 
     useEffect(() => {

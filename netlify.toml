@@ -1,0 +1,6 @@
+[[plugins]]
+  package = "@sentry/netlify-build-plugin"
+
+  [plugins.inputs]
+    sentryOrg = "sector-17"
+    sentryProject = "sector-17"
