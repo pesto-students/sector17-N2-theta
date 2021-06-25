@@ -6,3 +6,5 @@ npm run test
 
 # Check ESLint Standards
 npm run check-lint
+
+echo 'Code commited successfully :)'
