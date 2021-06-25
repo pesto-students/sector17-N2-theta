@@ -14,7 +14,7 @@ const Address = ({
   const [isEdit, setIsEdit] = useState(true);
   const [loading, setLoading] = useState(false);
   const [pincodeValidate, setPincodeValidate] = useState('');
-  const [address, setAddress] = useState({
+  const formFields = {
     firstName: '',
     lastName: '',
     street: '',
@@ -25,8 +25,9 @@ const Address = ({
     pincode: '',
     email: '',
     phone: ''
-  });
-
+  }
+  const [address, setAddress] = useState(formFields);
+  const [emailError, setEmailError] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
   const [userId, setUserId] = useState(false);
   const { currentUser, setUserInfo } = useContext(GlobalContext);
@@ -58,7 +59,7 @@ const Address = ({
     if (typeof setPincode === 'function') {
       setPincode(address.pincode);
     }
-    if (address) {
+    if(address) {
       setUserInfo(address);
     }
   }, [address, setPincode]);
@@ -83,6 +84,11 @@ const Address = ({
       clearTimeout(addressIdentifier);
     };
   }, [formIsValid]);
+
+  const validateEmail = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
 
   const onClickSaveHandeler = async (e) => {
     e.preventDefault();
@@ -124,11 +130,15 @@ const Address = ({
       address.email !== '' &&
       address.phone !== ''
     ) {
-      setFormIsValid(true);
+      if(validateEmail(address.email)){
+        setFormIsValid(true);
+      }else{
+        setEmailError('Please enter a valid email address.');
+      }
     }
   };
 
-  const validatePincode = event => {
+  const validateNumber = event => {
     if (!/[0-9]/.test(event.key)) {
       event.preventDefault();
     }
@@ -160,15 +170,17 @@ const Address = ({
                       <label forhtml="firstName">First Name</label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="text"
-                        name="firstName"
-                        id="firstName"
-                        placeholder="First Name"
-                        required="yes"
-                        onChange={handleChange}
-                        value={address.firstName}
-                      />
+                      <Input>
+                        <input
+                          type="text"
+                          name="firstName"
+                          id="firstName"
+                          placeholder="First Name"
+                          maxLength="50"
+                          onChange={handleChange}
+                          value={address.firstName}
+                        />
+                      </Input>
                     </div>
                   </div>
 
@@ -177,15 +189,17 @@ const Address = ({
                       <label forhtml="lastName">Last Name</label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="text"
-                        name="lastName"
-                        id="lastName"
-                        placeholder="Last Name"
-                        required="yes"
-                        onChange={handleChange}
-                        value={address.lastName}
-                      />
+                      <Input>
+                        <input
+                          type="text"
+                          name="lastName"
+                          id="lastName"
+                          placeholder="Last Name"
+                          maxLength="50"
+                          onChange={handleChange}
+                          value={address.lastName}
+                        />
+                      </Input>
                     </div>
                   </div>
                 </div>
@@ -195,15 +209,17 @@ const Address = ({
                       <label forhtml="street">Street Address</label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="text"
-                        name="street"
-                        id="street"
-                        placeholder="Street Address"
-                        required="yes"
-                        onChange={handleChange}
-                        value={address.street}
-                      />
+                      <Input>
+                        <input
+                          type="text"
+                          name="street"
+                          id="street"
+                          placeholder="Street Address"
+                          maxLength="50"
+                          onChange={handleChange}
+                          value={address.street}
+                        />
+                      </Input>
                     </div>
                   </div>
 
@@ -214,14 +230,16 @@ const Address = ({
                       </label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="text"
-                        name="appartment"
-                        id="appartment"
-                        placeholder="Appartment, Floor (Optional)"
-                        onChange={handleChange}
-                        value={address.appartment}
-                      />
+                      <Input>
+                        <input
+                          type="text"
+                          name="appartment"
+                          id="appartment"
+                          placeholder="Appartment, Floor (Optional)"
+                          onChange={handleChange}
+                          value={address.appartment}
+                        />
+                      </Input>
                     </div>
                   </div>
                 </div>
@@ -231,15 +249,17 @@ const Address = ({
                       <label forhtml="city">City</label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="text"
-                        name="city"
-                        id="city"
-                        placeholder="City"
-                        required="yes"
-                        onChange={handleChange}
-                        value={address.city}
-                      />
+                      <Input>
+                        <input
+                          type="text"
+                          name="city"
+                          id="city"
+                          placeholder="City"
+                          maxLength="50"
+                          onChange={handleChange}
+                          value={address.city}
+                        />
+                      </Input>
                     </div>
                   </div>
 
@@ -248,15 +268,17 @@ const Address = ({
                       <label forhtml="state">State</label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="text"
-                        name="state"
-                        id="state"
-                        placeholder="State"
-                        required="yes"
-                        onChange={handleChange}
-                        value={address.state}
-                      />
+                      <Input>
+                        <input
+                          type="text"
+                          name="state"
+                          id="state"
+                          placeholder="State"
+                          maxLength="50"
+                          onChange={handleChange}
+                          value={address.state}
+                        />
+                      </Input>
                     </div>
                   </div>
                 </div>
@@ -266,15 +288,17 @@ const Address = ({
                       <label forhtml="country">Country</label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="text"
-                        name="country"
-                        id="country"
-                        placeholder="Country"
-                        required="yes"
-                        onChange={handleChange}
-                        value={address.country}
-                      />
+                      <Input>
+                        <input
+                          type="text"
+                          name="country"
+                          id="country"
+                          placeholder="Country"
+                          maxLength="50"
+                          onChange={handleChange}
+                          value={address.country}
+                        />
+                      </Input>
                     </div>
                   </div>
 
@@ -283,17 +307,19 @@ const Address = ({
                       <label forhtml="pincode">Pincode</label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="number"
-                        name="pincode"
-                        minLength={6}
-                        maxLength={6}
-                        id="pincode"
-                        placeholder="Pincode"
-                        required="yes"
-                        onChange={handleChange}
-                        value={address.pincode}
-                      />
+                      <Input>
+                        <input
+                          type="text" 
+                          pattern="\d*"
+                          name="pincode"
+                          id="pincode"
+                          maxLength="6"
+                          placeholder="Pincode"
+                          onKeyPress={validateNumber}
+                          value={address.pincode}
+                          onChange={handleChange}
+                        />
+                      </Input>
                       {pincodeValidate}
                     </div>
                   </div>
@@ -307,17 +333,19 @@ const Address = ({
                       <label forhtml="email">Email</label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Email"
-                        required="yes"
-                        pattern="/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/"
-                        onChange={handleChange}
-                        value={address.email}
-                      />
+                      <Input>
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="Email"
+                          maxLength="50"
+                          onChange={handleChange}
+                          value={address.email}
+                        />
+                      </Input>
                     </div>
+                    {emailError && <div>{emailError}</div>}
                   </div>
 
                   <div className="form-control">
@@ -325,17 +353,19 @@ const Address = ({
                       <label forhtml="phone">Phone Number</label>
                     </div>
                     <div className="field">
-                      <Input
-                        type="number"
-                        name="phone"
-                        minLength={10}
-                        maxLength={10}
-                        id="phone"
-                        placeholder="Phone Number"
-                        required="yes"
-                        onChange={handleChange}
-                        value={address.phone}
-                      />
+                      <Input>
+                        <input
+                          type="text" 
+                          pattern="\d*"
+                          name="phone"
+                          maxLength="10"
+                          id="phone"
+                          placeholder="Phone Number"
+                          onKeyPress={validateNumber}
+                          onChange={handleChange}
+                          value={address.phone}
+                        />
+                      </Input>
                     </div>
                   </div>
                 </div>
