@@ -23,7 +23,7 @@
 
 **Requirment:** NPM v6.14.11, Node v14.15.4 and [Firebase cli](https://firebase.google.com/docs/cli#install_the_firebase_cli)
 
-- Go to path `cd sector17-N2-theta/server`
+- Go to path `cd sector17-N2-theta/server/functions`
 - Run `npm install` to install all required project dependencies
 - Run `npm run serve` to start project on http://localhost:3001
 
