@@ -94,10 +94,12 @@ const SingleProduct = () => {
           if (resData.distance.rows[0].elements[0].status === 'ZERO_RESULTS') {
             setDelivery('Pincode is Invalid');
             setLoading(false);
+            throw new Error('Pincode is Invalid');
           }
           if (resData.distance.rows[0].elements[0].status === 'NOT_FOUND') {
             setDelivery('Pincode is Invalid');
             setLoading(false);
+            throw new Error('Pincode is Invalid');
           } else {
             localStorage.setItem('pincode', destinationPincode);
             let deliveryMessage = '';
