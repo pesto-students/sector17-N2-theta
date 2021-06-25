@@ -2,10 +2,6 @@
 
 [Sector17](https://sector17.netlify.app/) refers to the vision of the ionic sector17 market of Chandigarh. It is a simple platform for everyshopkeeper/businessperson to sell their products online. Sellers have complete freedom over pricing and discounts It also lets sellers optout of the courier services(provided by our platform), where end users can enjoy less or free delivery charges. Which is a win-win situation for User and Shopkeeper.
 
-## Environments
-
-
-
 
 ## Stakeholders 
 
@@ -16,12 +12,17 @@
 - Ravi Yadav - [LinkedIn](https://linkedin.com/in/raviyadav01/) - [GitHub](https://github.com/yadavravi2801)
 
 
+## Environments
+
+
+
+
 ## How to run the project
 
 - Run `git clone https://github.com/pesto-students/sector17-N2-theta.git`
 
 
-### For Running Express server
+#### For Running Express server
 
 **Node JS as Backend code uploaded under "server" folder. It utilizes the Firebase Functions feature from Firebase suite of tools.**
 **Requirment:** NPM and Node setup, and [Firebase cli](https://firebase.google.com/docs/cli#install_the_firebase_cli)
