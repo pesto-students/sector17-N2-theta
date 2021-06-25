@@ -16,7 +16,7 @@ export default function PaymentButton({ctx}) {
     setError(false);
 
     if(finalPriceToPay <= 50){
-      setError(`Add items worth Rs.${50 - finalPriceToPay} to place order.`);
+      setError(`Minimun order value Rs. 50 is required to process the payment.`);
       setLoading(false);
       return;
     }
@@ -69,8 +69,8 @@ export default function PaymentButton({ctx}) {
 
 
   useEffect(() => {
-    if(finalPriceToPay && finalPriceToPay <= 50){
-      setError(`Add items worth Rs. ${50 - finalPriceToPay} to place order.`);
+    if(finalPriceToPay && finalPriceToPay < 50){
+      setError(`Minimun order value Rs. 50 is required to process the payment.`);
     }
   }, [])
 
