@@ -10,7 +10,7 @@ const Order = () => {
   const [userId, setUserId] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const { currentUser: user, isLogin } = useContext(GlobalContext);
-  const { data, isLoading, isError } = useOrderHistory(userEmail);
+  const { data, isLoading, isError } = useOrderHistory(userId);
 
   useEffect(() => {
     if (user) {
