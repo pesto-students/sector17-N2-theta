@@ -1,16 +1,16 @@
+/* eslint-disable react/jsx-boolean-value */
 import useOrderStatus from '@/data/hooks/use-orders';
 import { useRouter } from 'next/router';
 import OrderStatusStyle from './Style';
 import Skeleton from 'react-loading-skeleton';
-import GlobalContext from '@/appContext';
 import { useContext, useEffect, useState } from 'react';
 import Address from 'shared/Components/Address';
-import Link from "next/link";
-import saveCartItems from 'shared/Utils/saveCartItems';
+import Link from 'next/link';
+import GlobalContext from '@/appContext';
+import FailedStatus from './FailedStatus';
 
 const OrderStatus = () => {
   const router = useRouter();
-  const { currentUser } = useContext(GlobalContext);
   const orderId = router.query['id'];
   const [order, setOrder] = useState({});
   const [subtotal, setSubtotal] = useState([]);
@@ -18,15 +18,11 @@ const OrderStatus = () => {
   const [products, setProducts] = useState([]);
 
   const { data, isLoading, isError } = useOrderStatus(orderId);
-  // const { data: productsList, isLoading: isProductLoading } = useProductsBySKU(0,20,products);
 
   useEffect(() => {
     if (!isLoading) {
       setOrder({ ...data });
     }
-    // if(!isProductLoading){
-    //   console.log(products, " Product id");
-    // }
   }, [data]);
 
   useEffect(() => {
@@ -36,17 +32,16 @@ const OrderStatus = () => {
         productArray && productArray.map(element => element.id);
       setProducts([productArrayPro]);
       const subtotalArray =
-        productArray && productArray.map(element => element.price);
+        productArray && productArray.map(element => element.price * element.qty);
       setSubtotal(
         subtotalArray && subtotalArray.reduce((acc, val) => acc + val, 0)
       );
-
-      if(currentUser) {
-        saveCartItems({}, currentUser.uid);
-      }
     }
   }, [order]);
 
+  if (router.query['status'] === 'failed') {
+    return <FailedStatus />;
+  }
   if (isLoading) {
     return (
       <OrderStatusStyle>
@@ -105,43 +100,53 @@ const OrderStatus = () => {
       </OrderStatusStyle>
     );
   }
-  if (isError) {
-    return <h1>not Good</h1>;
-  }
   return (
     <OrderStatusStyle>
       {order ? (
         <div>
-          <h1>Order: #{router.query['id']}</h1>
-          <div className="row_group"></div>
+          <h1 className="title">
+            Order Status: <span  className={router.query['status']}>{router.query['status'] == 'success' && 'Success'}</span>
+          </h1>
+          <h2 className="subtitle">
+            Your Order has been scucessfully placed!
+          </h2>
+
+          <div className="row_group">
+            <h3>Your Order Id: #{router.query['id']}</h3>
+            <h3>Estimated delivery time 4 to 5 Working Days</h3>
+          </div>
           <div className="row_group orders-row">
             <div className="order">
               <div className="address">
-                {
-                  // eslint-disable-next-line react/jsx-boolean-value
-                  <Address disable={true} />
-                }
+                <Address disable={true} />
               </div>
-              <h1>Thank you for your order! <Link href="/">Continue Shopping</Link></h1>
+              <div className="row_group final_message">
+                <div className="message">Thank you for your order! </div>
+                <div className="continue_shop">
+                  <span>
+                    <Link href="/">Continue Shopping</Link>
+                  </span>
+                </div>
+              </div>
             </div>
             <div className="summry">
               <h2>Order Summery</h2>
 
               <p>
                 <strong>Subtotal: </strong>
-                <span>Rs. {subtotal}</span>
+                <span>Rs. {parseFloat(subtotal).toFixed(2)}</span>
               </p>
 
               {order && order.couponDiscount && order.couponDiscount.coupon && (
                 <p>
                   <strong>Discount: </strong>
-                  <span>Rs. {order.couponDiscount.discount}</span>
+                  <span>Rs. {parseFloat(order.couponDiscount.discount).toFixed(2)}</span>
                 </p>
               )}
               {order.total != '' && (
                 <p>
                   <strong>Total: </strong>
-                  <span>Rs. {order.total}</span>
+                  <span>Rs. {parseFloat(order.total).toFixed(2)}</span>
                 </p>
               )}
             </div>

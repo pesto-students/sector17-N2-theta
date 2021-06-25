@@ -1,6 +1,6 @@
-const { db } = require("../firebase/init");
-const { getDistanceInKMs } = require("../controllers/distanceCalculate");
-const { sendOrderSuccessEmail } = require("./email");
+const { db } = require('../firebase/init');
+const { getDistanceInKMs } = require('../controllers/distanceCalculate');
+const { sendOrderSuccessEmail } = require('./email');
 
 /** Recalculate the total of order */
 /** Get total products value helper */
@@ -15,9 +15,9 @@ const getTotalProductsValue = (dbProducts, quantities) =>
   }, 0.0);
 
 /** Get Products by Sellers */
-const getSellerProducts = (dbProducts) => {
+const getSellerProducts = dbProducts => {
   const sellerProducts = {};
-  dbProducts.docs.forEach((doc) => {
+  dbProducts.docs.forEach(doc => {
     const prod = doc.data();
     const { seller } = prod;
     sellerProducts[seller] = prod;
@@ -35,7 +35,7 @@ const getSellerDistances = async (dbSellers, customerPin) => {
     const { pincode } = seller;
     const distance = await getDistanceInKMs(pincode, customerPin);
 
-    if(distance === 0) {
+    if (distance === 0) {
       distances[seller.id] = 0;
     }
 
@@ -48,7 +48,7 @@ const getSellerDistances = async (dbSellers, customerPin) => {
 };
 
 /** Get Pincodes of Sellers */
-const getSellerPincodes = async (dbSellers) => {
+const getSellerPincodes = async dbSellers => {
   const pincodes = {};
 
   for (const doc of dbSellers.docs) {
@@ -63,63 +63,63 @@ const getSellerPincodes = async (dbSellers) => {
 /** Re-Calculates the total to validate the order */
 const validateOrder = async ({
   orderTotal = 0.0,
-  coupon = "",
+  coupon = '',
   quantities = {},
-  pincode /** For order's deleivery charges re-calculation */,
+  pincode /** For order's deleivery charges re-calculation */
 }) => {
   /** Validations for orderTotal and quantities (Product IDs as keys) */
   if (!orderTotal) {
-    throw Error("Order Total is empty");
+    throw Error('Order Total is empty');
   }
 
   if (!quantities || Object.keys(quantities).count == 0) {
-    throw Error("No Products found to create order");
+    throw Error('No Products found to create order');
   }
 
   if (!pincode) {
-    throw Error("Pincode is mendatory to calculate delivery charges");
+    throw Error('Pincode is mendatory to calculate delivery charges');
   }
 
   const prodKeys = Object.keys(quantities).map(prod => parseInt(prod));
 
   /** Get products from DB */
   const dbProducts = await db
-    .collection("products")
-    .where("sku", "in", prodKeys)
+    .collection('products')
+    .where('sku', 'in', prodKeys)
     .get();
 
   /** Calculate total products value */
   let totalOrderValue = getTotalProductsValue(dbProducts, quantities);
   if (!totalOrderValue || totalOrderValue < 0) {
-    throw Error("No orders can be free, #1");
+    throw Error('No orders can be free, #1');
   }
 
   let couponDiscount = 0;
   /** Get Coupon from DB and validate the total after applying coupon's discount */
   if (!!coupon) {
-    const couponRef = await db.collection("discounts").doc(coupon).get();
+    const couponRef = await db.collection('discounts').doc(coupon).get();
     const dbCoupon = couponRef.data();
     if (!dbCoupon || !dbCoupon.discount) {
-      throw Error("Invalid Coupon");
+      throw Error('Invalid Coupon');
     }
 
     couponDiscount = (parseFloat(dbCoupon.discount) / 100) * totalOrderValue;
     totalOrderValue = totalOrderValue - couponDiscount;
     if (!totalOrderValue || totalOrderValue < 0) {
-      throw Error("No orders can be free, #2");
+      throw Error('No orders can be free, #2');
     }
   }
 
   /** Get Products by Sellers */
   const sellerProducts = getSellerProducts(dbProducts);
   if (Object.keys(sellerProducts).length == 0) {
-    throw Error("No products can be without sellers");
+    throw Error('No products can be without sellers');
   }
 
   /** Get Sellers */
   const dbSellers = await db
-    .collection("sellers")
-    .where("id", "in", Object.keys(sellerProducts))
+    .collection('sellers')
+    .where('id', 'in', Object.keys(sellerProducts))
     .get();
 
   /** Get distances of each seller */
@@ -169,12 +169,12 @@ const validateOrder = async ({
   }
 
   return {
-    lineItems: dbProducts.docs.map((d) => {
+    lineItems: dbProducts.docs.map(d => {
       const doc = d.data();
       return {
         id: doc.sku,
         qty: quantities[doc.sku],
-        price: doc.price,
+        price: doc.price
       };
     }),
     // deliveryCharges: {
@@ -183,49 +183,55 @@ const validateOrder = async ({
     // },
     expressDiscounts: {
       bySeller: sellerNeighbourDiscounts,
-      total: totalNeighbourDiscount,
+      total: totalNeighbourDiscount
     },
     couponDiscount: {
       coupon,
-      discount: couponDiscount,
+      discount: couponDiscount
     },
     total: totalOrderValue,
     products: dbProducts.docs
-      .map((d) => {
+      .map(d => {
         const doc = d.data();
         return doc.name;
       })
-      .join(", "),
+      .join(', ')
   };
 };
 
-const stripe = require("stripe")("sk_test_odah4QkOQP0fKB4Z8GY70926");
+const stripe = require('stripe')('sk_test_odah4QkOQP0fKB4Z8GY70926');
 
 const createOrder = async (req, res, next) => {
-  const { orderTotal, coupon, quantities, pincode, uid, email } = req.body;
+  const { orderTotal, coupon, quantities, pincode, email, uid } = req.body;
   let order = {};
   try {
     order = await validateOrder({ orderTotal, coupon, quantities, pincode });
 
-    const doc = await db.collection('orders').add({...order, uid, email, status: 'pending'});
+    const doc = await db
+      .collection('orders')
+      .add({ ...order, email, uid, status: 'pending' });
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
-            currency: "inr",
+            currency: 'inr',
             product_data: {
-              name: order.products,
+              name: order.products
             },
-            unit_amount_decimal: parseInt(order.total) * 100,
+            unit_amount_decimal: parseInt(order.total) * 100
           },
-          quantity: 1,
-        },
+          quantity: 1
+        }
       ],
-      mode: "payment",
-      success_url: "https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17/orders/status?status=success&id=" + doc.id,
-      cancel_url: "https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17/orders/status?status=failed&id=" + doc.id,
+      mode: 'payment',
+      success_url:
+        'https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17/orders/status?status=success&id=' +
+        doc.id,
+      cancel_url:
+        'https://asia-south1-sector17-chandigarh.cloudfunctions.net/sector17/orders/status?status=failed&id=' +
+        doc.id
     });
 
     res.json({ id: session.id });
@@ -234,21 +240,30 @@ const createOrder = async (req, res, next) => {
   }
 };
 
-const orderStatus = async (req,res,next) => {
+const orderStatus = async (req, res, next) => {
   const { id, status } = req.query;
 
   const doc = await db.collection('orders').doc(id).get();
-  const {email} = doc.data();
+  const { email } = doc.data();
 
-  if(!id || !status || !email) {
-    await db.collection('orders').doc(id).update({status: 'failed'});
-    res.redirect("https://sector17.netlify.app/order-status?status=failed&id=" + id);
+  if (!id) {
+    res.redirect(`https://sector17.netlify.app/order-status?status=failed`);
     return;
   }
 
-  await db.collection('orders').doc(id).update({status});
-  await sendOrderSuccessEmail({email, orderId:id});
-  res.redirect("https://sector17.netlify.app/order-status?status=success&id=" + id);
-}
+  if (!id || !status || !email || status === 'failed') {
+    await db.collection('orders').doc(id).update({ status: 'failed' });
+    res.redirect(
+      `https://sector17.netlify.app/order-status?status=failed&id=${id}`
+    );
+    return;
+  }
+
+  await db.collection('orders').doc(id).update({ status });
+  await sendOrderSuccessEmail({ email, orderId: id });
+  res.redirect(
+    `https://sector17.netlify.app/order-status?status=success&id=${id}`
+  );
+};
 
 module.exports = { createOrder, orderStatus };

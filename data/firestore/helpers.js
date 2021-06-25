@@ -1,5 +1,5 @@
-import firebase from '../firebase';
-import 'firebase/firestore';
+import firebase from "../firebase";
+import "firebase/firestore";
 
 const db = firebase.firestore();
 
@@ -21,12 +21,11 @@ export const paginationQuery = async (
         continue;
       }
 
-      if (whereCond[0] === orderBy && whereCond[1] === '==') {
+      if (whereCond[0] === orderBy && whereCond[1] === "==") {
         isOrderByEqualityCondition = true;
       }
 
       docsRef = docsRef.where(whereCond[0], whereCond[1], whereCond[2]);
-      
     }
   }
 
@@ -45,8 +44,9 @@ export const paginationQuery = async (
   docsRef = docsRef.limit(limit);
 
   docsRef = await docsRef.get();
+
   const docs = {};
-  docsRef.forEach(doc => {
+  docsRef.forEach((doc) => {
     docs[doc.id] = doc.data();
   });
   return docs;
@@ -59,12 +59,12 @@ export const getSingleEntity = async (collection, id) => {
 };
 
 export const getSlidersEntity = async () => {
-  const ref = db.collection('slider');
+  const ref = db.collection("slider");
   let docsRef = ref;
 
   docsRef = await docsRef.get();
   const docs = {};
-  docsRef.forEach(doc => {
+  docsRef.forEach((doc) => {
     docs[doc.id] = doc.data();
   });
   return docs;

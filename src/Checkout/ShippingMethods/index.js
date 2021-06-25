@@ -70,7 +70,7 @@ const ShippingMethods = props => {
                     const { id, image, name, price } =
                       itemsForStanderdShipping[product];
                     return (
-                      <div key={id} className="product">
+                      <div key={product} className="product">
                         <img src={image} alt={name} />
                         <div className="detail">
                           <div className="name">{name}</div>
@@ -93,7 +93,7 @@ const ShippingMethods = props => {
                     const { id, image, name, price } =
                       itemsForExpressShipping[product];
                     return (
-                      <div key={id} className="product">
+                      <div key={product} className="product">
                         <img src={image} alt={name} />
                         <div className="detail">
                           <div className="name">{name}</div>

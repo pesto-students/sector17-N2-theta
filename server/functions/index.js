@@ -13,14 +13,22 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-const cors = require("cors");
-
 var productsRouter = require("./routes/products");
 var ordersRouter = require("./routes/orders");
 
 var app = express();
 
-app.use(cors({ origin: true }));
+/** Add Origin for CORS protection from Browsers */
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://sector17.netlify.app");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

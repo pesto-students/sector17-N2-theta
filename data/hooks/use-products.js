@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getProducts, getSingleProduct } from "../firestore/products";
+import { getProducts, getProductsWithCount, getSingleProduct } from "../firestore/products";
 
 const useProducts = (
   offset = 0,
@@ -14,7 +14,6 @@ const useProducts = (
     async () =>
       await getProducts({ offset, limit, orderBy, category, filter, price })
   );
-
 
 export const useSingleProduct = (id) =>
   useQuery(["product", { id }], async () => await getSingleProduct(id));

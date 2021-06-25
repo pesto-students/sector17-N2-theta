@@ -1,67 +1,52 @@
 import styled from 'styled-components';
 
-const OrderStatusStyle = styled.div`
+const OrderStatusFaildStyle = styled.div`
   margin-top: 30px;
   .orders-row {
     flex-wrap: wrap;
     flex: initial;
   }
-  .title{
-    text-align: center;
-    text-transform: uppercase;
-  }
-  .success {
-    color: ${props => props.theme.color.green};
-  }
-  .subtitle {
-    text-align: center;
-  }
-  div {
-    flex: 1;
-  }
-  .final_message {
-    padding: 10px;
-    .message {
-      font-size: 2rem;
-      font-weight: bold;
-    }
-    .continue_shop {
-      text-align: right;
-      margin:auto;
-      a {
-        color: ${props => props.theme.color.primary};
-      }
-    }
-  }
-  h3 {
-    flex: 1;
-    border: 1px solid #ddd;
-    padding: 10px;
-    &:last-child {
-      text-align: right;
-    }
+  .failed {
+    color: red;
   }
   .order {
     border: 1px solid #ddd;
     flex: initial;
-    margin-bottom: 15px;
+    margin: auto;
     width: 100%;
+    max-width: 500px;
+    text-align: center;
+    padding: 3rem;
     h1 {
       padding-left: 20px;
       a {
         color: ${props => props.theme.color.primary};
       }
     }
-    @media screen and (min-width: 768px) {
-      width: calc(100% - (250px + 15px)) !important;
+
+    .button {
+      font: inherit;
+      background: #ff2058;
+      padding: 0.5rem 2rem;
+      color: white;
+      border: 1px solid #ff2058;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      cursor: pointer;
+      a{
+          color:#fff;
+      }
     }
-    @media screen and (min-width: 992px) {
-      width: calc(100% - (280px + 15px)) !important;
+
+    .button:hover,
+    .button:active {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
     }
   }
   .summry {
     flex: initial;
     padding: 10px;
+    // border: 1px solid ${props => props.theme.color.darkGrey};
     border: 1px solid #ddd;
     margin-left: auto;
     margin-bottom: 15px;
@@ -172,4 +157,4 @@ const OrderStatusStyle = styled.div`
   }
 `;
 
-export default OrderStatusStyle;
+export default OrderStatusFaildStyle;

@@ -2,7 +2,6 @@ import useProducts from '@/data/hooks/use-products';
 import ProductCard from 'shared/Components/ProductCard';
 import Grid from 'shared/Styles/Grid';
 import HeadingStyle from 'shared/Styles/HeadingStyle';
-import Skeleton from 'react-loading-skeleton';
 
 const SimilarProducts = ({ category }) => {
   // Similer Products
