@@ -133,7 +133,7 @@ const SingleProduct = () => {
   useEffect(() => {
     const pincodeFromLocalStorage = localStorage.getItem('pincode');
     
-    if (pincodeFromLocalStorage && pincodeFromLocalStorage !== '' && sellderPincode !='') {
+    if (pincodeFromLocalStorage && pincodeFromLocalStorage !== '' && sellderPincode !=='') {
       setPincode(pincodeFromLocalStorage);
       setPincodeValidate('valid');
       setTimeout(() => {
