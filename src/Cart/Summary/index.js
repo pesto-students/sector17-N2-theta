@@ -16,6 +16,7 @@ const CartSummary = (props) => {
 
   const [couponCode, setCouponCode] = useState('');
   const [couponError, setCouponError] = useState('');
+  const [copyText, setCopyText] = useState('Copy');
   
   const handleCouponCodeChange = (e) => {
     setCouponCode(e.target.value);
@@ -48,6 +49,29 @@ const CartSummary = (props) => {
       coupon : null,
       total : cartPriceDetails.subTotal
     })
+  }
+
+  const handleCopyText = (copyText) => {
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    setCopyText('Copied');
+
+    let timeout = '';
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      setCopyText('Copy');
+    }, 5000)
+  }
+
+  const copyCoupon = () => {
+    const text = document.getElementById("couponCode");
+    handleCopyText(text);
+  }
+
+  const couponCardNumber = () => {
+    const text = document.getElementById("couponCardNumber");
+    handleCopyText(text);
   }
 
   return (
@@ -98,6 +122,17 @@ const CartSummary = (props) => {
                         Apply Coupon
                       </button>
                     </div>
+                    <div style={{display: 'flex', fontSize: '12px'}}>
+                      <input style={{position: 'absolute', pointerEvents:'none', opacity:'0'}} type="text" value="sector17" id="couponCode" />
+                      <span>
+                        <span style={{color: '#888888', paddingRight: '5px'}}>Use code:</span> sector17
+                      </span> 
+                      {
+                        copyText !== 'Copied' 
+                        ? <button style={{marginLeft: '10px', cursor: 'pointer', fontSize: '12px'}} onClick={copyCoupon}>{copyText}</button>
+                        : <button style={{marginLeft: '10px', color:'#999', fontSize: '12px'}}>{copyText}</button>
+                      }
+                    </div>
                     <div className='error'>{couponError}</div>
                   </div>
                 </>
@@ -131,9 +166,32 @@ const CartSummary = (props) => {
             </li>
 
             {router.asPath === '/checkout' ? (
-              <li className='button payment'>
-                <PaymentButton />
-              </li>
+              <>
+                <li className='button payment'>
+                  <PaymentButton />
+                </li>
+                <li>
+                  <div style={{display: 'flex', fontSize: '12px', flexFlow: 'column'}}>
+                    <input style={{position: 'absolute', pointerEvents:'none', opacity:'0'}} type="text" value="4111111111111111" id="couponCardNumber" />
+                    <div>
+                      <span>
+                        <span style={{color: '#888888', paddingRight: '5px'}}>Card Number:</span> 4111111111111111
+                      </span> 
+                      {
+                        copyText !== 'Copied' 
+                        ? <button style={{marginLeft: '10px', cursor: 'pointer', fontSize: '12px'}} onClick={couponCardNumber}>{copyText}</button>
+                        : <button style={{marginLeft: '10px', color:'#999', fontSize: '12px'}}>{copyText}</button>
+                      }
+                    </div>
+                    <div>
+                      <span style={{color: '#888888', paddingRight: '5px'}}>Expiry Date:</span> 12/22
+                    </div>
+                    <div>
+                      <span style={{color: '#888888', paddingRight: '5px'}}>CVV:</span> 123
+                    </div>
+                  </div>
+                </li>
+              </>
             ) : (
               <li className='button'>
                 <Link href='/checkout'>
