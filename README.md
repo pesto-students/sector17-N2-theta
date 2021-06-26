@@ -33,6 +33,7 @@ You can set the port in firebase.json file or default will be http://localhost:3
 
 
 ### For Running frontend code
+
 - Go to main project folder `cd sector17-N2-theta`
 - Run `npm install` to install all required project dependencies
 - Run `npm run dev` to the project in dev mode
@@ -50,14 +51,10 @@ You can set the port in firebase.json file or default will be http://localhost:3
 | Production | [https://sector17.netlify.app/](https://sector17.netlify.app/) | Main production environment  | Any changes merge to `production` branch will auto deploy on `production` environment |
 
 ## Error Monitoring and Logs
+
 - We are using [Sentry](https://sentry.io/organizations/sector-17/issues/?environment=production&project=5814430
 ) for application monitoring and error traking **Please feel free to contact on Slack for access to Sentry** [#n2-theta](https://join.slack.com/share/zt-sa486201-IYsy2Ms6fvqvauMmtmmbnQ)
 
-## PRD 
-[PRD](https://drive.google.com/file/d/1ckHVe4Kk2GM-xAC1W_pyM_t5bmrI6s_p/view?usp=sharing)
-
-## One Pager PRD 
-[PRD](https://drive.google.com/file/d/1ckHVe4Kk2GM-xAC1W_pyM_t5bmrI6s_p/view?usp=sharing)
 
 ## UI Design mocks
 
@@ -73,7 +70,9 @@ You can set the port in firebase.json file or default will be http://localhost:3
 
 [System Design Figma link](https://www.figma.com/proto/knwI6lMdUkmkazuGlO45Rb/HLDS---Sector-17?node-id=2%3A1&scaling=contain&page-id=0%3A1)
 
+
 ## Performance Screenshort
+
 ![alt text](https://storage.googleapis.com/sector17-chandigarh.appspot.com/readme/performance.jpg)
 
 
@@ -105,11 +104,12 @@ You can set the port in firebase.json file or default will be http://localhost:3
 - Algolia (For Search)
 
 
-
 ## Tech Stack
 
-- NextJS
-- NodeJS
-- Firebase (FirestoreDB, Authentication, Hosting, Storage)
+- Next JS
+- React JS
+- Node JS / Express JS
+- Firebase (Firestore DB, Authentication, Storage, Cloud Functions)
+- Netlify
+- Stripe API, SendGrid API
 - Jest
-
