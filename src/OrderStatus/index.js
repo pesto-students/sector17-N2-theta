@@ -108,12 +108,12 @@ const OrderStatus = () => {
             Order Status: <span  className={router.query['status']}>{router.query['status'] == 'success' && 'Success'}</span>
           </h1>
           <h2 className="subtitle">
-            Your Order has been scucessfully placed!
+            Thank you for your order!
           </h2>
 
           <div className="row_group">
-            <h3>Your Order Id: #{router.query['id']}</h3>
-            <h3>Estimated delivery time 4 to 5 Working Days</h3>
+            <p className="orderid"><strong>Your Order Id:</strong> #{router.query['id']}</p>
+            <p className="estimate"><strong>Estimated delivery time:</strong> 4 to 5 Working Days</p>
           </div>
           <div className="row_group orders-row">
             <div className="order">
@@ -121,7 +121,7 @@ const OrderStatus = () => {
                 <Address disable={true} />
               </div>
               <div className="row_group final_message">
-                <div className="message">Thank you for your order! </div>
+                <div className="message"> </div>
                 <div className="continue_shop">
                   <span>
                     <Link href="/">Continue Shopping</Link>

@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run test",
     "build": "next build",
     "start": "next start",
     "check-format": "prettier --check .",

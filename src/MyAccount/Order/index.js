@@ -7,15 +7,16 @@ import { useOrderHistory } from '@/data/hooks/use-orders';
 
 
 const Order = () => {
-  const [userId, setUserId] = useState('');
+  const [loggedUserId, setLoggedUserId] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const { currentUser: user, isLogin } = useContext(GlobalContext);
-  const { data, isLoading, isError } = useOrderHistory(userEmail);
+  const { data, isLoading, isError } = useOrderHistory(loggedUserId);
 
   useEffect(() => {
     if (user) {
-      setUserId(user.uid);
+      setLoggedUserId(user.uid);
       setUserEmail(user.email);
+      console.log(user.uid);
     }
   }, [user, data]);
 

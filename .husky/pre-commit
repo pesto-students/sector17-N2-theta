@@ -1,8 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Check Prettier standards
-# npm run check-format
+# Run test
+npm run test
 
 # Check ESLint Standards
 npm run check-lint
+
+echo 'Code commited successfully :)'

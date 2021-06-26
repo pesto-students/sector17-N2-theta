@@ -43,7 +43,7 @@ const Filter = (props) => {
     return () => {
       clearTimeout(identifier);
     };
-  }, [manufacturer, price, router]);
+  }, [manufacturer, price]);
 
   const onFilter = (filter) => {
     if (manufacturer.length > 0) {
