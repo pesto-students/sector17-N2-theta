@@ -4,14 +4,14 @@ import 'firebase/firestore';
 const db = firebase.firestore();
 
 // Get order history from email id
-const getOrdersHistory = async ({ emailId }) => {
-  if (!emailId) {
+const getOrdersHistory = async ({ userId }) => {
+  if (!userId) {
     return {};
   }
 
   const docRef = await db
     .collection('orders')
-    .where('email', '==', emailId)
+    .where('uid', '==', userId)
     .get();
 
     const orders = docRef.docs.map(doc=> ({...doc.data(), id: doc.id}));

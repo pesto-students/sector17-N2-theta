@@ -5,7 +5,7 @@ const useOrderStatus = (orderId) =>
   useQuery(["orders", { orderId }], async () => await getOrderStatus({orderId}));
 
 
-export const useOrderHistory = (emailId) =>
-    useQuery(["orders", { emailId }], async () => await getOrdersHistory({emailId}));
+export const useOrderHistory = (userId) =>
+    useQuery(["orders", { userId }], async () => await getOrdersHistory({userId}));
 
 export default useOrderStatus;
