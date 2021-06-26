@@ -16,7 +16,6 @@ const Order = () => {
     if (user) {
       setLoggedUserId(user.uid);
       setUserEmail(user.email);
-      console.log(user.uid);
     }
   }, [user, data]);
 
