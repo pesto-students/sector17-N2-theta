@@ -1,7 +1,20 @@
 # Sector17
 
-[Sector17](https://sector17.netlify.app/) refers to the vision of the ionic sector17 market of Chandigarh. It is a simple platform for everyshopkeeper/businessperson to sell their products online. Sellers have complete freedom over pricing and discounts It also lets sellers optout of the courier services(provided by our platform), where end users can enjoy less or free delivery charges. Which is a win-win situation for User and Shopkeeper.
+[Sector17](https://sector17.netlify.app/) refers to the vision of the ionic sector17 market of Chandigarh. It is a simple platform for every shopkeeper/business person to sell their products online. Sellers have complete freedom over pricing and discounts It also let sellers opt-out of the courier services (provided by our platform), where end users can enjoy less or free delivery charges. Which is a win-win situation for User and Shopkeeper.
 
+## Table of Contents
+- [Stakeholders](#stakeholders)
+- [How to run project](#how-to-run-the-project)
+  * [First run Express server](#first-run-express-server)
+  * [For running frontend code](#for-running-frontend-code)
+- [Environments and Deployments](#environments-and-deployments)
+- [Error Monitoring and Logs](#error-monitoring-and-logs)
+- [Artefacts](#artefacts)
+- [Performance Screenshot](#performance-screenshot)
+- [Features](#features)
+- [Upcoming Features](#upcoming-features)
+- [Third party tools](#third-party-tools)
+- [Tech Stack](#tech-stack)
 
 ## Stakeholders 
 
@@ -33,6 +46,7 @@ You can set the port in firebase.json file or default will be http://localhost:3
 
 
 ### For Running frontend code
+
 - Go to main project folder `cd sector17-N2-theta`
 - Run `npm install` to install all required project dependencies
 - Run `npm run dev` to the project in dev mode
@@ -50,24 +64,25 @@ You can set the port in firebase.json file or default will be http://localhost:3
 | Production | [https://sector17.netlify.app/](https://sector17.netlify.app/) | Main production environment  | Any changes merge to `production` branch will auto deploy on `production` environment |
 
 ## Error Monitoring and Logs
+
 - We are using [Sentry](https://sentry.io/organizations/sector-17/issues/?environment=production&project=5814430
 ) for application monitoring and error traking **Please feel free to contact on Slack for access to Sentry** [#n2-theta](https://join.slack.com/share/zt-sa486201-IYsy2Ms6fvqvauMmtmmbnQ)
 
-## UI Design mocks
+## Artefacts
 
-[UI Design Figma link](https://www.figma.com/proto/vqaZjgHWYmHxOl9Gz1E6CU/Homepage?node-id=0%3A1&frame-preset-name=Desktop&scaling=scale-down&page-id=0%3A1)
+- [PRD](https://drive.google.com/file/d/1ckHVe4Kk2GM-xAC1W_pyM_t5bmrI6s_p/view)
+
+- [One Pager](https://drive.google.com/file/d/1KfyLHK_ECKgkQULg7VghJDqAvYIZodW2/view)
+
+- [UI Design Figma](https://www.figma.com/proto/vqaZjgHWYmHxOl9Gz1E6CU/Homepage?node-id=0%3A1&frame-preset-name=Desktop&scaling=scale-down&page-id=0%3A1)
+
+- [User Flowchart Figma](https://www.figma.com/proto/qaFqDsQnEg2wQ3NA4qWavN/FlowChart?node-id=13%3A2&scaling=scale-down-width&page-id=0%3A1)
+
+- [System Design Figma](https://www.figma.com/proto/knwI6lMdUkmkazuGlO45Rb/HLDS---Sector-17?node-id=2%3A1&scaling=contain&page-id=0%3A1)
 
 
-## User Flowchart
+## Performance Screenshot
 
-[User Flowchart Figma link](https://www.figma.com/proto/qaFqDsQnEg2wQ3NA4qWavN/FlowChart?node-id=13%3A2&scaling=scale-down-width&page-id=0%3A1)
-
-
-## System Design
-
-[System Design Figma link](https://www.figma.com/proto/knwI6lMdUkmkazuGlO45Rb/HLDS---Sector-17?node-id=2%3A1&scaling=contain&page-id=0%3A1)
-
-## Performance Screenshort
 ![alt text](https://storage.googleapis.com/sector17-chandigarh.appspot.com/readme/performance.jpg)
 
 
@@ -80,15 +95,22 @@ You can set the port in firebase.json file or default will be http://localhost:3
 - **Guest Checkout** - No strings attached
 - **Payment Method** - Pay using different payment methods
 - **Dynamic Pricing/Shipping** - Different pricing for different users, Loyalty Program, Express Delivery.
-- **Services** - OrderHistory, Wishlist, Manage profile, RecentlyViewed/Searched, Trending etc.
+- **Services** - OrderHistory, Wishlist, Manage profile, Recently Viewed/Searched, Trending etc.
 - **Security** - React provides protection from XSS out of the box. CORS applied on Node.JS server, so no other request from unknown origin gets executed.
+- **Wishlist** - Shortlist now, Buy later
 
 
 ## Upcoming Features
 
-- Frequently bought together
-- Best deals
 - Vendor Admin Panel
+- Virtual Rendering for Pagination
+- Switcher for Incremental Rollout
+- .env File for Controlling Different Environments
+- Show complete order details on Order History
+- Return Exchange on Order History
+- Better and more Optimised Filters
+- Frequently Bought Together
+- Best Deals
 - Product Review System
 
 
@@ -99,11 +121,12 @@ You can set the port in firebase.json file or default will be http://localhost:3
 - Algolia (For Search)
 
 
-
 ## Tech Stack
 
-- NextJS
-- NodeJS
-- Firebase (FirestoreDB, Authentication, Hosting, Storage)
+- Next JS
+- React JS
+- Node JS / Express JS
+- Firebase (Firestore DB, Authentication, Storage, Cloud Functions)
+- Netlify
+- Stripe API, SendGrid API
 - Jest
-

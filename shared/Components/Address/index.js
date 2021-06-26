@@ -33,6 +33,9 @@ const Address = ({
   const { currentUser, setUserInfo } = useContext(GlobalContext);
   const { isLoading, data: userAddress } = useAddress(userId);
 
+  const [errorFields, setErrorFields] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
+
   const handleChange = e => {
     setAddress({
       ...address,
@@ -102,21 +105,21 @@ const Address = ({
     const resData = await response.json();
     if (resData.distance.status === 'ZERO_RESULTS') {
       setPincodeValidate('Pincode is Invalid');
-      setLoading(false);
-      throw new Error('Pincode is Invalid');
+      // setLoading(false);
+      // throw new Error('Pincode is Invalid');
     }
     if (resData.distance.status === 'OK') {
       if (resData.distance.status.status === 'NOT_FOUND') {
         setPincodeValidate('Pincode is Invalid');
-        setLoading(false);
-        throw new Error('Pincode is Invalid');
+        // setLoading(false);
+        // throw new Error('Pincode is Invalid');
       } else {
         localStorage.setItem('pincode', address.pincode);
-        setLoading(false);
+        // setLoading(false);
       }
     } else {
       setPincodeValidate('Something is wrong with your selection');
-      throw new Error('Something is wrong with your selection');
+      // throw new Error('Something is wrong with your selection');
     }
 
     if (
@@ -132,6 +135,7 @@ const Address = ({
     ) {
       if(validateEmail(address.email)){
         setFormIsValid(true);
+        setLoading(false);
       }else{
         setEmailError('Please enter a valid email address.');
       }
@@ -321,7 +325,7 @@ const Address = ({
                         />
                       </Input>
                       <span>Use one of the Pincode for Nebougherhood Discount 110058,160017</span>
-                      {pincodeValidate}
+                      <span style={{color: "#ff0000"}}>{pincodeValidate}</span>
                     </div>
                   </div>
                 </div>
@@ -346,7 +350,7 @@ const Address = ({
                         />
                       </Input>
                     </div>
-                    {emailError && <div>{emailError}</div>}
+                    {emailError && <div style={{color: "#ff0000"}}>{emailError}</div>}
                   </div>
 
                   <div className="form-control">
@@ -376,12 +380,11 @@ const Address = ({
                   <span>Required to contact you about this order.</span>
                 </div>
 
-                {loading && (
+                {loading && !pincodeValidate && !emailError ? (
                   <span className="push-right">
                     <i className="fa fa-spinner" />
                   </span>
-                )}
-                {!loading && (
+                ) : (
                   <button className="btn push-right" type="submit">
                     Save
                   </button>

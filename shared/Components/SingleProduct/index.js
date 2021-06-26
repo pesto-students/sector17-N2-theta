@@ -347,10 +347,12 @@ const SingleProduct = () => {
                 </div>
 
                 <SimilarProducts category={product.category} />
+                <AddToRecentlyViewed productSku={product.sku} />
               </div>
             </>
           )}
         </SingleProductStyle>
+        
       </div>
     )
   );
