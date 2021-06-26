@@ -1,7 +1,20 @@
 # Sector17
 
-[Sector17](https://sector17.netlify.app/) refers to the vision of the ionic sector17 market of Chandigarh. It is a simple platform for everyshopkeeper/businessperson to sell their products online. Sellers have complete freedom over pricing and discounts It also lets sellers optout of the courier services(provided by our platform), where end users can enjoy less or free delivery charges. Which is a win-win situation for User and Shopkeeper.
+[Sector17](https://sector17.netlify.app/) refers to the vision of the ionic sector17 market of Chandigarh. It is a simple platform for every shopkeeper/business person to sell their products online. Sellers have complete freedom over pricing and discounts It also lets sellers opt-out of the courier services (provided by our platform), where end users can enjoy less or free delivery charges. Which is a win-win situation for User and Shopkeeper.
 
+## Table of Contents
+- [Stakeholders](#stakeholders)
+- [How to run project](#how-to-run-the-project)
+  * [First run Express server](#first-run-express-server)
+  * [For running frontend code](#for-running-frontend-code)
+- [Environments and Deployments](#environments-and-deployments)
+- [Error Monitoring and Logs](#error-monitoring-and-logs)
+- [Artefacts](#artefacts)
+- [Performance Screenshot](#performance-screenshot)
+- [Features](#features)
+- [Upcoming Features](#upcoming-features)
+- [Third party tools](#third-party-tools)
+- [Tech Stack](#tech-stack)
 
 ## Stakeholders 
 
