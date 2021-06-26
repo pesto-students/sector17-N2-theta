@@ -324,6 +324,7 @@ const Address = ({
                           onChange={handleChange}
                         />
                       </Input>
+                      <span>Use one of the Pincode for Nebougherhood Discount 110058,160017</span>
                       <span style={{color: "#ff0000"}}>{pincodeValidate}</span>
                     </div>
                   </div>
