@@ -58,12 +58,12 @@ You can set the port in firebase.json file or default will be http://localhost:3
 
 ## PRD
 
-[PRD](https://drive.google.com/file/d/1ckHVe4Kk2GM-xAC1W_pyM_t5bmrI6s_p/view?usp=sharing)
+[PRD link](https://drive.google.com/file/d/1ckHVe4Kk2GM-xAC1W_pyM_t5bmrI6s_p/view)
 
 
 ## One Pager PRD 
 
-[PRD](https://drive.google.com/file/d/1ckHVe4Kk2GM-xAC1W_pyM_t5bmrI6s_p/view?usp=sharing)
+[One Pager PRD link](https://drive.google.com/file/d/1KfyLHK_ECKgkQULg7VghJDqAvYIZodW2/view)
 
 
 ## UI Design mocks
