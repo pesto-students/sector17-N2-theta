@@ -56,6 +56,16 @@ You can set the port in firebase.json file or default will be http://localhost:3
 ) for application monitoring and error traking **Please feel free to contact on Slack for access to Sentry** [#n2-theta](https://join.slack.com/share/zt-sa486201-IYsy2Ms6fvqvauMmtmmbnQ)
 
 
+## PRD
+
+[PRD](https://drive.google.com/file/d/1ckHVe4Kk2GM-xAC1W_pyM_t5bmrI6s_p/view?usp=sharing)
+
+
+## One Pager PRD 
+
+[PRD](https://drive.google.com/file/d/1ckHVe4Kk2GM-xAC1W_pyM_t5bmrI6s_p/view?usp=sharing)
+
+
 ## UI Design mocks
 
 [UI Design Figma link](https://www.figma.com/proto/vqaZjgHWYmHxOl9Gz1E6CU/Homepage?node-id=0%3A1&frame-preset-name=Desktop&scaling=scale-down&page-id=0%3A1)
