@@ -97,6 +97,7 @@ You can set the port in firebase.json file or default will be http://localhost:3
 - **Dynamic Pricing/Shipping** - Different pricing for different users, Loyalty Program, Express Delivery.
 - **Services** - OrderHistory, Wishlist, Manage profile, RecentlyViewed/Searched, Trending etc.
 - **Security** - React provides protection from XSS out of the box. CORS applied on Node.JS server, so no other request from unknown origin gets executed.
+- **Wishlist** - Shortlist now buy later
 
 
 ## Upcoming Features
